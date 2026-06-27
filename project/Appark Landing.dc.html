@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./image-slot.js"></script>
 <style>
   *{box-sizing:border-box}
@@ -21,6 +22,7 @@
   @keyframes appk-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
   @keyframes appk-float2{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
   @keyframes appk-spin{to{transform:rotate(360deg)}}
+  @keyframes appk-pinDrop{0%{transform:translateY(-8px);opacity:.4}50%{transform:translateY(0);opacity:1}100%{transform:translateY(-8px);opacity:.4}}
 </style>
 </helmet>
 
@@ -34,49 +36,27 @@
       <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px;color:#0A2A36">Appark</span>
     </a>
     <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
-      <div style="display:flex;align-items:center;gap:30px">
-        <a href="#como-funciona" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">{{ t.navHow }}</a>
-        <a href="#sponsors" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">{{ t.navBiz }}</a>
-        <a href="#sobre-nosotros" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">{{ t.navAbout }}</a>
-        <div style="position:relative">
-          <button onClick="{{ toggleLang }}" aria-label="Cambiar idioma" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(10,42,54,.12);color:#0A2A36;font-weight:700;font-size:14px;padding:9px 13px;border-radius:11px;cursor:pointer" style-hover="border-color:#11607A">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
-            {{ langLabel }}
-            <span style="font-size:10px;color:#8A9BA2">▾</span>
-          </button>
-          <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="position:absolute;top:48px;right:0;background:#fff;border:1px solid rgba(10,42,54,.1);border-radius:14px;box-shadow:0 16px 40px rgba(10,42,54,.16);padding:7px;min-width:168px;z-index:100">
-              <sc-for list="{{ langs }}" as="lang" hint-placeholder-count="4">
-                <button onClick="{{ lang.select }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:{{ lang.bg }};border:none;border-radius:9px;padding:10px 12px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;color:#0A2A36;text-align:left" style-hover="background:#F4ECDF">
-                  <span>{{ lang.name }}</span><span style="font-size:12px;font-weight:700;color:#8A9BA2">{{ lang.code }}</span>
-                </button>
-              </sc-for>
-            </div>
-          </sc-if>
-        </div>
-        <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;background:{{ accent }};color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:13px;box-shadow:0 8px 22px rgba(255,106,61,.32)" style-hover="filter:brightness(1.06);transform:translateY(-1px)">{{ t.navJoin }} <span style="font-size:16px">→</span></a>
+      <div style="display:flex;align-items:center;gap:34px">
+        <a href="#como-funciona" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Cómo funciona</a>
+        <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Para empresas</a></sc-if>
+        <a href="#sobre-nosotros" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Sobre nosotros</a>
+        <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;background:{{ accent }};color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:13px;box-shadow:0 8px 22px rgba(255,106,61,.32)" style-hover="filter:brightness(1.06);transform:translateY(-1px)">Únete <span style="font-size:16px">→</span></a>
       </div>
     </sc-if>
     <sc-if value="{{ showHamburger }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;align-items:center;gap:10px">
-        <button onClick="{{ cycleLang }}" aria-label="Cambiar idioma" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(10,42,54,.12);color:#0A2A36;font-weight:700;font-size:13px;padding:9px 12px;border-radius:10px;cursor:pointer">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
-          {{ langLabel }}
-        </button>
-        <button onClick="{{ toggleMobile }}" aria-label="Abrir menú" style="display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px">
-          <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
-          <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
-          <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
-        </button>
-      </div>
+      <button onClick="{{ toggleMobile }}" aria-label="Abrir menú" style="display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px">
+        <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
+        <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
+        <span style="width:24px;height:2.5px;background:#0A2A36;border-radius:2px;display:block"></span>
+      </button>
     </sc-if>
   </div>
   <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
     <div style="background:rgba(251,246,238,.98);border-top:1px solid rgba(10,42,54,.08);padding:16px 24px 22px;display:flex;flex-direction:column;gap:6px">
-      <a href="#como-funciona" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">{{ t.navHow }}</a>
-      <a href="#sponsors" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">{{ t.navBiz }}</a>
-      <a href="#sobre-nosotros" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">{{ t.navAbout }}</a>
-      <a href="#early-access" onClick="{{ closeMobile }}" style="text-decoration:none;text-align:center;background:{{ accent }};color:#fff;font-weight:700;font-size:16px;padding:14px;border-radius:13px;margin-top:8px">{{ t.navJoinList }} →</a>
+      <a href="#como-funciona" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Cómo funciona</a>
+      <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Para empresas</a></sc-if>
+      <a href="#sobre-nosotros" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Sobre nosotros</a>
+      <a href="#early-access" onClick="{{ closeMobile }}" style="text-decoration:none;text-align:center;background:{{ accent }};color:#fff;font-weight:700;font-size:16px;padding:14px;border-radius:13px;margin-top:8px">Únete a la lista →</a>
     </div>
   </sc-if>
 </nav>
@@ -88,13 +68,13 @@
     <div style="flex:1 1 460px;min-width:300px">
       <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid rgba(10,42,54,.09);padding:7px 14px 7px 11px;border-radius:999px;box-shadow:0 4px 14px rgba(10,42,54,.05);margin-bottom:24px">
         <span style="position:relative;width:9px;height:9px;display:inline-block"><span style="position:absolute;inset:0;border-radius:50%;background:#1FB877;animation:appk-ping 1.8s ease-out infinite"></span><span style="position:absolute;inset:0;border-radius:50%;background:#1FB877"></span></span>
-        <span style="font-weight:700;font-size:13px;color:#0A2A36;letter-spacing:.2px">{{ t.heroBadge }}</span>
+        <span style="font-weight:700;font-size:13px;color:#0A2A36;letter-spacing:.2px">Un proyecto de Dharma Brokers para Palma</span>
       </div>
-      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.7rem,6vw,4.6rem);line-height:1.03;letter-spacing:-1.5px;color:#0A2A36;margin:0 0 22px">{{ t.heroH1a }}<br><span style="color:#11607A">{{ t.heroH1b }}</span></h1>
-      <p style="font-size:clamp(1.05rem,1.6vw,1.28rem);line-height:1.6;color:#45626C;max-width:540px;margin:0 0 34px">{{ t.heroSubA }}<strong style="color:#0A2A36;font-weight:700">{{ t.heroSubStrong }}</strong>{{ t.heroSubB }}</p>
+      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.7rem,6vw,4.6rem);line-height:1.03;letter-spacing:-1.5px;color:#0A2A36;margin:0 0 22px">El parking de Palma,<br><span style="color:#11607A">resuelto por todos.</span></h1>
+      <p style="font-size:clamp(1.05rem,1.6vw,1.28rem);line-height:1.6;color:#45626C;max-width:540px;margin:0 0 34px">Appark es la app <strong style="color:#0A2A36;font-weight:700">gratuita y colaborativa</strong> donde los palmesanos se ayudan a encontrar aparcamiento en tiempo real. Tú ayudas a otros, otros te ayudan a ti.</p>
       <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-        <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:{{ accent }};color:#fff;font-weight:700;font-size:17px;padding:17px 30px;border-radius:15px;box-shadow:0 14px 34px rgba(255,106,61,.38)" style-hover="transform:translateY(-2px);filter:brightness(1.05)">{{ t.heroCta1 }} <span style="font-size:18px">→</span></a>
-        <a href="#sponsors" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#fff;color:#0A2A36;font-weight:700;font-size:17px;padding:17px 28px;border-radius:15px;border:1.5px solid rgba(10,42,54,.14)" style-hover="border-color:#11607A;color:#11607A">{{ t.heroCta2 }}</a>
+        <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:{{ accent }};color:#fff;font-weight:700;font-size:17px;padding:17px 30px;border-radius:15px;box-shadow:0 14px 34px rgba(255,106,61,.38)" style-hover="transform:translateY(-2px);filter:brightness(1.05)">Únete a la lista de espera <span style="font-size:18px">→</span></a>
+        <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#fff;color:#0A2A36;font-weight:700;font-size:17px;padding:17px 28px;border-radius:15px;border:1.5px solid rgba(10,42,54,.14)" style-hover="border-color:#11607A;color:#11607A">Quiero ser sponsor fundador</a></sc-if>
       </div>
       <div style="display:flex;align-items:center;gap:13px;margin-top:30px">
         <div style="display:flex">
@@ -102,10 +82,14 @@
           <span style="width:34px;height:34px;border-radius:50%;background:#1FB877;border:2.5px solid #FBF6EE;margin-left:-12px;display:inline-block"></span>
           <span style="width:34px;height:34px;border-radius:50%;background:#FF6A3D;border:2.5px solid #FBF6EE;margin-left:-12px;display:inline-block"></span>
         </div>
-        <span style="font-size:14px;color:#5C7681;font-weight:500">{{ t.heroSocial }}</span>
+        <div style="display:flex;align-items:baseline;gap:7px">
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(28px,4vw,36px);color:#FF6A3D;line-height:1">{{ signupCount }}</span>
+          <span style="font-size:14px;color:#5C7681;font-weight:500">palmesanos ya en la lista de espera 🎉</span>
+        </div>
       </div>
     </div>
 
+    <!-- phone -->
     <div style="flex:1 1 340px;min-width:290px;display:flex;justify-content:center;position:relative">
       <div style="position:relative;width:300px;animation:appk-float 6s ease-in-out infinite">
         <div style="position:relative;width:300px;height:618px;background:#0A2A36;border-radius:46px;padding:11px;box-shadow:0 40px 80px rgba(10,42,54,.30),0 8px 22px rgba(10,42,54,.18)">
@@ -115,13 +99,14 @@
             <div style="position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 7px;font-size:12px;font-weight:700;color:#0A2A36;z-index:4"><span>9:41</span><span style="opacity:.8">●●● ▮</span></div>
           </div>
         </div>
+        <!-- floating chips -->
         <div style="position:absolute;top:88px;right:-34px;background:#fff;border-radius:15px;padding:11px 15px;box-shadow:0 16px 34px rgba(10,42,54,.18);display:flex;align-items:center;gap:9px;animation:appk-float2 5s ease-in-out infinite;z-index:6">
           <span style="position:relative;width:11px;height:11px;display:inline-block"><span style="position:absolute;inset:0;border-radius:50%;background:#1FB877;animation:appk-ping 1.8s ease-out infinite"></span><span style="position:absolute;inset:0;border-radius:50%;background:#1FB877"></span></span>
-          <div><div style="font-size:13px;font-weight:800;color:#0A2A36;line-height:1.1">{{ t.chipFree }}</div><div style="font-size:11px;color:#5C7681;font-weight:500">{{ t.chipDist }}</div></div>
+          <div><div style="font-size:13px;font-weight:800;color:#0A2A36;line-height:1.1">Plaza libre</div><div style="font-size:11px;color:#5C7681;font-weight:500">a 80 m · ahora</div></div>
         </div>
         <div style="position:absolute;bottom:74px;left:-40px;background:#11607A;color:#fff;border-radius:15px;padding:13px 16px;box-shadow:0 16px 34px rgba(17,96,122,.32);animation:appk-float 7s ease-in-out infinite;z-index:6">
           <div style="font-size:22px;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;line-height:1">+34</div>
-          <div style="font-size:11px;opacity:.85;font-weight:600">{{ t.chipNear }}</div>
+          <div style="font-size:11px;opacity:.85;font-weight:600">plazas cerca de ti</div>
         </div>
       </div>
     </div>
@@ -132,13 +117,13 @@
 <sc-if value="{{ showTrustBar }}" hint-placeholder-val="{{ true }}">
 <div style="background:#F1E8D8;border-top:1px solid rgba(10,42,54,.06);border-bottom:1px solid rgba(10,42,54,.06)">
   <div style="width:100%;max-width:1100px;margin:0 auto;padding:18px 24px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 34px;text-align:center">
-    <span style="font-size:14.5px;font-weight:600;color:#34525C">🏙️ {{ t.trust1 }}</span>
+    <span style="font-size:14.5px;font-weight:600;color:#34525C">🏙️ Hecho en Palma</span>
     <span style="width:5px;height:5px;border-radius:50%;background:#C9B79A"></span>
-    <span style="font-size:14.5px;font-weight:600;color:#34525C">✅ {{ t.trust2 }}</span>
+    <span style="font-size:14.5px;font-weight:600;color:#34525C">✅ 100% gratuito</span>
     <span style="width:5px;height:5px;border-radius:50%;background:#C9B79A"></span>
-    <span style="font-size:14.5px;font-weight:600;color:#34525C">📅 {{ t.trust3 }}</span>
+    <span style="font-size:14.5px;font-weight:600;color:#34525C">📅 Verano 2026</span>
     <span style="width:5px;height:5px;border-radius:50%;background:#C9B79A"></span>
-    <span style="font-size:14.5px;font-weight:600;color:#34525C">🤝 {{ t.trust4 }}</span>
+    <span style="font-size:14.5px;font-weight:600;color:#34525C">🤝 Apoyado por comercios locales</span>
   </div>
 </div>
 </sc-if>
@@ -147,25 +132,25 @@
 <section id="como-funciona" style="scroll-margin-top:72px;padding:96px 24px;background:#FBF6EE">
   <div style="width:100%;max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:56px 64px;align-items:center">
     <div style="flex:1 1 440px;min-width:300px">
-      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6A3D;margin-bottom:16px">{{ t.probEyebrow }}</div>
-      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 16px">{{ t.probH2 }}</h2>
-      <p style="font-style:italic;font-size:18px;color:#11607A;font-weight:600;margin:0 0 28px;line-height:1.5">{{ t.probQuote }}</p>
-      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 16px">{{ t.probP1 }}</p>
-      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 16px">{{ t.probP2 }}</p>
-      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0">{{ t.probP3a }}<strong style="color:#0A2A36">{{ t.probP3strong }}</strong>{{ t.probP3b }}</p>
+      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6A3D;margin-bottom:16px">El problema</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 16px">¿Cuántas vueltas llevas hoy?</h2>
+      <p style="font-style:italic;font-size:18px;color:#11607A;font-weight:600;margin:0 0 28px;line-height:1.5">"Dues hores donant voltes per Palma" — Tomeu Penya lo cantó porque todos lo hemos vivido.</p>
+      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 16px">El palmesano pierde minutos preciosos buscando aparcamiento cada vez que baja al centro. En verano, con el turismo disparado, la cosa va a peor.</p>
+      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 16px">Tiempo perdido. Gasolina quemada. Nervios de punta. Y cuando por fin encuentras plaza, ya no tienes ganas de nada.</p>
+      <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0">En Palma hay una app para pagar el parking, una para el bus, otra para las bicicletas… pero ninguna que te diga dónde hay una plaza libre <strong style="color:#0A2A36">ahora mismo</strong>. Hasta ahora.</p>
     </div>
     <div style="flex:1 1 300px;min-width:280px;display:flex;flex-direction:column;gap:18px">
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:22px;padding:28px 30px;box-shadow:0 14px 36px rgba(10,42,54,.06);display:flex;align-items:baseline;gap:18px">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#FF6A3D;line-height:1">0 €</div>
-        <div style="font-size:15.5px;color:#45626C;font-weight:500">{{ t.stat1 }}</div>
+        <div style="font-size:15.5px;color:#45626C;font-weight:500">lo que te cuesta usar Appark, hoy y siempre</div>
       </div>
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:22px;padding:28px 30px;box-shadow:0 14px 36px rgba(10,42,54,.06);display:flex;align-items:baseline;gap:18px">
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;color:#11607A;line-height:1.05;white-space:nowrap">{{ t.stat2big }}</div>
-        <div style="font-size:15.5px;color:#45626C;font-weight:500">{{ t.stat2 }}</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:#11607A;line-height:1;white-space:nowrap">Verano<br>2026</div>
+        <div style="font-size:15.5px;color:#45626C;font-weight:500">lanzamiento de la beta en Palma</div>
       </div>
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:22px;padding:28px 30px;box-shadow:0 14px 36px rgba(10,42,54,.06);display:flex;align-items:baseline;gap:18px">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#1FB877;line-height:1">4</div>
-        <div style="font-size:15.5px;color:#45626C;font-weight:500">{{ t.stat3 }}</div>
+        <div style="font-size:15.5px;color:#45626C;font-weight:500">idiomas: para palmesanos y para turistas</div>
       </div>
     </div>
   </div>
@@ -175,54 +160,56 @@
 <section style="padding:96px 24px;background:linear-gradient(180deg,#F4ECDF 0%,#FBF6EE 100%)">
   <div style="width:100%;max-width:1180px;margin:0 auto">
     <div style="text-align:center;max-width:760px;margin:0 auto 60px">
-      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6A3D;margin-bottom:16px">{{ t.solEyebrow }}</div>
-      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 18px">{{ t.solH2 }}</h2>
-      <p style="font-size:18px;line-height:1.6;color:#45626C;margin:0">{{ t.solSub }}</p>
+      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6A3D;margin-bottom:16px">La solución</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 18px">El aparcamiento de Palma, colaborativo y gratuito</h2>
+      <p style="font-size:18px;line-height:1.6;color:#45626C;margin:0">Funciona como Waze, pero para aparcar. Cuatro pasos, treinta segundos, y la ciudad entera empuja contigo.</p>
     </div>
 
+    <!-- 4 steps -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-bottom:30px">
       <div style="background:#fff;border-radius:22px;padding:30px 26px;border:1px solid rgba(10,42,54,.06);box-shadow:0 12px 30px rgba(10,42,54,.05);position:relative">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:54px;color:#F1E8D8;line-height:.8;position:absolute;top:18px;right:22px">1</div>
         <div style="width:50px;height:50px;border-radius:14px;background:#E6F1F4;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div>
-        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">{{ t.step1t }}</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">{{ t.step1d }}</p>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">Abre Appark</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">Ves el mapa de Palma en tiempo real con las plazas disponibles ahora mismo.</p>
       </div>
       <div style="background:#fff;border-radius:22px;padding:30px 26px;border:1px solid rgba(10,42,54,.06);box-shadow:0 12px 30px rgba(10,42,54,.05);position:relative">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:54px;color:#F1E8D8;line-height:.8;position:absolute;top:18px;right:22px">2</div>
         <div style="width:50px;height:50px;border-radius:14px;background:#E6F7EF;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">{{ t.step2t }}</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">{{ t.step2d }}</p>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">Sigue el punto verde</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">Navega hasta la plaza libre que otro palmesano acaba de dejar.</p>
       </div>
       <div style="background:#fff;border-radius:22px;padding:30px 26px;border:1px solid rgba(10,42,54,.06);box-shadow:0 12px 30px rgba(10,42,54,.05);position:relative">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:54px;color:#F1E8D8;line-height:.8;position:absolute;top:18px;right:22px">3</div>
         <div style="width:50px;height:50px;border-radius:14px;background:#FDE9E0;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.8 7 10 18.8 4.2 13"/></svg></div>
-        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">{{ t.step3t }}</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">{{ t.step3d }}</p>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">Aparca y marca</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">Señala tu plaza al llegar. Treinta segundos, misión cumplida.</p>
       </div>
       <div style="background:#fff;border-radius:22px;padding:30px 26px;border:1px solid rgba(10,42,54,.06);box-shadow:0 12px 30px rgba(10,42,54,.05);position:relative">
         <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:54px;color:#F1E8D8;line-height:.8;position:absolute;top:18px;right:22px">4</div>
         <div style="width:50px;height:50px;border-radius:14px;background:#FBF0D8;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0A12A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0Z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 2.5M17 6h2.5a2.5 2.5 0 0 1-2.5 2.5M9 20h6M12 14v6"/></svg></div>
-        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">{{ t.step4t }}</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">{{ t.step4d }}</p>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;color:#0A2A36;margin:0 0 8px">Gana puntos</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5C7681;margin:0">Cada plaza compartida suma puntos canjeables en comercios de Palma.</p>
       </div>
     </div>
 
+    <!-- 4 features 2x2 -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
       <div style="background:#0A2A36;border-radius:24px;padding:34px 32px;color:#fff">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:rgba(31,184,119,.16);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3FD592" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0">{{ t.feat1t }}</h3></div>
-        <p style="font-size:15px;line-height:1.65;color:#B9CBD1;margin:0">{{ t.feat1d }}</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:rgba(31,184,119,.16);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3FD592" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0">Mapa en tiempo real</h3></div>
+        <p style="font-size:15px;line-height:1.65;color:#B9CBD1;margin:0">Plazas actualizadas por la comunidad, segundo a segundo. Sin inventar, sin aproximar.</p>
       </div>
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:24px;padding:34px 32px;box-shadow:0 12px 30px rgba(10,42,54,.05)">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#FDE9E0;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">{{ t.feat2t }}</h3></div>
-        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">{{ t.feat2d }}</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#FDE9E0;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">Gamificación local</h3></div>
+        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">Puntos canjeables en tiendas y restaurantes de Palma patrocinadores. Aparcar bien tiene premio.</p>
       </div>
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:24px;padding:34px 32px;box-shadow:0 12px 30px rgba(10,42,54,.05)">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">{{ t.feat3t }}</h3></div>
-        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">{{ t.feat3d }}</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">Para todos</h3></div>
+        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">En español, catalán, inglés y alemán. Para palmesanos y para los turistas que también buscan sitio.</p>
       </div>
       <div style="background:#fff;border:1px solid rgba(10,42,54,.07);border-radius:24px;padding:34px 32px;box-shadow:0 12px 30px rgba(10,42,54,.05)">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#E6F7EF;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A4.5 4.5 0 0 0 12 5 4.5 4.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7Z"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">{{ t.feat4t }}</h3></div>
-        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">{{ t.feat4d }}</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:13px;background:#E6F7EF;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A4.5 4.5 0 0 0 12 5 4.5 4.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7Z"/></svg></div><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:0;color:#0A2A36">Gratis para siempre</h3></div>
+        <p style="font-size:15px;line-height:1.65;color:#5C7681;margin:0">Sin suscripciones. Sin anuncios molestos. Gratis hoy, gratis mañana, gratis siempre.</p>
       </div>
     </div>
   </div>
@@ -234,73 +221,77 @@
   <div style="position:absolute;top:-100px;right:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(127,197,206,.18),transparent 65%);pointer-events:none"></div>
   <div style="width:100%;max-width:1100px;margin:0 auto;position:relative">
     <div style="text-align:center;max-width:740px;margin:0 auto 50px">
-      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#3FD592;margin-bottom:16px">{{ t.giftEyebrow }}</div>
-      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;letter-spacing:-1px;color:#fff;margin:0 0 16px">{{ t.giftH2 }}</h2>
-      <p style="font-size:18px;line-height:1.6;color:#9FB6BD;margin:0">{{ t.giftSub }}</p>
+      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#3FD592;margin-bottom:16px">Un regalo a la ciudad</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;letter-spacing:-1px;color:#fff;margin:0 0 16px">¿Por qué gratis? Porque Palma lo merece.</h2>
+      <p style="font-size:18px;line-height:1.6;color:#9FB6BD;margin:0">Appark no es un negocio de parking. Es un proyecto de ciudad.</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:40px;margin-bottom:54px">
       <div style="flex:1 1 320px;min-width:280px">
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">{{ t.giftL1 }}</p>
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">{{ t.giftL2 }}</p>
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0">{{ t.giftL3 }}</p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">Somos <strong style="color:#fff">Dharma Brokers</strong>, una empresa con raíces en Mallorca.</p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">Llevamos años viendo cómo el aparcamiento fragmenta la experiencia de vivir en Palma: tiempo perdido, estrés evitable, calles más congestionadas de lo necesario.</p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0">Decidimos hacer algo al respecto. No una app de pago. No una plataforma de inversores externos. Un regalo a la ciudad donde vivimos y trabajamos.</p>
       </div>
       <div style="flex:1 1 320px;min-width:280px">
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">{{ t.giftR1 }}</p>
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px"><strong style="color:#fff">{{ t.giftR2 }}</strong></p>
-        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0">{{ t.giftR3 }}</p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px">Appark es gratuita para palmesanos y visitantes. Se mantiene gracias al apoyo de empresas locales que creen en la comunidad.</p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0 0 16px"><strong style="color:#fff">Sin suscripciones. Sin letra pequeña. Sin trampa.</strong></p>
+        <p style="font-size:16px;line-height:1.75;color:#C7D7DC;margin:0">Dharma Brokers es una empresa tecnológica de Palma de Mallorca. Creamos soluciones digitales con impacto local.</p>
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);padding:40px 24px;text-align:center">
-      <p style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.2;margin:0;background:linear-gradient(120deg,#FFB088,#FF6A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">{{ t.giftQuote }}</p>
+      <p style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.2;margin:0;background:linear-gradient(120deg,#FFB088,#FF6A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">"Un regalo de Palma para Palma."</p>
     </div>
   </div>
 </section>
 
 <!-- ============ SPONSORS ============ -->
+<!-- Hidden until we have 3+ real sponsors. To re-enable, set showSponsors: true in state -->
+<sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}">
 <section id="sponsors" style="scroll-margin-top:72px;padding:96px 24px;background:#F8FAFB">
   <div style="width:100%;max-width:1180px;margin:0 auto">
     <div style="text-align:center;max-width:760px;margin:0 auto 50px">
-      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#11607A;margin-bottom:16px">{{ t.spEyebrow }}</div>
-      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 18px">{{ t.spH2 }}</h2>
-      <p style="font-size:18px;line-height:1.6;color:#45626C;margin:0">{{ t.spSub }}</p>
+      <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#11607A;margin-bottom:16px">Para empresas</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-1px;color:#0A2A36;margin:0 0 18px">Las empresas locales que hacen posible Appark</h2>
+      <p style="font-size:18px;line-height:1.6;color:#45626C;margin:0">Sin publicidad intrusiva. Appark es gratuita porque negocios de Palma eligen ser parte de algo que mejora la ciudad.</p>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:44px 56px;align-items:flex-start">
+      <!-- left: benefits -->
       <div style="flex:1 1 420px;min-width:300px">
-        <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 28px">{{ t.spBodyA }}<strong style="color:#0A2A36">{{ t.spBodyStrong }}</strong>{{ t.spBodyB }}</p>
+        <p style="font-size:16.5px;line-height:1.7;color:#45626C;margin:0 0 28px">Como <strong style="color:#0A2A36">sponsor fundador</strong>, tu negocio aparece en el mapa como destino recomendado y punto de canje de premios. Los usuarios llegan a tu puerta en el momento exacto: acaban de aparcar y están a pie de calle. Esto no es publicidad de Google. Es presencia local de verdad.</p>
         <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:36px">
-          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">{{ t.spB1t }}</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">{{ t.spB1d }}</div></div></div>
-          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#FDE9E0;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FF6A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">{{ t.spB2t }}</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">{{ t.spB2d }}</div></div></div>
-          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#FBF0D8;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#E0A12A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 8 22l4-2 4 2-1-8.5"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">{{ t.spB3t }}</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">{{ t.spB3d }}</div></div></div>
-          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F7EF;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 21 3l-8 18-2.5-7.5L3 11Z"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">{{ t.spB4t }}</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">{{ t.spB4d }}</div></div></div>
-          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="13" y="7" width="3" height="10"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">{{ t.spB5t }}</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">{{ t.spB5d }}</div></div></div>
+          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Visibilidad en el mapa</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Tu negocio destacado mientras los usuarios buscan aparcamiento cerca.</div></div></div>
+          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#FDE9E0;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FF6A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Punto de canje de premios</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Los usuarios gastan sus puntos Appark en tu negocio.</div></div></div>
+          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#FBF0D8;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#E0A12A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 8 22l4-2 4 2-1-8.5"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Badge "Sponsor Fundador"</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Reconocimiento exclusivo limitado a los primeros sponsors.</div></div></div>
+          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F7EF;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 21 3l-8 18-2.5-7.5L3 11Z"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Mención en comunicación</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Logo en web, redes sociales y comunicados de prensa locales.</div></div></div>
+          <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="13" y="7" width="3" height="10"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Datos de zona</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Insights de movilidad en tu área, anonimizados y conformes al RGPD.</div></div></div>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8A9BA2;margin-bottom:16px">{{ t.spComing }}</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8A9BA2;margin-bottom:16px">Pronto, aquí</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px">
-          <image-slot id="sponsor-1" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
-          <image-slot id="sponsor-2" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
-          <image-slot id="sponsor-3" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
-          <image-slot id="sponsor-4" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
-          <image-slot id="sponsor-5" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
-          <image-slot id="sponsor-6" shape="rounded" radius="14" placeholder="{{ t.spLogo }}" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-1" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-2" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-3" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-4" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-5" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
+          <image-slot id="sponsor-6" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
         </div>
       </div>
 
+      <!-- right: sponsor form -->
       <div style="flex:1 1 380px;min-width:300px;background:#fff;border:1px solid rgba(10,42,54,.08);border-radius:26px;padding:36px 34px;box-shadow:0 24px 56px rgba(10,42,54,.10)">
         <sc-if value="{{ spNotSuccess }}" hint-placeholder-val="{{ true }}">
         <div>
-          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:#0A2A36;margin:0 0 6px">{{ t.spFormTitle }}</h3>
-          <p style="font-size:14.5px;color:#5C7681;margin:0 0 24px;line-height:1.5">{{ t.spFormSub }}</p>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:#0A2A36;margin:0 0 6px">Sé sponsor fundador</h3>
+          <p style="font-size:14.5px;color:#5C7681;margin:0 0 24px;line-height:1.5">Hablemos de lo que tiene sentido para tu negocio. Sin compromiso.</p>
           <form onSubmit="{{ submitSp }}">
             <div style="display:flex;flex-direction:column;gap:15px">
-              <div><label for="sp-empresa" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.spLabelEmpresa }} <span style="color:#FF6A3D">*</span></label><input id="sp-empresa" type="text" value="{{ spEmpresa }}" onInput="{{ onSpEmpresa }}" placeholder="{{ t.spPhEmpresa }}" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
-              <div><label for="sp-email" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.spLabelEmail }} <span style="color:#FF6A3D">*</span></label><input id="sp-email" type="email" value="{{ spEmail }}" onInput="{{ onSpEmail }}" placeholder="hola@tunegocio.es" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
-              <div><label for="sp-tel" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.spLabelTel }}</label><input id="sp-tel" type="tel" value="{{ spTel }}" onInput="{{ onSpTel }}" placeholder="600 000 000" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
-              <div><label for="sp-tipo" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.spLabelTipo }} <span style="color:#FF6A3D">*</span></label><select id="sp-tipo" value="{{ spTipo }}" onChange="{{ onSpTipo }}" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"><option value="">{{ t.spTipoSelect }}</option><option>{{ t.spTipo1 }}</option><option>{{ t.spTipo2 }}</option><option>{{ t.spTipo3 }}</option><option>{{ t.spTipo4 }}</option><option>{{ t.spTipo5 }}</option><option>{{ t.spTipo6 }}</option><option>{{ t.spTipo7 }}</option></select></div>
-              <div><label for="sp-msg" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.spLabelMsg }}</label><textarea id="sp-msg" value="{{ spMensaje }}" onInput="{{ onSpMensaje }}" maxlength="500" rows="3" placeholder="{{ t.spPhMsg }}" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;resize:vertical;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></textarea><div style="text-align:right;font-size:12px;color:#A4B2B8;margin-top:4px">{{ spMensajeCount }}/500</div></div>
+              <div><label for="sp-empresa" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Nombre de tu empresa <span style="color:#FF6A3D">*</span></label><input id="sp-empresa" type="text" value="{{ spEmpresa }}" onInput="{{ onSpEmpresa }}" placeholder="Ej. Café Sa Plaça" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
+              <div><label for="sp-email" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Email de contacto <span style="color:#FF6A3D">*</span></label><input id="sp-email" type="email" value="{{ spEmail }}" onInput="{{ onSpEmail }}" placeholder="hola@tunegocio.es" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
+              <div><label for="sp-tel" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Teléfono</label><input id="sp-tel" type="tel" value="{{ spTel }}" onInput="{{ onSpTel }}" placeholder="600 000 000" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
+              <div><label for="sp-tipo" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Tipo de negocio <span style="color:#FF6A3D">*</span></label><select id="sp-tipo" value="{{ spTipo }}" onChange="{{ onSpTipo }}" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"><option value="">Selecciona…</option><option>Restaurante / Bar / Cafetería</option><option>Comercio / Tienda</option><option>Servicios profesionales</option><option>Hostelería</option><option>Ocio / Entretenimiento</option><option>Rent-a-car / Movilidad</option><option>Otro</option></select></div>
+              <div><label for="sp-msg" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Mensaje (opcional)</label><textarea id="sp-msg" value="{{ spMensaje }}" onInput="{{ onSpMensaje }}" maxlength="500" rows="3" placeholder="Cuéntanos sobre tu negocio…" style="width:100%;padding:13px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;resize:vertical;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></textarea><div style="text-align:right;font-size:12px;color:#A4B2B8;margin-top:4px">{{ spMensajeCount }}/500</div></div>
               <sc-if value="{{ spHasError }}" hint-placeholder-val="{{ false }}"><div style="background:#FDEAE6;border:1px solid #F8C7BC;border-radius:10px;padding:11px 14px;font-size:13.5px;color:#C23B1C;font-weight:600">{{ spError }}</div></sc-if>
               <button type="submit" disabled="{{ spLoading }}" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:{{ accent }};color:#fff;font-weight:700;font-size:16px;font-family:'Manrope',sans-serif;padding:16px;border-radius:13px;border:none;cursor:pointer;box-shadow:0 10px 26px rgba(255,106,61,.32);opacity:{{ spBtnOpacity }}" style-hover="filter:brightness(1.05)"><sc-if value="{{ spLoading }}" hint-placeholder-val="{{ false }}"><span style="width:17px;height:17px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:appk-spin .7s linear infinite"></span></sc-if>{{ spBtnText }}</button>
-              <p style="font-size:12.5px;color:#8A9BA2;text-align:center;margin:2px 0 0">{{ t.spFormNote }}</p>
+              <p style="font-size:12.5px;color:#8A9BA2;text-align:center;margin:2px 0 0">Te responderemos en 24-48 horas. Sin compromiso.</p>
             </div>
           </form>
         </div>
@@ -308,55 +299,59 @@
         <sc-if value="{{ spSuccess }}" hint-placeholder-val="{{ false }}">
         <div style="text-align:center;padding:30px 6px">
           <div style="width:64px;height:64px;border-radius:50%;background:#E6F7EF;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.8 7 10 18.8 4.2 13"/></svg></div>
-          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;color:#0A2A36;margin:0 0 10px">{{ t.spSuccessTitle }}</h3>
-          <p style="font-size:15.5px;color:#5C7681;line-height:1.6;margin:0">{{ t.spSuccessBody }}</p>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;color:#0A2A36;margin:0 0 10px">¡Gracias!</h3>
+          <p style="font-size:15.5px;color:#5C7681;line-height:1.6;margin:0">Te contactaremos en 24-48 horas para hablar de cómo tu negocio puede ser parte de Appark.</p>
         </div>
         </sc-if>
       </div>
     </div>
   </div>
 </section>
+</sc-if>
 
 <!-- ============ EARLY ACCESS ============ -->
 <section id="early-access" style="scroll-margin-top:72px;position:relative;padding:104px 24px;background:linear-gradient(155deg,#0E5167 0%,#0C3A4A 60%,#0A2A36 100%);overflow:hidden">
   <div style="position:absolute;top:-120px;right:-100px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,61,.20),transparent 65%);pointer-events:none"></div>
   <div style="width:100%;max-width:960px;margin:0 auto;position:relative;text-align:center">
-    <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FFB088;margin-bottom:16px">{{ t.eaEyebrow }}</div>
-    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.08;letter-spacing:-1px;color:#fff;margin:0 0 16px">{{ t.eaH2 }}</h2>
-    <p style="font-size:18px;line-height:1.6;color:#A9C2C9;max-width:620px;margin:0 auto 12px">{{ t.eaSub }}</p>
-    <p style="font-size:15.5px;line-height:1.65;color:#8FAAB2;max-width:620px;margin:0 auto 36px">{{ t.eaBody }}</p>
+    <div style="font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FFB088;margin-bottom:16px">Early access</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.08;letter-spacing:-1px;color:#fff;margin:0 0 16px">Sé de los primeros en Palma</h2>
+    <p style="font-size:18px;line-height:1.6;color:#A9C2C9;max-width:620px;margin:0 auto 12px">Appark llega en Verano 2026. Únete ahora y consigue acceso antes que nadie, completamente gratis.</p>
+    <p style="font-size:15.5px;line-height:1.65;color:#8FAAB2;max-width:620px;margin:0 auto 36px">Acceso prioritario a la beta, un badge exclusivo de "Fundador de la comunidad" y puntos extra desde el primer día.</p>
 
+    <!-- benefit chips -->
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-bottom:44px">
-      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">⚡ {{ t.eaChip1 }}</span>
-      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">🏅 {{ t.eaChip2 }}</span>
-      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">🎁 {{ t.eaChip3 }}</span>
-      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">📢 {{ t.eaChip4 }}</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">⚡ Acceso prioritario a la beta</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">🏅 Badge exclusivo "Fundador"</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">🎁 Puntos extra de bienvenida</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#E5EFF1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px">📢 Tu feedback da forma a la app</span>
     </div>
 
+    <!-- timeline -->
     <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;margin-bottom:50px">
-      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="width:13px;height:13px;border-radius:50%;background:#FF6A3D;box-shadow:0 0 0 5px rgba(255,106,61,.22)"></span><span style="flex:1;height:2px;background:linear-gradient(90deg,#FF6A3D,rgba(255,255,255,.18))"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">{{ t.tl1t }}</div><div style="font-size:13.5px;color:#8FAAB2">{{ t.tl1d }}</div></div>
-      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="flex:1;height:2px;background:rgba(255,255,255,.18)"></span><span style="width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.5)"></span><span style="flex:1;height:2px;background:rgba(255,255,255,.18)"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">{{ t.tl2t }}</div><div style="font-size:13.5px;color:#8FAAB2">{{ t.tl2d }}</div></div>
-      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="flex:1;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.35))"></span><span style="width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.5)"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">{{ t.tl3t }}</div><div style="font-size:13.5px;color:#8FAAB2">{{ t.tl3d }}</div></div>
+      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="width:13px;height:13px;border-radius:50%;background:#FF6A3D;box-shadow:0 0 0 5px rgba(255,106,61,.22)"></span><span style="flex:1;height:2px;background:linear-gradient(90deg,#FF6A3D,rgba(255,255,255,.18))"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">Ahora</div><div style="font-size:13.5px;color:#8FAAB2">Lista de espera abierta</div></div>
+      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="flex:1;height:2px;background:rgba(255,255,255,.18)"></span><span style="width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.5)"></span><span style="flex:1;height:2px;background:rgba(255,255,255,.18)"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">Verano 2026</div><div style="font-size:13.5px;color:#8FAAB2">Beta privada para los primeros</div></div>
+      <div style="flex:1 1 200px;max-width:240px"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px"><span style="flex:1;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.35))"></span><span style="width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.5)"></span></div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:4px">Otoño 2026</div><div style="font-size:13.5px;color:#8FAAB2">Lanzamiento oficial Palma</div></div>
     </div>
 
+    <!-- form card -->
     <div style="max-width:480px;margin:0 auto;background:#fff;border-radius:24px;padding:32px 30px;box-shadow:0 30px 70px rgba(0,0,0,.28);text-align:left">
       <sc-if value="{{ eaNotSuccess }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submitEa }}">
         <div style="display:flex;flex-direction:column;gap:15px">
-          <div><label for="ea-nombre" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.eaLabelName }} <span style="color:#FF6A3D">*</span></label><input id="ea-nombre" type="text" value="{{ eaNombre }}" onInput="{{ onEaNombre }}" placeholder="{{ t.eaPhName }}" style="width:100%;padding:14px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
-          <div><label for="ea-email" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">{{ t.eaLabelEmail }} <span style="color:#FF6A3D">*</span></label><input id="ea-email" type="email" value="{{ eaEmail }}" onInput="{{ onEaEmail }}" placeholder="tu@email.com" style="width:100%;padding:14px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
-          <label style="display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:2px 0"><input type="checkbox" checked="{{ eaAccepts }}" onChange="{{ onEaAccepts }}" style="width:19px;height:19px;margin:1px 0 0;accent-color:#FF6A3D;flex:none;cursor:pointer"><span style="font-size:13px;color:#5C7681;line-height:1.5">{{ t.eaCheckbox }}</span></label>
+          <div><label for="ea-nombre" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Nombre <span style="color:#FF6A3D">*</span></label><input id="ea-nombre" type="text" value="{{ eaNombre }}" onInput="{{ onEaNombre }}" placeholder="¿Cómo te llamas?" style="width:100%;padding:14px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
+          <div><label for="ea-email" style="display:block;font-weight:700;font-size:13.5px;color:#0A2A36;margin-bottom:6px">Email <span style="color:#FF6A3D">*</span></label><input id="ea-email" type="email" value="{{ eaEmail }}" onInput="{{ onEaEmail }}" placeholder="tu@email.com" style="width:100%;padding:14px 15px;border:1.5px solid rgba(10,42,54,.14);border-radius:12px;font-size:15px;font-family:'Manrope',sans-serif;color:#0A2A36;outline:none;background:#FCFAF6" style-focus="border-color:#11607A;box-shadow:0 0 0 3px rgba(17,96,122,.10)"></div>
+          <label style="display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:2px 0"><input type="checkbox" checked="{{ eaAccepts }}" onChange="{{ onEaAccepts }}" style="width:19px;height:19px;margin:1px 0 0;accent-color:#FF6A3D;flex:none;cursor:pointer"><span style="font-size:13px;color:#5C7681;line-height:1.5">Acepto recibir actualizaciones de Appark. Puedes darte de baja cuando quieras.</span></label>
           <sc-if value="{{ eaHasError }}" hint-placeholder-val="{{ false }}"><div style="background:#FDEAE6;border:1px solid #F8C7BC;border-radius:10px;padding:11px 14px;font-size:13.5px;color:#C23B1C;font-weight:600">{{ eaError }}</div></sc-if>
           <button type="submit" disabled="{{ eaLoading }}" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:{{ accent }};color:#fff;font-weight:700;font-size:16px;font-family:'Manrope',sans-serif;padding:16px;border-radius:13px;border:none;cursor:pointer;box-shadow:0 10px 26px rgba(255,106,61,.34);opacity:{{ eaBtnOpacity }}" style-hover="filter:brightness(1.05)"><sc-if value="{{ eaLoading }}" hint-placeholder-val="{{ false }}"><span style="width:17px;height:17px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:appk-spin .7s linear infinite"></span></sc-if>{{ eaBtnText }}</button>
-          <p style="font-size:12.5px;color:#8A9BA2;text-align:center;margin:2px 0 0">{{ t.eaFormNote }}</p>
+          <p style="font-size:12.5px;color:#8A9BA2;text-align:center;margin:2px 0 0">Sin spam. Solo te avisamos cuando la app esté lista.</p>
         </div>
       </form>
       </sc-if>
       <sc-if value="{{ eaSuccess }}" hint-placeholder-val="{{ false }}">
       <div style="text-align:center;padding:24px 6px">
         <div style="font-size:46px;line-height:1;margin-bottom:14px">🎉</div>
-        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;color:#0A2A36;margin:0 0 10px">{{ t.eaSuccessTitle }}</h3>
-        <p style="font-size:15.5px;color:#5C7681;line-height:1.6;margin:0">{{ t.eaSuccessBody }}</p>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:23px;color:#0A2A36;margin:0 0 10px">¡Ya estás en la lista!</h3>
+        <p style="font-size:15.5px;color:#5C7681;line-height:1.6;margin:0">Te avisaremos antes que a nadie cuando llegue tu momento. Bienvenido/a a la comunidad Appark.</p>
       </div>
       </sc-if>
     </div>
@@ -372,382 +367,316 @@
           <svg width="24" height="29" viewBox="0 0 28 34" aria-hidden="true"><path d="M14 1.5C7.1 1.5 1.5 6.9 1.5 13.6C1.5 22.8 14 32.5 14 32.5C14 32.5 26.5 22.8 26.5 13.6C26.5 6.9 20.9 1.5 14 1.5Z" fill="#FF6A3D"/><text x="14" y="19.5" text-anchor="middle" font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="15" fill="#fff">P</text></svg>
           <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:21px;color:#fff">Appark</span>
         </div>
-        <p style="font-size:14.5px;color:#9FB6BD;line-height:1.6;margin:0;max-width:280px">{{ t.footTagline }}</p>
+        <p style="font-size:14.5px;color:#9FB6BD;line-height:1.6;margin:0;max-width:280px">Un proyecto de Dharma Brokers. Hecho en Palma, para Palma.</p>
       </div>
       <div style="flex:0 1 auto">
-        <div style="font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#6E8990;margin-bottom:16px">{{ t.footLegal }}</div>
+        <div style="font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#6E8990;margin-bottom:16px">Legal</div>
         <div style="display:flex;flex-direction:column;gap:11px">
-          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">{{ t.footPrivacy }}</a>
-          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">{{ t.footTerms }}</a>
-          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">{{ t.footCookies }}</a>
+          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">Política de Privacidad</a>
+          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">Términos y Condiciones</a>
+          <a href="#" style="text-decoration:none;color:#C7D7DC;font-size:14.5px" style-hover="color:#fff">Cookies</a>
         </div>
       </div>
       <div style="flex:0 1 auto">
-        <div style="font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#6E8990;margin-bottom:16px">{{ t.footContact }}</div>
+        <div style="font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#6E8990;margin-bottom:16px">Contacto</div>
         <a href="mailto:hola@appark.es" style="text-decoration:none;color:#C7D7DC;font-size:14.5px;display:block;margin-bottom:16px" style-hover="color:#fff">hola@appark.es</a>
         <div style="display:flex;gap:12px">
-          <a href="#" aria-label="Instagram" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,.16)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg></a>
-          <a href="#" aria-label="TikTok" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,.16)"><svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 3c.3 2.1 1.5 3.7 3.5 4v2.4c-1.3.1-2.5-.3-3.6-1v5.9c0 3.4-2.6 5.7-5.7 5.7-2.9 0-5.2-2.2-5.2-5.1 0-3 2.4-5.2 5.6-4.9v2.5c-.4-.1-.9-.2-1.3-.1-1.3.1-2.3 1.1-2.2 2.6 0 1.4 1.1 2.5 2.5 2.5 1.5 0 2.5-1.1 2.5-2.7V3h2.4Z"/></svg></a>
+          <a href="https://instagram.com/appark_palma" target="_blank" rel="noopener noreferrer" aria-label="Instagram @appark_palma" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,.16)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg></a>
+          <a href="https://tiktok.com/@appark_palma" target="_blank" rel="noopener noreferrer" aria-label="TikTok @appark_palma" style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,.16)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
         </div>
       </div>
     </div>
-    <div style="padding-top:26px;text-align:center;font-size:13.5px;color:#6E8990">{{ t.footCopyright }}</div>
+    <div style="padding-top:26px;text-align:center;font-size:13.5px;color:#6E8990">© 2026 Dharma Brokers. Todos los derechos reservados.</div>
   </div>
 </footer>
 
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FF6A3D&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showTrustBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-const TRANS = {
-  es: {
-    navHow:'Cómo funciona', navBiz:'Para empresas', navAbout:'Sobre nosotros', navJoin:'Únete', navJoinList:'Únete a la lista',
-    heroBadge:'Un proyecto de Dharma Brokers para Palma',
-    heroH1a:'El parking de Palma,', heroH1b:'resuelto por todos.',
-    heroSubA:'Appark es la app ', heroSubStrong:'gratuita y colaborativa', heroSubB:' donde los palmesanos se ayudan a encontrar aparcamiento en tiempo real. Tú ayudas a otros, otros te ayudan a ti.',
-    heroCta1:'Únete a la lista de espera', heroCta2:'Quiero ser sponsor fundador', heroSocial:'Palmesanos ya apuntados a la lista de espera',
-    chipFree:'Plaza libre', chipDist:'a 80 m · ahora', chipNear:'plazas cerca de ti',
-    trust1:'Hecho en Palma', trust2:'100% gratuito', trust3:'Verano 2026', trust4:'Apoyado por comercios locales',
-    probEyebrow:'El problema', probH2:'¿Cuántas vueltas llevas hoy?',
-    probQuote:'"Dues hores donant voltes per Palma" — Tomeu Penya lo cantó porque todos lo hemos vivido.',
-    probP1:'El palmesano pierde minutos preciosos buscando aparcamiento cada vez que baja al centro. En verano, con el turismo disparado, la cosa va a peor.',
-    probP2:'Tiempo perdido. Gasolina quemada. Nervios de punta. Y cuando por fin encuentras plaza, ya no tienes ganas de nada.',
-    probP3a:'En Palma hay una app para pagar el parking, una para el bus, otra para las bicicletas… pero ninguna que te diga dónde hay una plaza libre ', probP3strong:'ahora mismo', probP3b:'. Hasta ahora.',
-    stat1:'lo que te cuesta usar Appark, hoy y siempre', stat2big:'Verano 2026', stat2:'lanzamiento de la beta en Palma', stat3:'idiomas: para palmesanos y para turistas',
-    solEyebrow:'La solución', solH2:'El aparcamiento de Palma, colaborativo y gratuito', solSub:'Funciona como Waze, pero para aparcar. Cuatro pasos, treinta segundos, y la ciudad entera empuja contigo.',
-    step1t:'Abre Appark', step1d:'Ves el mapa de Palma en tiempo real con las plazas disponibles ahora mismo.',
-    step2t:'Sigue el punto verde', step2d:'Navega hasta la plaza libre que otro palmesano acaba de dejar.',
-    step3t:'Aparca y marca', step3d:'Señala tu plaza al llegar. Treinta segundos, misión cumplida.',
-    step4t:'Gana puntos', step4d:'Cada plaza compartida suma puntos canjeables en comercios de Palma.',
-    feat1t:'Mapa en tiempo real', feat1d:'Plazas actualizadas por la comunidad, segundo a segundo. Sin inventar, sin aproximar.',
-    feat2t:'Gamificación local', feat2d:'Puntos canjeables en tiendas y restaurantes de Palma patrocinadores. Aparcar bien tiene premio.',
-    feat3t:'Para todos', feat3d:'En español, catalán, inglés y alemán. Para palmesanos y para los turistas que también buscan sitio.',
-    feat4t:'Gratis para siempre', feat4d:'Sin suscripciones. Sin anuncios molestos. Gratis hoy, gratis mañana, gratis siempre.',
-    giftEyebrow:'Un regalo a la ciudad', giftH2:'¿Por qué gratis? Porque Palma lo merece.', giftSub:'Appark no es un negocio de parking. Es un proyecto de ciudad.',
-    giftL1:'Somos Dharma Brokers, una empresa con raíces en Mallorca.',
-    giftL2:'Llevamos años viendo cómo el aparcamiento fragmenta la experiencia de vivir en Palma: tiempo perdido, estrés evitable, calles más congestionadas de lo necesario.',
-    giftL3:'Decidimos hacer algo al respecto. No una app de pago. No una plataforma de inversores externos. Un regalo a la ciudad donde vivimos y trabajamos.',
-    giftR1:'Appark es gratuita para palmesanos y visitantes. Se mantiene gracias al apoyo de empresas locales que creen en la comunidad.',
-    giftR2:'Sin suscripciones. Sin letra pequeña. Sin trampa.',
-    giftR3:'Dharma Brokers es una empresa tecnológica de Palma de Mallorca. Creamos soluciones digitales con impacto local.',
-    giftQuote:'"Un regalo de Palma para Palma."',
-    spEyebrow:'Para empresas', spH2:'Las empresas locales que hacen posible Appark', spSub:'Sin publicidad intrusiva. Appark es gratuita porque negocios de Palma eligen ser parte de algo que mejora la ciudad.',
-    spBodyA:'Como ', spBodyStrong:'sponsor fundador', spBodyB:', tu negocio aparece en el mapa como destino recomendado y punto de canje de premios. Los usuarios llegan a tu puerta en el momento exacto: acaban de aparcar y están a pie de calle. Esto no es publicidad de Google. Es presencia local de verdad.',
-    spB1t:'Visibilidad en el mapa', spB1d:'Tu negocio destacado mientras los usuarios buscan aparcamiento cerca.',
-    spB2t:'Punto de canje de premios', spB2d:'Los usuarios gastan sus puntos Appark en tu negocio.',
-    spB3t:'Badge "Sponsor Fundador"', spB3d:'Reconocimiento exclusivo limitado a los primeros sponsors.',
-    spB4t:'Mención en comunicación', spB4d:'Logo en web, redes sociales y comunicados de prensa locales.',
-    spB5t:'Datos de zona', spB5d:'Insights de movilidad en tu área, anonimizados y conformes al RGPD.',
-    spComing:'Pronto, aquí', spLogo:'Tu logo aquí',
-    spFormTitle:'Sé sponsor fundador', spFormSub:'Hablemos de lo que tiene sentido para tu negocio. Sin compromiso.',
-    spLabelEmpresa:'Nombre de tu empresa', spPhEmpresa:'Ej. Café Sa Plaça', spLabelEmail:'Email de contacto', spLabelTel:'Teléfono', spLabelTipo:'Tipo de negocio', spTipoSelect:'Selecciona…',
-    spTipo1:'Restaurante / Bar / Cafetería', spTipo2:'Comercio / Tienda', spTipo3:'Servicios profesionales', spTipo4:'Hostelería', spTipo5:'Ocio / Entretenimiento', spTipo6:'Rent-a-car / Movilidad', spTipo7:'Otro',
-    spLabelMsg:'Mensaje (opcional)', spPhMsg:'Cuéntanos sobre tu negocio…', spBtn:'Quiero ser sponsor fundador →', spSending:'Enviando…', spFormNote:'Te responderemos en 24-48 horas. Sin compromiso.',
-    spSuccessTitle:'¡Gracias!', spSuccessBody:'Te contactaremos en 24-48 horas para hablar de cómo tu negocio puede ser parte de Appark.',
-    spErrEmpresa:'Dinos el nombre de tu empresa.', spErrEmail:'Introduce un email de contacto válido.', spErrTipo:'Selecciona tu tipo de negocio.',
-    eaEyebrow:'Early access', eaH2:'Sé de los primeros en Palma', eaSub:'Appark llega en Verano 2026. Únete ahora y consigue acceso antes que nadie, completamente gratis.',
-    eaBody:'Acceso prioritario a la beta, un badge exclusivo de "Fundador de la comunidad" y puntos extra desde el primer día.',
-    eaChip1:'Acceso prioritario a la beta', eaChip2:'Badge exclusivo "Fundador"', eaChip3:'Puntos extra de bienvenida', eaChip4:'Tu feedback da forma a la app',
-    tl1t:'Ahora', tl1d:'Lista de espera abierta', tl2t:'Verano 2026', tl2d:'Beta privada para los primeros', tl3t:'Otoño 2026', tl3d:'Lanzamiento oficial Palma',
-    eaLabelName:'Nombre', eaPhName:'¿Cómo te llamas?', eaLabelEmail:'Email', eaCheckbox:'Acepto recibir actualizaciones de Appark. Puedes darte de baja cuando quieras.',
-    eaBtn:'Quiero acceso prioritario →', eaSending:'Enviando…', eaFormNote:'Sin spam. Solo te avisamos cuando la app esté lista.',
-    eaSuccessTitle:'¡Ya estás en la lista!', eaSuccessBody:'Te avisaremos antes que a nadie cuando llegue tu momento. Bienvenido/a a la comunidad Appark.',
-    eaErrName:'Escribe tu nombre para continuar.', eaErrEmail:'Introduce un email válido.', eaErrAccept:'Marca la casilla para unirte a la lista.',
-    footTagline:'Un proyecto de Dharma Brokers. Hecho en Palma, para Palma.', footLegal:'Legal', footPrivacy:'Política de Privacidad', footTerms:'Términos y Condiciones', footCookies:'Cookies', footContact:'Contacto', footCopyright:'© 2026 Dharma Brokers. Todos los derechos reservados.',
-  },
-  ca: {
-    navHow:'Com funciona', navBiz:'Per a empreses', navAbout:'Qui som', navJoin:'Uneix-te', navJoinList:'Uneix-te a la llista',
-    heroBadge:'Un projecte de Dharma Brokers per a Palma',
-    heroH1a:'L\u2019aparcament de Palma,', heroH1b:'resolt entre tots.',
-    heroSubA:'Appark \u00e9s l\u2019app ', heroSubStrong:'gratu\u00efta i col\u00b7laborativa', heroSubB:' on els palmesans s\u2019ajuden a trobar aparcament en temps real. Tu ajudes els altres, els altres t\u2019ajuden a tu.',
-    heroCta1:'Uneix-te a la llista d\u2019espera', heroCta2:'Vull ser sponsor fundador', heroSocial:'Palmesans ja apuntats a la llista d\u2019espera',
-    chipFree:'Pla\u00e7a lliure', chipDist:'a 80 m · ara', chipNear:'places a prop teu',
-    trust1:'Fet a Palma', trust2:'100% gratu\u00eft', trust3:'Estiu 2026', trust4:'Amb el suport del comer\u00e7 local',
-    probEyebrow:'El problema', probH2:'Quantes voltes portes avui?',
-    probQuote:'"Dues hores donant voltes per Palma" — Tomeu Penya ho va cantar perqu\u00e8 tots ho hem viscut.',
-    probP1:'El palmes\u00e0 perd minuts preciosos buscant aparcament cada cop que baixa al centre. A l\u2019estiu, amb el turisme disparat, la cosa empitjora.',
-    probP2:'Temps perdut. Gasolina cremada. Nervis a flor de pell. I quan per fi trobes pla\u00e7a, ja no tens ganes de res.',
-    probP3a:'A Palma hi ha una app per pagar l\u2019aparcament, una per al bus, una altra per a les bicicletes… per\u00f2 cap que et digui on hi ha una pla\u00e7a lliure ', probP3strong:'ara mateix', probP3b:'. Fins ara.',
-    stat1:'el que et costa usar Appark, avui i sempre', stat2big:'Estiu 2026', stat2:'llan\u00e7ament de la beta a Palma', stat3:'idiomes: per a palmesans i turistes',
-    solEyebrow:'La soluci\u00f3', solH2:'L\u2019aparcament de Palma, col\u00b7laboratiu i gratu\u00eft', solSub:'Funciona com Waze, per\u00f2 per aparcar. Quatre passos, trenta segons, i tota la ciutat empeny amb tu.',
-    step1t:'Obre Appark', step1d:'Veus el mapa de Palma en temps real amb les places disponibles ara mateix.',
-    step2t:'Segueix el punt verd', step2d:'Navega fins a la pla\u00e7a lliure que un altre palmes\u00e0 acaba de deixar.',
-    step3t:'Aparca i marca', step3d:'Assenyala la teva pla\u00e7a en arribar. Trenta segons, missi\u00f3 acomplerta.',
-    step4t:'Guanya punts', step4d:'Cada pla\u00e7a compartida suma punts bescanviables en comer\u00e7os de Palma.',
-    feat1t:'Mapa en temps real', feat1d:'Places actualitzades per la comunitat, segon a segon. Sense inventar, sense aproximar.',
-    feat2t:'Gamificaci\u00f3 local', feat2d:'Punts bescanviables en botigues i restaurants de Palma patrocinadors. Aparcar b\u00e9 t\u00e9 premi.',
-    feat3t:'Per a tothom', feat3d:'En castell\u00e0, catal\u00e0, angl\u00e8s i alemany. Per a palmesans i per als turistes que tamb\u00e9 busquen lloc.',
-    feat4t:'Gratis per sempre', feat4d:'Sense subscripcions. Sense anuncis molestos. Gratis avui, gratis dem\u00e0, gratis sempre.',
-    giftEyebrow:'Un regal a la ciutat', giftH2:'Per qu\u00e8 gratis? Perqu\u00e8 Palma s\u2019ho mereix.', giftSub:'Appark no \u00e9s un negoci d\u2019aparcament. \u00c9s un projecte de ciutat.',
-    giftL1:'Som Dharma Brokers, una empresa amb arrels a Mallorca.',
-    giftL2:'Fa anys que veiem com l\u2019aparcament fragmenta l\u2019experi\u00e8ncia de viure a Palma: temps perdut, estr\u00e8s evitable, carrers m\u00e9s congestionats del necessari.',
-    giftL3:'V\u00e0rem decidir fer-hi alguna cosa. No una app de pagament. No una plataforma d\u2019inversors externs. Un regal a la ciutat on vivim i treballem.',
-    giftR1:'Appark \u00e9s gratu\u00efta per a palmesans i visitants. Es mant\u00e9 gr\u00e0cies al suport d\u2019empreses locals que creuen en la comunitat.',
-    giftR2:'Sense subscripcions. Sense lletra petita. Sense trampa.',
-    giftR3:'Dharma Brokers \u00e9s una empresa tecnol\u00f2gica de Palma de Mallorca. Creem solucions digitals amb impacte local.',
-    giftQuote:'"Un regal de Palma per a Palma."',
-    spEyebrow:'Per a empreses', spH2:'Les empreses locals que fan possible Appark', spSub:'Sense publicitat intrusiva. Appark \u00e9s gratu\u00efta perqu\u00e8 negocis de Palma trien ser part d\u2019alguna cosa que millora la ciutat.',
-    spBodyA:'Com a ', spBodyStrong:'sponsor fundador', spBodyB:', el teu negoci apareix al mapa com a destinaci\u00f3 recomanada i punt de bescanvi de premis. Els usuaris arriben a la teva porta en el moment exacte: acaben d\u2019aparcar i s\u00f3n a peu de carrer. Aix\u00f2 no \u00e9s publicitat de Google. \u00c9s pres\u00e8ncia local de veritat.',
-    spB1t:'Visibilitat al mapa', spB1d:'El teu negoci destacat mentre els usuaris busquen aparcament a prop.',
-    spB2t:'Punt de bescanvi de premis', spB2d:'Els usuaris gasten els seus punts Appark al teu negoci.',
-    spB3t:'Badge "Sponsor Fundador"', spB3d:'Reconeixement exclusiu limitat als primers sponsors.',
-    spB4t:'Menci\u00f3 en comunicaci\u00f3', spB4d:'Logo a web, xarxes socials i comunicats de premsa locals.',
-    spB5t:'Dades de zona', spB5d:'Insights de mobilitat a la teva \u00e0rea, anonimitzats i conformes al RGPD.',
-    spComing:'Aviat, aqu\u00ed', spLogo:'El teu logo aqu\u00ed',
-    spFormTitle:'S\u00e9s sponsor fundador', spFormSub:'Parlem del que t\u00e9 sentit per al teu negoci. Sense comprom\u00eds.',
-    spLabelEmpresa:'Nom de la teva empresa', spPhEmpresa:'Ex. Caf\u00e8 Sa Pla\u00e7a', spLabelEmail:'Email de contacte', spLabelTel:'Tel\u00e8fon', spLabelTipo:'Tipus de negoci', spTipoSelect:'Selecciona…',
-    spTipo1:'Restaurant / Bar / Cafeteria', spTipo2:'Comer\u00e7 / Botiga', spTipo3:'Serveis professionals', spTipo4:'Hostaleria', spTipo5:'Oci / Entreteniment', spTipo6:'Rent-a-car / Mobilitat', spTipo7:'Altres',
-    spLabelMsg:'Missatge (opcional)', spPhMsg:'Explica\u2019ns sobre el teu negoci…', spBtn:'Vull ser sponsor fundador →', spSending:'Enviant…', spFormNote:'Et respondrem en 24-48 hores. Sense comprom\u00eds.',
-    spSuccessTitle:'Gr\u00e0cies!', spSuccessBody:'Et contactarem en 24-48 hores per parlar de com el teu negoci pot ser part d\u2019Appark.',
-    spErrEmpresa:'Digues-nos el nom de la teva empresa.', spErrEmail:'Introdueix un email de contacte v\u00e0lid.', spErrTipo:'Selecciona el tipus de negoci.',
-    eaEyebrow:'Early access', eaH2:'S\u00e9s dels primers a Palma', eaSub:'Appark arriba l\u2019Estiu 2026. Uneix-te ara i aconsegueix acc\u00e9s abans que ning\u00fa, totalment gratis.',
-    eaBody:'Acc\u00e9s prioritari a la beta, un badge exclusiu de "Fundador de la comunitat" i punts extra des del primer dia.',
-    eaChip1:'Acc\u00e9s prioritari a la beta', eaChip2:'Badge exclusiu "Fundador"', eaChip3:'Punts extra de benvinguda', eaChip4:'El teu feedback d\u00f3na forma a l\u2019app',
-    tl1t:'Ara', tl1d:'Llista d\u2019espera oberta', tl2t:'Estiu 2026', tl2d:'Beta privada per als primers', tl3t:'Tardor 2026', tl3d:'Llan\u00e7ament oficial Palma',
-    eaLabelName:'Nom', eaPhName:'Com et dius?', eaLabelEmail:'Email', eaCheckbox:'Accepto rebre actualitzacions d\u2019Appark. Pots donar-te de baixa quan vulguis.',
-    eaBtn:'Vull acc\u00e9s prioritari →', eaSending:'Enviant…', eaFormNote:'Sense spam. Nom\u00e9s t\u2019avisem quan l\u2019app estigui llesta.',
-    eaSuccessTitle:'Ja ets a la llista!', eaSuccessBody:'T\u2019avisarem abans que a ning\u00fa quan arribi el teu moment. Benvingut/da a la comunitat Appark.',
-    eaErrName:'Escriu el teu nom per continuar.', eaErrEmail:'Introdueix un email v\u00e0lid.', eaErrAccept:'Marca la casella per unir-te a la llista.',
-    footTagline:'Un projecte de Dharma Brokers. Fet a Palma, per a Palma.', footLegal:'Legal', footPrivacy:'Pol\u00edtica de Privacitat', footTerms:'Termes i Condicions', footCookies:'Cookies', footContact:'Contacte', footCopyright:'© 2026 Dharma Brokers. Tots els drets reservats.',
-  },
-  en: {
-    navHow:'How it works', navBiz:'For business', navAbout:'About us', navJoin:'Join', navJoinList:'Join the list',
-    heroBadge:'A Dharma Brokers project for Palma',
-    heroH1a:'Parking in Palma,', heroH1b:'solved together.',
-    heroSubA:'Appark is the ', heroSubStrong:'free, community-powered app', heroSubB:' where the people of Palma help each other find parking in real time. You help others, others help you.',
-    heroCta1:'Join the waitlist', heroCta2:'Become a founding sponsor', heroSocial:'Locals already on the waitlist',
-    chipFree:'Spot free', chipDist:'80 m away · now', chipNear:'spots near you',
-    trust1:'Made in Palma', trust2:'100% free', trust3:'Summer 2026', trust4:'Backed by local shops',
-    probEyebrow:'The problem', probH2:'How many laps have you done today?',
-    probQuote:'"Dues hores donant voltes per Palma" — Tomeu Penya sang it because we\u2019ve all lived it.',
-    probP1:'People in Palma lose precious minutes hunting for parking every time they head downtown. In summer, with tourism at its peak, it only gets worse.',
-    probP2:'Time wasted. Fuel burned. Nerves frayed. And when you finally find a spot, you\u2019re too drained to enjoy anything.',
-    probP3a:'Palma has an app to pay for parking, one for the bus, another for bikes\u2026 but none that tells you where there\u2019s a free spot ', probP3strong:'right now', probP3b:'. Until now.',
-    stat1:'what Appark costs you, today and always', stat2big:'Summer 2026', stat2:'beta launch in Palma', stat3:'languages: for locals and tourists',
-    solEyebrow:'The solution', solH2:'Palma\u2019s parking, collaborative and free', solSub:'It works like Waze, but for parking. Four steps, thirty seconds, and the whole city pushes with you.',
-    step1t:'Open Appark', step1d:'See Palma\u2019s map in real time with the spots available right now.',
-    step2t:'Follow the green dot', step2d:'Navigate to the free spot another local just left behind.',
-    step3t:'Park and mark', step3d:'Flag your spot when you arrive. Thirty seconds, mission done.',
-    step4t:'Earn points', step4d:'Every shared spot earns points redeemable at Palma shops.',
-    feat1t:'Real-time map', feat1d:'Spots updated by the community, second by second. No guessing, no approximating.',
-    feat2t:'Local gamification', feat2d:'Points redeemable at sponsoring shops and restaurants in Palma. Parking well pays off.',
-    feat3t:'For everyone', feat3d:'In Spanish, Catalan, English and German. For locals and for the tourists looking for a spot too.',
-    feat4t:'Free forever', feat4d:'No subscriptions. No annoying ads. Free today, free tomorrow, free always.',
-    giftEyebrow:'A gift to the city', giftH2:'Why free? Because Palma deserves it.', giftSub:'Appark isn\u2019t a parking business. It\u2019s a city project.',
-    giftL1:'We\u2019re Dharma Brokers, a company with roots in Mallorca.',
-    giftL2:'For years we\u2019ve watched parking fragment life in Palma: wasted time, avoidable stress, streets more congested than they need to be.',
-    giftL3:'We decided to do something about it. Not a paid app. Not an outside-investor platform. A gift to the city where we live and work.',
-    giftR1:'Appark is free for locals and visitors. It\u2019s sustained by the support of local businesses that believe in the community.',
-    giftR2:'No subscriptions. No fine print. No catch.',
-    giftR3:'Dharma Brokers is a technology company from Palma de Mallorca. We build digital solutions with local impact.',
-    giftQuote:'"A gift from Palma, for Palma."',
-    spEyebrow:'For business', spH2:'The local businesses that make Appark possible', spSub:'No intrusive ads. Appark is free because Palma businesses choose to be part of something that improves the city.',
-    spBodyA:'As a ', spBodyStrong:'founding sponsor', spBodyB:', your business appears on the map as a recommended destination and rewards-redemption point. Users reach your door at the exact moment: they\u2019ve just parked and are on foot. This isn\u2019t Google advertising. It\u2019s real local presence.',
-    spB1t:'Visibility on the map', spB1d:'Your business featured while users look for parking nearby.',
-    spB2t:'Rewards redemption point', spB2d:'Users spend their Appark points at your business.',
-    spB3t:'"Founding Sponsor" badge', spB3d:'Exclusive recognition limited to the first sponsors.',
-    spB4t:'Mention in communications', spB4d:'Logo on the website, social media and local press releases.',
-    spB5t:'Area data', spB5d:'Mobility insights for your area, anonymized and GDPR-compliant.',
-    spComing:'Coming soon, here', spLogo:'Your logo here',
-    spFormTitle:'Become a founding sponsor', spFormSub:'Let\u2019s talk about what makes sense for your business. No commitment.',
-    spLabelEmpresa:'Your company name', spPhEmpresa:'e.g. Caf\u00e9 Sa Pla\u00e7a', spLabelEmail:'Contact email', spLabelTel:'Phone', spLabelTipo:'Business type', spTipoSelect:'Select…',
-    spTipo1:'Restaurant / Bar / Caf\u00e9', spTipo2:'Shop / Store', spTipo3:'Professional services', spTipo4:'Hospitality', spTipo5:'Leisure / Entertainment', spTipo6:'Car rental / Mobility', spTipo7:'Other',
-    spLabelMsg:'Message (optional)', spPhMsg:'Tell us about your business…', spBtn:'Become a founding sponsor →', spSending:'Sending…', spFormNote:'We\u2019ll reply within 24-48 hours. No commitment.',
-    spSuccessTitle:'Thank you!', spSuccessBody:'We\u2019ll contact you within 24-48 hours to talk about how your business can be part of Appark.',
-    spErrEmpresa:'Tell us your company name.', spErrEmail:'Enter a valid contact email.', spErrTipo:'Select your business type.',
-    eaEyebrow:'Early access', eaH2:'Be among the first in Palma', eaSub:'Appark arrives in Summer 2026. Join now and get access before anyone else, completely free.',
-    eaBody:'Priority access to the beta, an exclusive "Community Founder" badge and bonus points from day one.',
-    eaChip1:'Priority beta access', eaChip2:'Exclusive "Founder" badge', eaChip3:'Welcome bonus points', eaChip4:'Your feedback shapes the app',
-    tl1t:'Now', tl1d:'Waitlist open', tl2t:'Summer 2026', tl2d:'Private beta for the first', tl3t:'Autumn 2026', tl3d:'Official Palma launch',
-    eaLabelName:'Name', eaPhName:'What\u2019s your name?', eaLabelEmail:'Email', eaCheckbox:'I agree to receive Appark updates. You can unsubscribe whenever you want.',
-    eaBtn:'I want priority access →', eaSending:'Sending…', eaFormNote:'No spam. We only ping you when the app is ready.',
-    eaSuccessTitle:'You\u2019re on the list!', eaSuccessBody:'We\u2019ll let you know before anyone else when your moment comes. Welcome to the Appark community.',
-    eaErrName:'Enter your name to continue.', eaErrEmail:'Enter a valid email.', eaErrAccept:'Tick the box to join the list.',
-    footTagline:'A Dharma Brokers project. Made in Palma, for Palma.', footLegal:'Legal', footPrivacy:'Privacy Policy', footTerms:'Terms & Conditions', footCookies:'Cookies', footContact:'Contact', footCopyright:'© 2026 Dharma Brokers. All rights reserved.',
-  },
-  de: {
-    navHow:'So funktioniert\u2019s', navBiz:'F\u00fcr Unternehmen', navAbout:'\u00dcber uns', navJoin:'Mitmachen', navJoinList:'Zur Liste',
-    heroBadge:'Ein Projekt von Dharma Brokers f\u00fcr Palma',
-    heroH1a:'Parken in Palma,', heroH1b:'gemeinsam gel\u00f6st.',
-    heroSubA:'Appark ist die ', heroSubStrong:'kostenlose Gemeinschafts-App', heroSubB:', mit der sich die Menschen in Palma in Echtzeit beim Parkplatzfinden helfen. Du hilfst anderen, andere helfen dir.',
-    heroCta1:'Auf die Warteliste', heroCta2:'Gr\u00fcndungs-Sponsor werden', heroSocial:'Einheimische stehen bereits auf der Warteliste',
-    chipFree:'Platz frei', chipDist:'80 m entfernt · jetzt', chipNear:'Pl\u00e4tze in deiner N\u00e4he',
-    trust1:'In Palma gemacht', trust2:'100% kostenlos', trust3:'Sommer 2026', trust4:'Unterst\u00fctzt vom lokalen Handel',
-    probEyebrow:'Das Problem', probH2:'Wie viele Runden hast du heute gedreht?',
-    probQuote:'"Dues hores donant voltes per Palma" — Tomeu Penya sang es, weil wir es alle erlebt haben.',
-    probP1:'Die Menschen in Palma verlieren jedes Mal kostbare Minuten bei der Parkplatzsuche im Zentrum. Im Sommer, bei vollem Tourismus, wird es noch schlimmer.',
-    probP2:'Verlorene Zeit. Verbrannter Sprit. Strapazierte Nerven. Und wenn du endlich einen Platz findest, hast du auf nichts mehr Lust.',
-    probP3a:'In Palma gibt es eine App f\u00fcrs Parken-Bezahlen, eine f\u00fcr den Bus, eine f\u00fcr die Fahrr\u00e4der\u2026 aber keine, die dir sagt, wo ', probP3strong:'gerade jetzt', probP3b:' ein Platz frei ist. Bis jetzt.',
-    stat1:'so viel kostet dich Appark, heute und immer', stat2big:'Sommer 2026', stat2:'Beta-Start in Palma', stat3:'Sprachen: f\u00fcr Einheimische und Touristen',
-    solEyebrow:'Die L\u00f6sung', solH2:'Palmas Parken, gemeinschaftlich und kostenlos', solSub:'Funktioniert wie Waze, aber f\u00fcrs Parken. Vier Schritte, drei\u00dfig Sekunden, und die ganze Stadt zieht mit dir.',
-    step1t:'\u00d6ffne Appark', step1d:'Sieh Palmas Karte in Echtzeit mit den gerade verf\u00fcgbaren Pl\u00e4tzen.',
-    step2t:'Folge dem gr\u00fcnen Punkt', step2d:'Navigiere zum freien Platz, den ein anderer gerade verlassen hat.',
-    step3t:'Parken und markieren', step3d:'Markiere deinen Platz bei der Ankunft. Drei\u00dfig Sekunden, erledigt.',
-    step4t:'Punkte sammeln', step4d:'Jeder geteilte Platz bringt Punkte, einl\u00f6sbar in Gesch\u00e4ften in Palma.',
-    feat1t:'Echtzeit-Karte', feat1d:'Pl\u00e4tze von der Community aktualisiert, Sekunde f\u00fcr Sekunde. Nicht erfunden, nicht gesch\u00e4tzt.',
-    feat2t:'Lokale Gamification', feat2d:'Punkte einl\u00f6sbar in teilnehmenden Gesch\u00e4ften und Restaurants in Palma. Gut parken lohnt sich.',
-    feat3t:'F\u00fcr alle', feat3d:'Auf Spanisch, Katalanisch, Englisch und Deutsch. F\u00fcr Einheimische und f\u00fcr Touristen, die auch einen Platz suchen.',
-    feat4t:'F\u00fcr immer kostenlos', feat4d:'Keine Abos. Keine nervige Werbung. Kostenlos heute, morgen und immer.',
-    giftEyebrow:'Ein Geschenk an die Stadt', giftH2:'Warum kostenlos? Weil Palma es verdient.', giftSub:'Appark ist kein Parkgesch\u00e4ft. Es ist ein Stadtprojekt.',
-    giftL1:'Wir sind Dharma Brokers, ein Unternehmen mit Wurzeln auf Mallorca.',
-    giftL2:'Seit Jahren sehen wir, wie das Parken das Leben in Palma zerst\u00fcckelt: verlorene Zeit, vermeidbarer Stress, unn\u00f6tig verstopfte Stra\u00dfen.',
-    giftL3:'Wir haben beschlossen, etwas zu tun. Keine Bezahl-App. Keine Plattform externer Investoren. Ein Geschenk an die Stadt, in der wir leben und arbeiten.',
-    giftR1:'Appark ist kostenlos f\u00fcr Einheimische und Besucher. Es wird durch die Unterst\u00fctzung lokaler Unternehmen getragen, die an die Gemeinschaft glauben.',
-    giftR2:'Keine Abos. Kein Kleingedrucktes. Kein Haken.',
-    giftR3:'Dharma Brokers ist ein Technologieunternehmen aus Palma de Mallorca. Wir schaffen digitale L\u00f6sungen mit lokaler Wirkung.',
-    giftQuote:'"Ein Geschenk von Palma f\u00fcr Palma."',
-    spEyebrow:'F\u00fcr Unternehmen', spH2:'Die lokalen Unternehmen, die Appark m\u00f6glich machen', spSub:'Keine aufdringliche Werbung. Appark ist kostenlos, weil sich Unternehmen aus Palma entscheiden, Teil von etwas zu sein, das die Stadt verbessert.',
-    spBodyA:'Als ', spBodyStrong:'Gr\u00fcndungs-Sponsor', spBodyB:' erscheint dein Gesch\u00e4ft auf der Karte als empfohlenes Ziel und Pr\u00e4mien-Einl\u00f6sepunkt. Nutzer kommen genau im richtigen Moment an deine T\u00fcr: gerade geparkt und zu Fu\u00df unterwegs. Das ist keine Google-Werbung. Das ist echte lokale Pr\u00e4senz.',
-    spB1t:'Sichtbarkeit auf der Karte', spB1d:'Dein Gesch\u00e4ft hervorgehoben, w\u00e4hrend Nutzer in der N\u00e4he parken suchen.',
-    spB2t:'Pr\u00e4mien-Einl\u00f6sepunkt', spB2d:'Nutzer geben ihre Appark-Punkte in deinem Gesch\u00e4ft aus.',
-    spB3t:'"Gr\u00fcndungs-Sponsor"-Badge', spB3d:'Exklusive Anerkennung, begrenzt auf die ersten Sponsoren.',
-    spB4t:'Erw\u00e4hnung in der Kommunikation', spB4d:'Logo auf Website, Social Media und lokalen Pressemitteilungen.',
-    spB5t:'Gebietsdaten', spB5d:'Mobilit\u00e4ts-Insights f\u00fcr dein Gebiet, anonymisiert und DSGVO-konform.',
-    spComing:'Bald hier', spLogo:'Dein Logo hier',
-    spFormTitle:'Gr\u00fcndungs-Sponsor werden', spFormSub:'Sprechen wir dar\u00fcber, was f\u00fcr dein Gesch\u00e4ft sinnvoll ist. Unverbindlich.',
-    spLabelEmpresa:'Name deines Unternehmens', spPhEmpresa:'z. B. Caf\u00e9 Sa Pla\u00e7a', spLabelEmail:'Kontakt-E-Mail', spLabelTel:'Telefon', spLabelTipo:'Art des Gesch\u00e4fts', spTipoSelect:'Ausw\u00e4hlen…',
-    spTipo1:'Restaurant / Bar / Caf\u00e9', spTipo2:'Handel / Gesch\u00e4ft', spTipo3:'Professionelle Dienstleistungen', spTipo4:'Gastgewerbe', spTipo5:'Freizeit / Unterhaltung', spTipo6:'Autovermietung / Mobilit\u00e4t', spTipo7:'Sonstiges',
-    spLabelMsg:'Nachricht (optional)', spPhMsg:'Erz\u00e4hl uns von deinem Gesch\u00e4ft…', spBtn:'Gr\u00fcndungs-Sponsor werden →', spSending:'Senden…', spFormNote:'Wir antworten innerhalb von 24-48 Stunden. Unverbindlich.',
-    spSuccessTitle:'Danke!', spSuccessBody:'Wir melden uns innerhalb von 24-48 Stunden, um zu besprechen, wie dein Gesch\u00e4ft Teil von Appark werden kann.',
-    spErrEmpresa:'Sag uns den Namen deines Unternehmens.', spErrEmail:'Gib eine g\u00fcltige Kontakt-E-Mail ein.', spErrTipo:'W\u00e4hle die Art deines Gesch\u00e4fts.',
-    eaEyebrow:'Early Access', eaH2:'Sei unter den Ersten in Palma', eaSub:'Appark kommt im Sommer 2026. Mach jetzt mit und erhalte Zugang vor allen anderen, komplett kostenlos.',
-    eaBody:'Vorrangiger Zugang zur Beta, ein exklusives "Community-Gr\u00fcnder"-Badge und Bonuspunkte vom ersten Tag an.',
-    eaChip1:'Vorrangiger Beta-Zugang', eaChip2:'Exklusives "Gr\u00fcnder"-Badge', eaChip3:'Willkommens-Bonuspunkte', eaChip4:'Dein Feedback formt die App',
-    tl1t:'Jetzt', tl1d:'Warteliste ge\u00f6ffnet', tl2t:'Sommer 2026', tl2d:'Private Beta f\u00fcr die Ersten', tl3t:'Herbst 2026', tl3d:'Offizieller Start in Palma',
-    eaLabelName:'Name', eaPhName:'Wie hei\u00dft du?', eaLabelEmail:'E-Mail', eaCheckbox:'Ich m\u00f6chte Appark-Updates erhalten. Du kannst dich jederzeit abmelden.',
-    eaBtn:'Ich will vorrangigen Zugang →', eaSending:'Senden…', eaFormNote:'Kein Spam. Wir melden uns nur, wenn die App bereit ist.',
-    eaSuccessTitle:'Du bist auf der Liste!', eaSuccessBody:'Wir sagen dir vor allen anderen Bescheid, wenn dein Moment kommt. Willkommen in der Appark-Community.',
-    eaErrName:'Gib deinen Namen ein, um fortzufahren.', eaErrEmail:'Gib eine g\u00fcltige E-Mail ein.', eaErrAccept:'Setze das H\u00e4kchen, um der Liste beizutreten.',
-    footTagline:'Ein Projekt von Dharma Brokers. In Palma gemacht, f\u00fcr Palma.', footLegal:'Rechtliches', footPrivacy:'Datenschutz', footTerms:'AGB', footCookies:'Cookies', footContact:'Kontakt', footCopyright:'© 2026 Dharma Brokers. Alle Rechte vorbehalten.',
-  },
-};
-const LANG_NAMES = { es:'Español', ca:'Català', en:'English', de:'Deutsch' };
-const LANG_ORDER = ['es','ca','en','de'];
-
 class Component extends DCLogic {
   state = {
-    lang: 'es',
-    langOpen: false,
     mobileOpen: false,
     isNarrow: false,
     scrolled: false,
+    signupCount: 0,
+    signupCountAnimated: 0,
+    showSponsors: false, // Hide sponsor section until we have 3+ real sponsors
     ea: { nombre: '', email: '', accepts: false, status: 'idle', error: '' },
     sp: { empresa: '', email: '', telefono: '', tipo: '', mensaje: '', status: 'idle', error: '' },
   };
 
+  // Initialize Supabase client
+  supabase = null;
+
+  initSupabase() {
+    // Configuration: Replace these with your actual Supabase credentials
+    // You can also use environment variables or a config file
+    const SUPABASE_URL = window.APPARK_SUPABASE_URL || 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = window.APPARK_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+
+    // Only initialize if credentials are provided
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase) {
+      this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      return true;
+    }
+    return false;
+  }
+
+  async fetchSignupCount() {
+    if (!this.supabase) return;
+
+    try {
+      const { data, error } = await this.supabase.rpc('get_signup_count');
+      if (error) throw error;
+
+      const newCount = data || 0;
+      if (newCount !== this.state.signupCount) {
+        this.animateCount(this.state.signupCount, newCount);
+        this.setState({ signupCount: newCount });
+      }
+    } catch (error) {
+      console.error('Error fetching signup count:', error);
+    }
+  }
+
+  animateCount(from, to) {
+    const duration = 1000; // 1 second
+    const startTime = Date.now();
+    const difference = to - from;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = Math.round(from + difference * easeOutQuart);
+
+      this.setState({ signupCountAnimated: current });
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
+  subscribeToSignups() {
+    if (!this.supabase) return;
+
+    // Subscribe to real-time updates on signups table
+    this.signupSubscription = this.supabase
+      .channel('signups_count')
+      .on('postgres_changes',
+        { event: '*', schema: 'public', table: 'signups' },
+        () => {
+          // Refetch count when signups table changes
+          this.fetchSignupCount();
+        }
+      )
+      .subscribe();
+  }
+
   componentDidMount() {
-    try { const l = localStorage.getItem('appark_lang'); if (l && TRANS[l]) this.setState({ lang: l }); } catch (_) {}
     this._onResize = () => this.setState({ isNarrow: window.innerWidth < 880 });
-    this._onScroll = () => { const s = window.scrollY > 24; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
-    this._onResize(); this._onScroll();
+    this._onScroll = () => {
+      const s = window.scrollY > 24;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    this._onResize();
+    this._onScroll();
     window.addEventListener('resize', this._onResize);
     window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // Initialize Supabase and fetch initial count
+    if (this.initSupabase()) {
+      this.fetchSignupCount();
+      this.subscribeToSignups();
+    } else {
+      // Fallback: use localStorage count for demo/development
+      try {
+        const ea = JSON.parse(localStorage.getItem('appark_early_access') || '[]');
+        const sp = JSON.parse(localStorage.getItem('appark_sponsors') || '[]');
+        const count = ea.length + sp.length;
+        this.setState({ signupCount: count, signupCountAnimated: count });
+      } catch (_) {
+        this.setState({ signupCount: 0, signupCountAnimated: 0 });
+      }
+    }
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll);
-  }
 
-  setLang(l) {
-    try { localStorage.setItem('appark_lang', l); } catch (_) {}
-    try { document.documentElement.lang = l; } catch (_) {}
-    this.setState({ lang: l, langOpen: false, mobileOpen: false });
+    // Unsubscribe from real-time updates
+    if (this.signupSubscription) {
+      this.supabase.removeChannel(this.signupSubscription);
+    }
   }
 
   setEa(p) { this.setState(s => ({ ea: { ...s.ea, ...p } })); }
   setSp(p) { this.setState(s => ({ sp: { ...s.sp, ...p } })); }
   validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  submitEa(e) {
+  async submitEa(e) {
     if (e && e.preventDefault) e.preventDefault();
-    const t = TRANS[this.state.lang];
     const { nombre, email, accepts } = this.state.ea;
-    if (!nombre.trim()) return this.setEa({ status: 'error', error: t.eaErrName });
-    if (!this.validEmail(email)) return this.setEa({ status: 'error', error: t.eaErrEmail });
-    if (!accepts) return this.setEa({ status: 'error', error: t.eaErrAccept });
+    if (!nombre.trim()) return this.setEa({ status: 'error', error: 'Escribe tu nombre para continuar.' });
+    if (!this.validEmail(email)) return this.setEa({ status: 'error', error: 'Introduce un email válido.' });
+    if (!accepts) return this.setEa({ status: 'error', error: 'Marca la casilla para unirte a la lista.' });
     this.setEa({ status: 'loading', error: '' });
-    setTimeout(() => {
+
+    // Try Supabase first, fallback to localStorage
+    if (this.supabase) {
       try {
-        const k = 'appark_early_access';
-        const arr = JSON.parse(localStorage.getItem(k) || '[]');
-        arr.push({ nombre, email, ts: new Date().toISOString() });
-        localStorage.setItem(k, JSON.stringify(arr));
-      } catch (_) {}
-      this.setEa({ status: 'success' });
-    }, 950);
+        const { data, error } = await this.supabase
+          .from('signups')
+          .insert([{
+            email: email,
+            name: nombre,
+            language: document.documentElement.lang || 'es',
+            source: 'landing-early-access'
+          }])
+          .select();
+
+        if (error) {
+          // Check for unique constraint violation (duplicate email)
+          if (error.code === '23505') {
+            this.setEa({ status: 'error', error: 'Este email ya está registrado.' });
+            return;
+          }
+          throw error;
+        }
+
+        this.setEa({ status: 'success' });
+        // Count will update via real-time subscription
+      } catch (error) {
+        console.error('Supabase error:', error);
+        this.setEa({ status: 'error', error: 'Error al guardar. Por favor, intenta de nuevo.' });
+      }
+    } else {
+      // Fallback to localStorage for demo/development
+      setTimeout(() => {
+        try {
+          const k = 'appark_early_access';
+          const arr = JSON.parse(localStorage.getItem(k) || '[]');
+          arr.push({ nombre, email, ts: new Date().toISOString() });
+          localStorage.setItem(k, JSON.stringify(arr));
+          // Update count manually in fallback mode
+          this.setState({ signupCount: arr.length, signupCountAnimated: arr.length });
+        } catch (_) {}
+        this.setEa({ status: 'success' });
+      }, 950);
+    }
   }
 
-  submitSp(e) {
+  async submitSp(e) {
     if (e && e.preventDefault) e.preventDefault();
-    const t = TRANS[this.state.lang];
-    const { empresa, email, tipo } = this.state.sp;
-    if (!empresa.trim()) return this.setSp({ status: 'error', error: t.spErrEmpresa });
-    if (!this.validEmail(email)) return this.setSp({ status: 'error', error: t.spErrEmail });
-    if (!tipo) return this.setSp({ status: 'error', error: t.spErrTipo });
+    const { empresa, email, tipo, telefono, mensaje } = this.state.sp;
+    if (!empresa.trim()) return this.setSp({ status: 'error', error: 'Dinos el nombre de tu empresa.' });
+    if (!this.validEmail(email)) return this.setSp({ status: 'error', error: 'Introduce un email de contacto válido.' });
+    if (!tipo) return this.setSp({ status: 'error', error: 'Selecciona tu tipo de negocio.' });
     this.setSp({ status: 'loading', error: '' });
-    setTimeout(() => {
+
+    // Try Supabase first, fallback to localStorage
+    if (this.supabase) {
       try {
-        const k = 'appark_sponsors';
-        const arr = JSON.parse(localStorage.getItem(k) || '[]');
-        const s = this.state.sp;
-        arr.push({ empresa: s.empresa, email: s.email, telefono: s.telefono, tipo: s.tipo, mensaje: s.mensaje, ts: new Date().toISOString() });
-        localStorage.setItem(k, JSON.stringify(arr));
-      } catch (_) {}
-      this.setSp({ status: 'success' });
-    }, 950);
+        const { data, error } = await this.supabase
+          .from('signups')
+          .insert([{
+            email: email,
+            name: empresa,
+            language: document.documentElement.lang || 'es',
+            source: 'landing-sponsor',
+            metadata: { telefono, tipo, mensaje } // Store extra sponsor fields in metadata
+          }])
+          .select();
+
+        if (error) {
+          if (error.code === '23505') {
+            this.setSp({ status: 'error', error: 'Este email ya está registrado.' });
+            return;
+          }
+          throw error;
+        }
+
+        this.setSp({ status: 'success' });
+      } catch (error) {
+        console.error('Supabase error:', error);
+        this.setSp({ status: 'error', error: 'Error al guardar. Por favor, intenta de nuevo.' });
+      }
+    } else {
+      // Fallback to localStorage for demo/development
+      setTimeout(() => {
+        try {
+          const k = 'appark_sponsors';
+          const arr = JSON.parse(localStorage.getItem(k) || '[]');
+          arr.push({ empresa, email, telefono, tipo, mensaje, ts: new Date().toISOString() });
+          localStorage.setItem(k, JSON.stringify(arr));
+        } catch (_) {}
+        this.setSp({ status: 'success' });
+      }, 950);
+    }
   }
 
   renderVals() {
     const accent = this.props.accent ?? '#FF6A3D';
-    const lang = TRANS[this.state.lang] ? this.state.lang : 'es';
-    const t = TRANS[lang];
     const ea = this.state.ea, sp = this.state.sp;
     const clr = (st) => (st === 'error' ? 'idle' : st);
     return {
-      accent, t,
+      accent,
       showTrustBar: this.props.showTrustBar ?? true,
+      showSponsors: this.state.showSponsors,
       isNarrow: this.state.isNarrow,
       showDesktopNav: !this.state.isNarrow,
       showHamburger: this.state.isNarrow,
       showMobileMenu: this.state.isNarrow && this.state.mobileOpen,
-      toggleMobile: () => this.setState(s => ({ mobileOpen: !s.mobileOpen, langOpen: false })),
+      toggleMobile: () => this.setState(s => ({ mobileOpen: !s.mobileOpen })),
       closeMobile: () => this.setState({ mobileOpen: false }),
-
-      // language
-      langLabel: lang.toUpperCase(),
-      langOpen: this.state.langOpen,
-      toggleLang: () => this.setState(s => ({ langOpen: !s.langOpen })),
-      cycleLang: () => { const i = LANG_ORDER.indexOf(lang); this.setLang(LANG_ORDER[(i + 1) % LANG_ORDER.length]); },
-      langs: LANG_ORDER.map(code => ({
-        code: code.toUpperCase(),
-        name: LANG_NAMES[code],
-        bg: code === lang ? '#FBF6EE' : 'transparent',
-        select: () => this.setLang(code),
-      })),
-
       navBg: this.state.scrolled ? 'rgba(251,246,238,0.82)' : 'rgba(251,246,238,0)',
       navShadow: this.state.scrolled ? '0 6px 24px rgba(10,42,54,0.08)' : 'none',
       navBorder: this.state.scrolled ? '1px solid rgba(10,42,54,0.07)' : '1px solid transparent',
 
-      eaNombre: ea.nombre, eaEmail: ea.email, eaAccepts: ea.accepts,
+      // Signup counter
+      signupCount: this.state.signupCountAnimated || 0,
+
+      // Early access
+      eaNombre: ea.nombre,
+      eaEmail: ea.email,
+      eaAccepts: ea.accepts,
       onEaNombre: (e) => this.setEa({ nombre: e.target.value, status: clr(ea.status) }),
       onEaEmail: (e) => this.setEa({ email: e.target.value, status: clr(ea.status) }),
       onEaAccepts: (e) => this.setEa({ accepts: e.target.checked, status: clr(ea.status) }),
       submitEa: (e) => this.submitEa(e),
-      eaSuccess: ea.status === 'success', eaNotSuccess: ea.status !== 'success',
-      eaLoading: ea.status === 'loading', eaHasError: ea.status === 'error', eaError: ea.error,
-      eaBtnText: ea.status === 'loading' ? t.eaSending : t.eaBtn,
+      eaSuccess: ea.status === 'success',
+      eaNotSuccess: ea.status !== 'success',
+      eaLoading: ea.status === 'loading',
+      eaHasError: ea.status === 'error',
+      eaError: ea.error,
+      eaBtnText: ea.status === 'loading' ? 'Enviando…' : 'Quiero acceso prioritario →',
       eaBtnOpacity: ea.status === 'loading' ? 0.75 : 1,
 
-      spEmpresa: sp.empresa, spEmail: sp.email, spTel: sp.telefono, spTipo: sp.tipo, spMensaje: sp.mensaje, spMensajeCount: sp.mensaje.length,
+      // Sponsor
+      spEmpresa: sp.empresa,
+      spEmail: sp.email,
+      spTel: sp.telefono,
+      spTipo: sp.tipo,
+      spMensaje: sp.mensaje,
+      spMensajeCount: sp.mensaje.length,
       onSpEmpresa: (e) => this.setSp({ empresa: e.target.value, status: clr(sp.status) }),
       onSpEmail: (e) => this.setSp({ email: e.target.value, status: clr(sp.status) }),
       onSpTel: (e) => this.setSp({ telefono: e.target.value, status: clr(sp.status) }),
       onSpTipo: (e) => this.setSp({ tipo: e.target.value, status: clr(sp.status) }),
       onSpMensaje: (e) => this.setSp({ mensaje: e.target.value.slice(0, 500), status: clr(sp.status) }),
       submitSp: (e) => this.submitSp(e),
-      spSuccess: sp.status === 'success', spNotSuccess: sp.status !== 'success',
-      spLoading: sp.status === 'loading', spHasError: sp.status === 'error', spError: sp.error,
-      spBtnText: sp.status === 'loading' ? t.spSending : t.spBtn,
+      spSuccess: sp.status === 'success',
+      spNotSuccess: sp.status !== 'success',
+      spLoading: sp.status === 'loading',
+      spHasError: sp.status === 'error',
+      spError: sp.error,
+      spBtnText: sp.status === 'loading' ? 'Enviando…' : 'Quiero ser sponsor fundador →',
       spBtnOpacity: sp.status === 'loading' ? 0.75 : 1,
     };
   }

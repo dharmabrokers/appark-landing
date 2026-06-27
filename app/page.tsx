@@ -6,7 +6,8 @@ import TrustBar from '@/components/landing/TrustBar'
 import ProblemSection from '@/components/landing/ProblemSection'
 import SolutionSection from '@/components/landing/SolutionSection'
 import RegaloSection from '@/components/landing/RegaloSection'
-import SponsorsSection from '@/components/landing/SponsorsSection'
+// Hidden until we have 3+ real sponsors - APP-73
+// import SponsorsSection from '@/components/landing/SponsorsSection'
 import EarlyAccessSection from '@/components/landing/EarlyAccessSection'
 import Footer from '@/components/landing/Footer'
 
@@ -20,7 +21,8 @@ export default function Home() {
         <ProblemSection />
         <SolutionSection />
         <RegaloSection />
-        <SponsorsSection />
+        {/* Hidden until we have 3+ real sponsors - APP-73 */}
+        {/* <SponsorsSection /> */}
         <EarlyAccessSection />
       </main>
       <Footer />

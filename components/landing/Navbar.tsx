@@ -57,7 +57,8 @@ export default function Navbar() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
             {[
               { href: '#como-funciona', label: t.navHow },
-              { href: '#sponsors', label: t.navBiz },
+              // Hidden until we have 3+ real sponsors - APP-73
+              // { href: '#sponsors', label: t.navBiz },
               { href: '#sobre-nosotros', label: t.navAbout },
             ].map(({ href, label }) => (
               <a key={href} href={href} style={{ textDecoration: 'none', color: '#34525C', fontWeight: 600, fontSize: 15 }}
@@ -116,7 +117,8 @@ export default function Navbar() {
         <div style={{ background: 'rgba(251,246,238,.98)', borderTop: '1px solid rgba(10,42,54,.08)', padding: '16px 24px 22px', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {[
             { href: '#como-funciona', label: t.navHow },
-            { href: '#sponsors', label: t.navBiz },
+            // Hidden until we have 3+ real sponsors - APP-73
+            // { href: '#sponsors', label: t.navBiz },
             { href: '#sobre-nosotros', label: t.navAbout },
           ].map(({ href, label }) => (
             <a key={href} href={href} onClick={() => setMobileOpen(false)}
