@@ -18,7 +18,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 export default function EarlyAccessForm() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [accepts, setAccepts] = useState(false)
@@ -42,7 +42,7 @@ export default function EarlyAccessForm() {
       const res = await fetch('/api/early-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email, acceptsUpdates: accepts, recaptchaToken }),
+        body: JSON.stringify({ nombre, email, acceptsUpdates: accepts, language: lang, recaptchaToken }),
       })
 
       if (!res.ok) throw new Error('Server error')

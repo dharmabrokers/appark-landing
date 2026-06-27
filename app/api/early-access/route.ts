@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
     }
 
-    const { nombre, email, acceptsUpdates, recaptchaToken } = parsed.data
+    const { nombre, email, acceptsUpdates, language, recaptchaToken } = parsed.data
 
     if (!acceptsUpdates) {
       return NextResponse.json({ error: 'Consent required' }, { status: 400 })
@@ -33,6 +33,7 @@ export async function POST(req: Request) {
           nombre,
           email,
           acceptsUpdates,
+          language,
           timestamp: new Date().toISOString(),
           source: 'appark.es',
         }),

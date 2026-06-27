@@ -6,6 +6,7 @@ export const earlyAccessSchema = z.object({
   acceptsUpdates: z.literal(true, {
     errorMap: () => ({ message: 'You must accept to join the list' }),
   }),
+  language: z.enum(['es', 'ca', 'en', 'de']).default('es'),
   recaptchaToken: z.string().optional(),
 })
 
