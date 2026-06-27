@@ -73,14 +73,19 @@ export default function SponsorsSection() {
               ))}
             </div>
 
-            <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#8A9BA2', marginBottom: 16 }}>{t.spComing}</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(135px,1fr))', gap: 12 }}>
-              {[1, 2, 3, 4, 5, 6].map(n => (
-                <div key={n} style={{ height: 78, background: '#fff', border: '1.5px dashed rgba(10,42,54,.14)', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontSize: 12, color: '#A4B2B8', fontWeight: 600 }}>{t.spLogo}</span>
+            {/* Hidden until we have 3+ real sponsors - APP-73 */}
+            {false && (
+              <>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#8A9BA2', marginBottom: 16 }}>{t.spComing}</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(135px,1fr))', gap: 12 }}>
+                  {[1, 2, 3, 4, 5, 6].map(n => (
+                    <div key={n} style={{ height: 78, background: '#fff', border: '1.5px dashed rgba(10,42,54,.14)', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontSize: 12, color: '#A4B2B8', fontWeight: 600 }}>{t.spLogo}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
 
           {/* Right: form */}

@@ -38,7 +38,7 @@
     <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;align-items:center;gap:34px">
         <a href="#como-funciona" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Cómo funciona</a>
-        <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Para empresas</a></sc-if>
+        <a href="#sponsors" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Para empresas</a></sc-if>
         <a href="#sobre-nosotros" style="text-decoration:none;color:#34525C;font-weight:600;font-size:15px" style-hover="color:#0A2A36">Sobre nosotros</a>
         <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;background:{{ accent }};color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:13px;box-shadow:0 8px 22px rgba(255,106,61,.32)" style-hover="filter:brightness(1.06);transform:translateY(-1px)">Únete <span style="font-size:16px">→</span></a>
       </div>
@@ -54,7 +54,7 @@
   <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
     <div style="background:rgba(251,246,238,.98);border-top:1px solid rgba(10,42,54,.08);padding:16px 24px 22px;display:flex;flex-direction:column;gap:6px">
       <a href="#como-funciona" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Cómo funciona</a>
-      <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Para empresas</a></sc-if>
+      <a href="#sponsors" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Para empresas</a></sc-if>
       <a href="#sobre-nosotros" onClick="{{ closeMobile }}" style="text-decoration:none;color:#0A2A36;font-weight:600;font-size:17px;padding:12px 4px">Sobre nosotros</a>
       <a href="#early-access" onClick="{{ closeMobile }}" style="text-decoration:none;text-align:center;background:{{ accent }};color:#fff;font-weight:700;font-size:16px;padding:14px;border-radius:13px;margin-top:8px">Únete a la lista →</a>
     </div>
@@ -74,7 +74,7 @@
       <p style="font-size:clamp(1.05rem,1.6vw,1.28rem);line-height:1.6;color:#45626C;max-width:540px;margin:0 0 34px">Appark es la app <strong style="color:#0A2A36;font-weight:700">gratuita y colaborativa</strong> donde los palmesanos se ayudan a encontrar aparcamiento en tiempo real. Tú ayudas a otros, otros te ayudan a ti.</p>
       <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
         <a href="#early-access" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:{{ accent }};color:#fff;font-weight:700;font-size:17px;padding:17px 30px;border-radius:15px;box-shadow:0 14px 34px rgba(255,106,61,.38)" style-hover="transform:translateY(-2px);filter:brightness(1.05)">Únete a la lista de espera <span style="font-size:18px">→</span></a>
-        <sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}"><a href="#sponsors" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#fff;color:#0A2A36;font-weight:700;font-size:17px;padding:17px 28px;border-radius:15px;border:1.5px solid rgba(10,42,54,.14)" style-hover="border-color:#11607A;color:#11607A">Quiero ser sponsor fundador</a></sc-if>
+        <a href="#sponsors" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#fff;color:#0A2A36;font-weight:700;font-size:17px;padding:17px 28px;border-radius:15px;border:1.5px solid rgba(10,42,54,.14)" style-hover="border-color:#11607A;color:#11607A">Quiero ser sponsor fundador</a></sc-if>
       </div>
       <div style="display:flex;align-items:center;gap:13px;margin-top:30px">
         <div style="display:flex">
@@ -244,8 +244,6 @@
 </section>
 
 <!-- ============ SPONSORS ============ -->
-<!-- Hidden until we have 3+ real sponsors. To re-enable, set showSponsors: true in state -->
-<sc-if value="{{ showSponsors }}" hint-placeholder-val="{{ false }}">
 <section id="sponsors" style="scroll-margin-top:72px;padding:96px 24px;background:#F8FAFB">
   <div style="width:100%;max-width:1180px;margin:0 auto">
     <div style="text-align:center;max-width:760px;margin:0 auto 50px">
@@ -265,6 +263,8 @@
           <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F7EF;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1FB877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 21 3l-8 18-2.5-7.5L3 11Z"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Mención en comunicación</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Logo en web, redes sociales y comunicados de prensa locales.</div></div></div>
           <div style="display:flex;gap:15px;align-items:flex-start"><div style="flex:none;width:42px;height:42px;border-radius:12px;background:#E6F1F4;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#11607A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="13" y="7" width="3" height="10"/></svg></div><div><div style="font-weight:700;font-size:15.5px;color:#0A2A36;margin-bottom:2px">Datos de zona</div><div style="font-size:14.5px;color:#5C7681;line-height:1.5">Insights de movilidad en tu área, anonimizados y conformes al RGPD.</div></div></div>
         </div>
+        <!-- Hidden until we have 3+ real sponsors - APP-73 -->
+        <sc-if value="{{ showSponsorLogos }}" hint-placeholder-val="{{ false }}">
         <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8A9BA2;margin-bottom:16px">Pronto, aquí</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px">
           <image-slot id="sponsor-1" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
@@ -274,6 +274,7 @@
           <image-slot id="sponsor-5" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
           <image-slot id="sponsor-6" shape="rounded" radius="14" placeholder="Tu logo aquí" style="height:78px;display:block;background:#fff"></image-slot>
         </div>
+        </sc-if>
       </div>
 
       <!-- right: sponsor form -->
@@ -307,7 +308,6 @@
     </div>
   </div>
 </section>
-</sc-if>
 
 <!-- ============ EARLY ACCESS ============ -->
 <section id="early-access" style="scroll-margin-top:72px;position:relative;padding:104px 24px;background:linear-gradient(155deg,#0E5167 0%,#0C3A4A 60%,#0A2A36 100%);overflow:hidden">
@@ -400,7 +400,7 @@ class Component extends DCLogic {
     scrolled: false,
     signupCount: 0,
     signupCountAnimated: 0,
-    showSponsors: false, // Hide sponsor section until we have 3+ real sponsors
+    showSponsorLogos: false, // Hide sponsor logo badges until we have 3+ real sponsors - APP-73
     ea: { nombre: '', email: '', accepts: false, status: 'idle', error: '' },
     sp: { empresa: '', email: '', telefono: '', tipo: '', mensaje: '', status: 'idle', error: '' },
   };
@@ -628,7 +628,7 @@ class Component extends DCLogic {
     return {
       accent,
       showTrustBar: this.props.showTrustBar ?? true,
-      showSponsors: this.state.showSponsors,
+      showSponsorLogos: this.state.showSponsorLogos,
       isNarrow: this.state.isNarrow,
       showDesktopNav: !this.state.isNarrow,
       showHamburger: this.state.isNarrow,

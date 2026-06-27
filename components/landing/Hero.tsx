@@ -38,13 +38,12 @@ export default function Hero() {
               onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.filter = '' }}>
               {t.heroCta1} <span style={{ fontSize: 18 }}>→</span>
             </a>
-            {/* Hidden until we have 3+ real sponsors - APP-73 */}
-            {/* <a href="#sponsors"
+            <a href="#sponsors"
               style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 9, background: '#fff', color: '#0A2A36', fontWeight: 700, fontSize: 17, padding: '17px 28px', borderRadius: 15, border: '1.5px solid rgba(10,42,54,.14)' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = '#11607A'; e.currentTarget.style.color = '#11607A' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(10,42,54,.14)'; e.currentTarget.style.color = '#0A2A36' }}>
               {t.heroCta2}
-            </a> */}
+            </a>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 13, marginTop: 30 }}>
