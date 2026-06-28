@@ -46,7 +46,7 @@ export default function Navbar() {
   const navBorder = scrolled ? '1px solid rgba(10,42,54,0.07)' : '1px solid transparent'
 
   return (
-    <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90, background: navBg, boxShadow: navShadow, borderBottom: navBorder, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', transition: 'background .3s,box-shadow .3s,border-color .3s' }}>
+    <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90, background: navBg, boxShadow: navShadow, borderBottom: navBorder, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', transition: 'background .3s,box-shadow .3s,border-color .3s', overflow: 'hidden' }}>
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxSizing: 'border-box' }}>
         <a href="#hero" onClick={() => setMobileOpen(false)} aria-label="Appark inicio" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <LogoSVG />
