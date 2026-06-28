@@ -74,7 +74,7 @@ export default function PrivacidadPage() {
         </p>
 
         <Paragraph>
-          En <strong>Dharma Brokers S.L.</strong> (en adelante, "Dharma Brokers" o
+          En <strong>DHARMA BROKERS' CONSULTING, SOCIEDAD LIMITADA</strong> (en adelante, "Dharma Brokers" o
           "nosotros"), responsables de la aplicación <strong>Appark</strong>, nos tomamos muy
           en serio la protección de tus datos personales.
         </Paragraph>
@@ -88,11 +88,11 @@ export default function PrivacidadPage() {
 
         <SectionTitle>1. Responsable del tratamiento</SectionTitle>
         <Paragraph>
-          <strong>Identidad:</strong> Dharma Brokers S.L.
+          <strong>Identidad:</strong> DHARMA BROKERS' CONSULTING, SOCIEDAD LIMITADA
           <br />
-          <strong>NIF:</strong> B16959530
+          <strong>CIF:</strong> B27607480
           <br />
-          <strong>Domicilio:</strong> Palma de Mallorca, Illes Balears, España
+          <strong>Domicilio fiscal:</strong> C/ Emili Darder Batle, 4A, 6B. Palma 07011, Baleares
           <br />
           <strong>Correo electrónico:</strong>{' '}
           <a href="mailto:hola@appark.es" style={{ color: '#1FB877' }}>

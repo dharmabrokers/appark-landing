@@ -75,7 +75,7 @@ export default function TerminosPage() {
 
         <Paragraph>
           Bienvenido a <strong>Appark</strong>, la aplicación de aparcamiento colaborativo
-          para Palma de Mallorca, operada por <strong>Dharma Brokers S.L.</strong> (en
+          para Palma de Mallorca, operada por <strong>DHARMA BROKERS' CONSULTING, SOCIEDAD LIMITADA</strong> (CIF: B27607480) (en
           adelante, "Dharma Brokers", "nosotros" o "Appark").
         </Paragraph>
 
