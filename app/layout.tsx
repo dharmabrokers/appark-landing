@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Manrope } from 'next/font/google'
 import './globals.css'
+import CookieBanner from '@/components/CookieBanner'
 
 const display = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body style={{ fontFamily: 'var(--font-body), system-ui, sans-serif' }}>
         {children}
+        <CookieBanner />
       </body>
     </html>
   )

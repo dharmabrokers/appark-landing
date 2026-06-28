@@ -47,11 +47,11 @@ export default function Footer() {
             <div style={{ fontWeight: 700, fontSize: 13, letterSpacing: '1px', textTransform: 'uppercase', color: '#6E8990', marginBottom: 16 }}>{t.footLegal}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
               {[
-                { label: t.footPrivacy },
-                { label: t.footTerms },
-                { label: t.footCookies },
-              ].map(({ label }) => (
-                <a key={label} href="#" style={{ textDecoration: 'none', color: '#C7D7DC', fontSize: 14.5 }}
+                { label: t.footPrivacy, href: '/legal/privacidad' },
+                { label: t.footTerms, href: '/legal/terminos' },
+                { label: t.footCookies, href: '/legal/privacidad#cookies' },
+              ].map(({ label, href }) => (
+                <a key={label} href={href} style={{ textDecoration: 'none', color: '#C7D7DC', fontSize: 14.5 }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
                   onMouseLeave={e => (e.currentTarget.style.color = '#C7D7DC')}>
                   {label}
