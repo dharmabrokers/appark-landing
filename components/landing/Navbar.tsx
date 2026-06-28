@@ -105,7 +105,7 @@ export default function Navbar() {
               {lang.toUpperCase()}
             </button>
             <button onClick={() => setMobileOpen(o => !o)} aria-label="Abrir menú"
-              style={{ display: 'flex', flexDirection: 'column', gap: 5, background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}>
+              style={{ display: 'flex', flexDirection: 'column', gap: 5, background: 'none', border: 'none', cursor: 'pointer', padding: '8px 0 8px 8px', marginRight: -8 }}>
               {[0, 1, 2].map(i => <span key={i} style={{ width: 24, height: 2.5, background: '#0A2A36', borderRadius: 2, display: 'block' }} />)}
             </button>
           </div>
