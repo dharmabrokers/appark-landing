@@ -92,7 +92,7 @@ export default function PrivacidadPage() {
           <br />
           <strong>CIF:</strong> B27607480
           <br />
-          <strong>Domicilio fiscal:</strong> C/ Emili Darder Batle, 4A, 6B. Palma 07011, Baleares
+          <strong>Domicilio fiscal:</strong> C/ Emili Darder Batle, 4A. Palma 07011, Baleares
           <br />
           <strong>Correo electrónico:</strong>{' '}
           <a href="mailto:hola@appark.es" style={{ color: '#1FB877' }}>
