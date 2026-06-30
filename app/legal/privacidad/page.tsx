@@ -5,8 +5,9 @@ export const metadata: Metadata = {
   description: 'Política de privacidad de Appark conforme al RGPD y la LOPDGDD',
 }
 
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+const SectionTitle = ({ children, id }: { children: React.ReactNode; id?: string }) => (
   <h2
+    id={id}
     style={{
       fontFamily: 'var(--font-display), system-ui, sans-serif',
       fontSize: 24,
