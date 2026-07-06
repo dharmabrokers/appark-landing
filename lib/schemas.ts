@@ -16,6 +16,7 @@ export const sponsorSchema = z.object({
   telefono: z.string().optional(),
   tipoNegocio: z.string().min(1, 'Business type is required'),
   mensaje: z.string().max(500).optional(),
+  language: z.enum(['es', 'ca', 'en', 'de']).default('es'),
   recaptchaToken: z.string().optional(),
 })
 

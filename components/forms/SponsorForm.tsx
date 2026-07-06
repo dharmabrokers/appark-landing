@@ -26,7 +26,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 export default function SponsorForm() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const [empresa, setEmpresa] = useState('')
   const [email, setEmail] = useState('')
   const [telefono, setTelefono] = useState('')
@@ -54,7 +54,7 @@ export default function SponsorForm() {
       const res = await fetch('/api/sponsor-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ empresa, email, telefono, tipoNegocio: tipo, mensaje, recaptchaToken }),
+        body: JSON.stringify({ empresa, email, telefono, tipoNegocio: tipo, mensaje, language: lang, recaptchaToken }),
       })
 
       if (!res.ok) throw new Error('Server error')
