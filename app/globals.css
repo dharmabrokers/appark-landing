@@ -23,6 +23,12 @@ body {
   color: #0A2A36;
 }
 
+@media (max-width: 700px) {
+  .sp-flow-arrow {
+    display: none;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
