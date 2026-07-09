@@ -64,8 +64,8 @@ const DoorIcon = () => (
 interface Plan {
   key: 'bronze' | 'silver' | 'gold'
   name: string
-  standardCash: number
-  founderCash: number
+  standardFee: number
+  founderFee: number
   reward: number
   recommended: boolean
 }
@@ -90,10 +90,10 @@ function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] 
       <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', marginBottom: 18, textAlign: 'center' }}>{plan.name}</div>
 
       <div style={{ textAlign: 'center', marginBottom: 6 }}>
-        <span style={{ fontSize: 15, color: '#A4B2B8', textDecoration: 'line-through', fontWeight: 600 }}>€{plan.standardCash}</span>
+        <span style={{ fontSize: 15, color: '#A4B2B8', textDecoration: 'line-through', fontWeight: 600 }}>€{plan.standardFee}</span>
       </div>
       <div style={{ textAlign: 'center', marginBottom: 4 }}>
-        <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 42, color: '#0A2A36' }}>€{plan.founderCash}</span>
+        <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 42, color: '#0A2A36' }}>€{plan.founderFee}</span>
       </div>
       <div style={{ textAlign: 'center', fontSize: 13.5, color: '#5C7681', fontWeight: 600, marginBottom: 18 }}>{t.spPlanCashLabel}</div>
 
@@ -114,9 +114,9 @@ export default function SponsorsSection() {
   const { t } = useLang()
 
   const plans: Plan[] = [
-    { key: 'bronze', name: t.spPlanBronzeName, standardCash: 99, founderCash: 69, reward: 50, recommended: false },
-    { key: 'silver', name: t.spPlanSilverName, standardCash: 199, founderCash: 139, reward: 100, recommended: true },
-    { key: 'gold', name: t.spPlanGoldName, standardCash: 399, founderCash: 279, reward: 150, recommended: false },
+    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, reward: 50, recommended: false },
+    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, reward: 100, recommended: true },
+    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, reward: 150, recommended: false },
   ]
 
   const benefits = [
