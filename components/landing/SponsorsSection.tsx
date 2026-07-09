@@ -156,7 +156,7 @@ export default function SponsorsSection() {
           <p style={{ fontSize: 18, lineHeight: 1.6, color: '#45626C', margin: 0 }}>{t.spSub}</p>
         </div>
 
-        {/* ===== MODEL EXPLAINER: cash + rewards ===== */}
+        {/* ===== MODEL EXPLAINER: fee + rewards ===== */}
         <div style={{ background: '#fff', border: '1px solid rgba(10,42,54,.08)', borderRadius: 28, padding: 'clamp(28px,4vw,48px)', marginBottom: 40, boxShadow: '0 20px 50px rgba(10,42,54,.06)' }}>
           <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 36px' }}>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF6A3D', marginBottom: 14 }}>{t.spModelEyebrow}</div>
