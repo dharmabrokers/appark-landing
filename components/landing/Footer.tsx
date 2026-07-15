@@ -69,12 +69,12 @@ export default function Footer() {
               hola@appark.es
             </a>
             <div style={{ display: 'flex', gap: 12 }}>
-              <a href="#" aria-label="Instagram" style={socialBtnStyle}
+              <a href="https://www.instagram.com/appark_palma" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={socialBtnStyle}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
                 <InstagramIcon />
               </a>
-              <a href="#" aria-label="TikTok" style={socialBtnStyle}
+              <a href="https://www.tiktok.com/@appark_palma" target="_blank" rel="noopener noreferrer" aria-label="TikTok" style={socialBtnStyle}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
                 <TikTokIcon />
