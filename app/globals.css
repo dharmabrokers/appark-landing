@@ -29,6 +29,14 @@ body {
   }
 }
 
+/* Sticky founder CTA: mobile only — hidden on tablet/desktop where the
+   form is easier to reach. */
+@media (min-width: 768px) {
+  .sticky-cta-mobile {
+    display: none !important;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

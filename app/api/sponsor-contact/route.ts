@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 import { sponsorSchema } from '@/lib/schemas'
 import { verifyRecaptcha } from '@/lib/recaptcha'
+import { deliverSponsorLead } from '@/lib/leadDelivery'
+
+// SMTP (nodemailer) needs the Node.js runtime, not edge.
+export const runtime = 'nodejs'
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json() as unknown
+    const body = (await req.json()) as unknown
 
     const parsed = sponsorSchema.safeParse(body)
     if (!parsed.success) {
@@ -20,22 +24,17 @@ export async function POST(req: Request) {
       }
     }
 
-    const webhookUrl = process.env.N8N_SPONSOR_WEBHOOK_URL
-    if (webhookUrl) {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          empresa,
-          email,
-          telefono,
-          tipoNegocio,
-          mensaje,
-          language,
-          timestamp: new Date().toISOString(),
-          source: 'appark.es',
-        }),
-      })
+    const { delivered, configured } = await deliverSponsorLead({
+      Empresa: empresa,
+      email,
+      'Teléfono': telefono,
+      'Tipo de negocio': tipoNegocio,
+      Mensaje: mensaje,
+      Idioma: language,
+    })
+
+    if (configured && !delivered) {
+      return NextResponse.json({ error: 'Delivery failed' }, { status: 502 })
     }
 
     return NextResponse.json({ success: true })
