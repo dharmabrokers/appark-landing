@@ -117,8 +117,15 @@ export default function PrivacidadPage() {
             encriptada (si te registras con email) o ID de proveedor (si usas login social).
           </li>
           <li>
-            <strong>Datos de ubicación:</strong> coordenadas GPS cuando reportas una plaza o
-            buscas aparcamiento (solo con tu consentimiento explícito).
+            <strong>Datos de ubicación (primer plano):</strong> coordenadas GPS cuando
+            reportas una plaza, buscas aparcamiento o validas un reporte (solo con tu
+            consentimiento explícito, mientras usas la app).
+          </li>
+          <li>
+            <strong>Datos de ubicación (segundo plano):</strong> si activas la detección
+            automática, la app registra tu ubicación aproximada incluso cuando está cerrada o
+            no la estás usando, para poder avisarte cuando te acercas a tu coche guardado o
+            detectar que acabas de aparcar. Ver el detalle en el apartado siguiente.
           </li>
           <li>
             <strong>Datos de uso:</strong> plazas reportadas, puntos ganados, preferencias de
@@ -130,6 +137,44 @@ export default function PrivacidadPage() {
             identificador de sesión.
           </li>
         </ul>
+
+        <div
+          style={{
+            background: '#FBF6EE',
+            border: '1.5px solid #FF6A3D',
+            borderRadius: 14,
+            padding: '20px 22px',
+            marginBottom: 16,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 15.5,
+              lineHeight: 1.7,
+              color: '#0A2A36',
+              margin: 0,
+              fontWeight: 700,
+            }}
+          >
+            📍 Uso de la ubicación en segundo plano
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
+            La función principal de Appark —avisar a la comunidad cuando dejas una plaza libre—
+            solo funciona si la app puede detectar tu ubicación aproximada mientras está
+            cerrada o no la estás usando activamente. Con tu permiso explícito (&quot;Permitir
+            todo el tiempo&quot;), Appark usa esta ubicación en segundo plano exclusivamente
+            para:
+          </p>
+          <ul style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0, paddingLeft: 22 }}>
+            <li>Detectar cuando te acercas al coche que guardaste, para preguntarte si vas a dejar la plaza libre.</li>
+            <li>Detectar cuando acabas de aparcar, para ofrecerte guardar la ubicación de tu coche con un toque.</li>
+          </ul>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
+            Esta ubicación en segundo plano nunca se comparte con sponsors ni terceros, no se
+            usa con fines publicitarios y puedes desactivarla en cualquier momento desde los
+            ajustes de permisos de tu dispositivo o borrando tu coche guardado en la app.
+          </p>
+        </div>
 
         <SectionTitle>3. Finalidad del tratamiento y base legal</SectionTitle>
         <Paragraph>Usamos tus datos para:</Paragraph>
