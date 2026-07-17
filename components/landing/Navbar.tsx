@@ -67,6 +67,12 @@ export default function Navbar() {
               </a>
             ))}
 
+            <a href="#escuchanos" style={{ textDecoration: 'none', color: '#FF6A3D', fontWeight: 700, fontSize: 15, display: 'inline-flex', alignItems: 'center' }}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = '')}>
+              {t.navListen}
+            </a>
+
             <div ref={langRef} style={{ position: 'relative' }}>
               <button onClick={() => setLangOpen(o => !o)} aria-label="Cambiar idioma"
                 style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#fff', border: '1px solid rgba(10,42,54,.12)', color: '#0A2A36', fontWeight: 700, fontSize: 14, padding: '9px 13px', borderRadius: 11, cursor: 'pointer', fontFamily: "'Manrope',sans-serif" }}>
@@ -124,6 +130,10 @@ export default function Navbar() {
               {label}
             </a>
           ))}
+          <a href="#escuchanos" onClick={() => setMobileOpen(false)}
+            style={{ textDecoration: 'none', color: '#FF6A3D', fontWeight: 700, fontSize: 17, padding: '12px 4px' }}>
+            {t.navListen}
+          </a>
           <a href="#early-access" onClick={() => setMobileOpen(false)}
             style={{ textDecoration: 'none', textAlign: 'center', background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, padding: 14, borderRadius: 13, marginTop: 8 }}>
             {t.navJoinList} →

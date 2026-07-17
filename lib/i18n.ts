@@ -2,6 +2,7 @@ export type Lang = 'es' | 'ca' | 'en' | 'de'
 
 export interface Translations {
   navHow: string; navBiz: string; navAbout: string; navJoin: string; navJoinList: string
+  navListen: string
   heroBadge: string; heroH1a: string; heroH1b: string
   heroSubA: string; heroSubStrong: string; heroSubB: string
   heroCta1: string; heroCta2: string; heroSocial: string
@@ -64,6 +65,7 @@ export const TRANS: Record<Lang, Translations> = {
   es: {
     navHow: 'Cómo funciona', navBiz: 'Para empresas', navAbout: 'Sobre nosotros',
     navJoin: 'Únete', navJoinList: 'Únete a la lista',
+    navListen: '🎧 Escúchanos',
     heroBadge: '🎁 Plazas de fundador: el doble de puntos y premios, para siempre',
     heroH1a: 'Deja de dar vueltas.', heroH1b: 'El parking de Palma, resuelto por todos.',
     heroSubA: 'Appark es la app ', heroSubStrong: 'gratuita y colaborativa',
@@ -184,6 +186,7 @@ export const TRANS: Record<Lang, Translations> = {
   ca: {
     navHow: 'Com funciona', navBiz: 'Per a empreses', navAbout: 'Qui som',
     navJoin: 'Uneix-te', navJoinList: "Uneix-te a la llista",
+    navListen: "🎧 Escolta'ns",
     heroBadge: '🎁 Places de fundador: el doble de punts i premis, per sempre',
     heroH1a: 'Deixa de fer voltes.', heroH1b: "L'aparcament de Palma, resolt entre tots.",
     heroSubA: "Appark és l'app ", heroSubStrong: 'gratuïta i col·laborativa',
@@ -304,6 +307,7 @@ export const TRANS: Record<Lang, Translations> = {
   en: {
     navHow: 'How it works', navBiz: 'For business', navAbout: 'About us',
     navJoin: 'Join', navJoinList: 'Join the list',
+    navListen: '🎧 Listen to us',
     heroBadge: '🎁 Founder spots: double points and prizes, forever',
     heroH1a: 'Stop circling the block.', heroH1b: 'Parking in Palma, solved together.',
     heroSubA: 'Appark is the ', heroSubStrong: 'free, community-powered app',
@@ -424,6 +428,7 @@ export const TRANS: Record<Lang, Translations> = {
   de: {
     navHow: "So funktioniert's", navBiz: 'Für Unternehmen', navAbout: 'Über uns',
     navJoin: 'Mitmachen', navJoinList: 'Zur Liste',
+    navListen: '🎧 Hör uns zu',
     heroBadge: '🎁 Gründerplätze: doppelte Punkte und Prämien, für immer',
     heroH1a: 'Schluss mit dem Kreisen.', heroH1b: 'Parken in Palma, gemeinsam gelöst.',
     heroSubA: 'Appark ist die ', heroSubStrong: 'kostenlose Gemeinschafts-App',

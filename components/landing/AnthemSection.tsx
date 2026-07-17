@@ -56,7 +56,7 @@ export default function AnthemSection() {
   }
 
   return (
-    <section style={{ padding: '72px 24px', background: '#FBF6EE' }}>
+    <section id="escuchanos" style={{ scrollMarginTop: 72, padding: '72px 24px', background: '#FBF6EE' }}>
       <div style={{ width: '100%', maxWidth: 640, margin: '0 auto' }}>
         <div
           style={{
