@@ -51,6 +51,8 @@ export interface Translations {
   footTagline: string; footLegal: string; footPrivacy: string
   footTerms: string; footCookies: string; footContact: string; footCopyright: string
   stickyTitle: string; stickySub: string; stickyBtn: string
+  anthemEyebrow: string; anthemTitle: string; anthemSub: string
+  anthemPlay: string; anthemPause: string; anthemBy: string
 }
 
 export const LANG_ORDER: Lang[] = ['es', 'ca', 'en', 'de']
@@ -175,6 +177,9 @@ export const TRANS: Record<Lang, Translations> = {
     footContact: 'Contacto',
     footCopyright: '© 2026 Dharma Brokers. Todos los derechos reservados.',
     stickyTitle: 'Doble de puntos y premios', stickySub: 'Plazas de fundador · gratis', stickyBtn: 'Reservar →',
+    anthemEyebrow: 'Bonus', anthemTitle: 'Hasta tenemos canción',
+    anthemSub: '"No Donis Mes Voltes" — el himno no oficial de Appark, para quien ya está harto de dar vueltas buscando aparcamiento.',
+    anthemPlay: 'Escucha el tema de Appark', anthemPause: 'Pausar', anthemBy: 'Un tema de Dharma Brokers para Palma',
   },
   ca: {
     navHow: 'Com funciona', navBiz: 'Per a empreses', navAbout: 'Qui som',
@@ -292,6 +297,9 @@ export const TRANS: Record<Lang, Translations> = {
     footContact: 'Contacte',
     footCopyright: '© 2026 Dharma Brokers. Tots els drets reservats.',
     stickyTitle: 'Doble de punts i premis', stickySub: 'Places de fundador · gratis', stickyBtn: 'Reservar →',
+    anthemEyebrow: 'Bonus', anthemTitle: 'Fins i tot tenim cançó',
+    anthemSub: '"No Donis Mes Voltes" — l\'himne no oficial d\'Appark, per a qui ja està fart de fer voltes buscant aparcament.',
+    anthemPlay: 'Escolta el tema d\'Appark', anthemPause: 'Pausar', anthemBy: 'Un tema de Dharma Brokers per a Palma',
   },
   en: {
     navHow: 'How it works', navBiz: 'For business', navAbout: 'About us',
@@ -409,6 +417,9 @@ export const TRANS: Record<Lang, Translations> = {
     footContact: 'Contact',
     footCopyright: '© 2026 Dharma Brokers. All rights reserved.',
     stickyTitle: 'Double points and prizes', stickySub: 'Founder spots · free', stickyBtn: 'Claim →',
+    anthemEyebrow: 'Bonus', anthemTitle: 'We even have a song',
+    anthemSub: '"No Donis Mes Voltes" ("Stop Going in Circles") — Appark\'s unofficial anthem, for anyone tired of circling for parking.',
+    anthemPlay: 'Listen to the Appark song', anthemPause: 'Pause', anthemBy: 'A song by Dharma Brokers for Palma',
   },
   de: {
     navHow: "So funktioniert's", navBiz: 'Für Unternehmen', navAbout: 'Über uns',
@@ -526,5 +537,8 @@ export const TRANS: Record<Lang, Translations> = {
     footContact: 'Kontakt',
     footCopyright: '© 2026 Dharma Brokers. Alle Rechte vorbehalten.',
     stickyTitle: 'Doppelte Punkte und Prämien', stickySub: 'Gründerplätze · kostenlos', stickyBtn: 'Sichern →',
+    anthemEyebrow: 'Bonus', anthemTitle: 'Wir haben sogar einen Song',
+    anthemSub: '"No Donis Mes Voltes" — die inoffizielle Hymne von Appark, für alle, die es satt haben, nach einem Parkplatz zu kreisen.',
+    anthemPlay: 'Appark-Song anhören', anthemPause: 'Pause', anthemBy: 'Ein Song von Dharma Brokers für Palma',
   },
 }
