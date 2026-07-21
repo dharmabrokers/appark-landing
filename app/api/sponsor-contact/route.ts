@@ -25,12 +25,12 @@ export async function POST(req: Request) {
     }
 
     const { delivered, configured } = await deliverSponsorLead({
-      Empresa: empresa,
+      empresa,
       email,
-      'Teléfono': telefono,
-      'Tipo de negocio': tipoNegocio,
-      Mensaje: mensaje,
-      Idioma: language,
+      telefono,
+      tipoNegocio,
+      mensaje,
+      language,
     })
 
     if (configured && !delivered) {

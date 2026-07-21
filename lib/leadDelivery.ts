@@ -38,6 +38,40 @@ function getTransporter(): nodemailer.Transporter | null {
   return transporter
 }
 
+/**
+ * Insert a row into a Supabase table via the REST API using the public
+ * anon key. Relies on an RLS policy that allows `anon` INSERT on that
+ * table (see supabase/migrations/0010_fix_sponsor_leads_anon_insert.sql
+ * in the Appark-main repo). No service-role secret is needed here — the
+ * anon key is already public. This is what lands leads directly in the
+ * CRM pipeline instead of only emailing them.
+ */
+async function supabaseInsert(table: string, row: Record<string, unknown>): Promise<boolean> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key) return false
+  try {
+    const res = await fetch(`${url}/rest/v1/${table}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify(row),
+    })
+    if (!res.ok) {
+      console.error(`[leadDelivery] supabase insert into ${table} failed:`, res.status, await res.text().catch(() => ''))
+      return false
+    }
+    return true
+  } catch (err) {
+    console.error(`[leadDelivery] supabase insert into ${table} threw:`, err)
+    return false
+  }
+}
+
 async function sendWebhook(url: string, payload: Record<string, unknown>): Promise<boolean> {
   try {
     const res = await fetch(url, {
@@ -111,17 +145,49 @@ export async function deliverEarlyAccessLead(data: {
 }
 
 /** Deliver a sponsor-contact lead through every configured channel. */
-export async function deliverSponsorLead(data: Record<string, unknown>): Promise<LeadDeliveryResult> {
+export async function deliverSponsorLead(data: {
+  empresa: string
+  email: string
+  telefono?: string
+  tipoNegocio?: string
+  mensaje?: string
+  language: string
+}): Promise<LeadDeliveryResult> {
   const webhookUrl = process.env.N8N_SPONSOR_WEBHOOK_URL
   const hasEmail = !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
-  const configured = !!webhookUrl || hasEmail
+  const hasSupabase = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+  const configured = !!webhookUrl || hasEmail || hasSupabase
 
   const payload = { ...data, timestamp: new Date().toISOString(), source: 'appark.es', type: 'sponsor_contact' }
 
+  // Row for the CRM pipeline (public.sponsor_leads). Column names must
+  // match the table; `status: 'lead'` is the first pipeline stage.
+  const leadRow = {
+    empresa: data.empresa,
+    email: data.email,
+    telefono: data.telefono || null,
+    tipo_negocio: data.tipoNegocio || null,
+    mensaje: data.mensaje || null,
+    language: data.language,
+    source: 'appark.es',
+    status: 'lead',
+  }
+
+  // Pretty rows for the internal notification email.
+  const emailRows = {
+    Empresa: data.empresa,
+    email: data.email,
+    'Teléfono': data.telefono,
+    'Tipo de negocio': data.tipoNegocio,
+    Mensaje: data.mensaje,
+    Idioma: data.language,
+  }
+
   const results = await Promise.all([
+    hasSupabase ? supabaseInsert('sponsor_leads', leadRow) : Promise.resolve<boolean | null>(null),
     webhookUrl ? sendWebhook(webhookUrl, payload) : Promise.resolve<boolean | null>(null),
     hasEmail
-      ? sendEmail('🤝 Nuevo interés de sponsor en Appark', data)
+      ? sendEmail('🤝 Nuevo interés de sponsor en Appark', emailRows)
       : Promise.resolve<boolean | null>(null),
   ])
 
