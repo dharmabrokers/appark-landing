@@ -156,6 +156,35 @@ export default function SponsorsSection() {
           <p style={{ fontSize: 18, lineHeight: 1.6, color: '#45626C', margin: 0 }}>{t.spSub}</p>
         </div>
 
+        {/* ===== FREE FIRST MONTH BANNER — the zero-friction hook ===== */}
+        <div style={{
+          background: 'linear-gradient(135deg,#E9FBF2,#F1FBF6)',
+          border: '1.5px solid rgba(31,184,119,.35)',
+          borderRadius: 24,
+          padding: 'clamp(26px,4vw,38px)',
+          marginBottom: 32,
+          boxShadow: '0 20px 50px rgba(31,184,119,.10)',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 24,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <div style={{ flex: '1 1 420px' }}>
+            <span style={{ display: 'inline-block', background: '#1FB877', color: '#fff', fontSize: 12.5, fontWeight: 800, letterSpacing: '.5px', padding: '6px 14px', borderRadius: 999, marginBottom: 14, boxShadow: '0 8px 18px rgba(31,184,119,.3)' }}>
+              {t.spFreeMonthBadge}
+            </span>
+            <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.3rem,2.6vw,1.7rem)', lineHeight: 1.2, color: '#0A2A36', marginBottom: 10, maxWidth: 560 }}>
+              {t.spFreeMonthTitle}
+            </div>
+            <p style={{ fontSize: 15.5, lineHeight: 1.6, color: '#3E5B54', margin: '0 0 8px', maxWidth: 560 }}>{t.spFreeMonthDesc}</p>
+            <p style={{ fontSize: 13, fontWeight: 700, color: '#1B8A5A', margin: 0 }}>✓ {t.spFreeMonthNote}</p>
+          </div>
+          <a href="#sponsor-form" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', background: '#1FB877', color: '#fff', fontWeight: 700, fontSize: 15, padding: '15px 26px', borderRadius: 14, boxShadow: '0 12px 28px rgba(31,184,119,.32)', whiteSpace: 'nowrap' }}>
+            {t.spFreeMonthCta}
+          </a>
+        </div>
+
         {/* ===== MODEL EXPLAINER: fee + rewards ===== */}
         <div style={{ background: '#fff', border: '1px solid rgba(10,42,54,.08)', borderRadius: 28, padding: 'clamp(28px,4vw,48px)', marginBottom: 40, boxShadow: '0 20px 50px rgba(10,42,54,.06)' }}>
           <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 36px' }}>

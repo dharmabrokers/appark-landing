@@ -32,6 +32,7 @@ export interface Translations {
   spPlanRecommended: string
   spPlanBronzeName: string; spPlanSilverName: string; spPlanGoldName: string
   spPlanCashLabel: string; spPlanRewardLabel: string; spPlanStandard: string; spPlanCta: string
+  spFreeMonthBadge: string; spFreeMonthTitle: string; spFreeMonthDesc: string; spFreeMonthNote: string; spFreeMonthCta: string
   spFounderBadge: string; spFounderTitle: string; spFounderDesc: string; spFounderNote: string
   spComing: string; spLogo: string
   spFormTitle: string; spFormSub: string
@@ -134,6 +135,11 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronce', spPlanSilverName: 'Plata', spPlanGoldName: 'Oro',
     spPlanCashLabel: 'de cuota / mes', spPlanRewardLabel: 'en premios (tu producto) / mes',
     spPlanStandard: 'Precio estándar', spPlanCta: 'Quiero este paquete →',
+    spFreeMonthBadge: '🎁 Primer mes gratis',
+    spFreeMonthTitle: 'Te anunciamos gratis el primer mes. Tú solo pones los premios.',
+    spFreeMonthDesc: 'Desde el día 1 apareces en el mapa de Appark ante miles de conductores buscando aparcar en Palma — sin pagar cuota. La cuota de tu tier (con el descuento fundador) no empieza hasta el segundo mes.',
+    spFreeMonthNote: 'Cero riesgo: si no te convence, avísanos antes de que empiece el mes 2 y no pagas nada.',
+    spFreeMonthCta: 'Quiero mi mes gratis →',
     spFounderBadge: 'Oferta de lanzamiento',
     spFounderTitle: 'Sponsor Fundador: 30% de descuento sobre la cuota',
     spFounderDesc: 'Válido para los primeros 50 negocios de Palma o hasta el 15 de agosto de 2026. Después, 15% de descuento durante toda la fase beta.',
@@ -255,6 +261,11 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Plata', spPlanGoldName: 'Or',
     spPlanCashLabel: 'de quota / mes', spPlanRewardLabel: 'en premis (el teu producte) / mes',
     spPlanStandard: 'Preu estàndard', spPlanCta: 'Vull aquest paquet →',
+    spFreeMonthBadge: '🎁 Primer mes gratis',
+    spFreeMonthTitle: "T'anunciem gratis el primer mes. Tu només poses els premis.",
+    spFreeMonthDesc: "Des del dia 1 apareixes al mapa d'Appark davant de milers de conductors que busquen aparcar a Palma — sense pagar quota. La quota del teu tier (amb el descompte fundador) no comença fins al segon mes.",
+    spFreeMonthNote: "Zero risc: si no et convenç, avisa'ns abans que comenci el mes 2 i no pagues res.",
+    spFreeMonthCta: 'Vull el meu mes gratis →',
     spFounderBadge: 'Oferta de llançament',
     spFounderTitle: 'Sponsor Fundador: 30% de descompte sobre la quota',
     spFounderDesc: "Vàlid per als primers 50 negocis de Palma o fins al 15 d'agost de 2026. Després, 15% de descompte durant tota la fase beta.",
@@ -376,6 +387,11 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silver', spPlanGoldName: 'Gold',
     spPlanCashLabel: 'fee / month', spPlanRewardLabel: 'in rewards (your product) / month',
     spPlanStandard: 'Standard price', spPlanCta: 'I want this package →',
+    spFreeMonthBadge: '🎁 First month free',
+    spFreeMonthTitle: 'We advertise you for free the first month. You just bring the rewards.',
+    spFreeMonthDesc: "From day 1 you're on the Appark map in front of thousands of drivers looking for parking in Palma — no fee. Your tier's fee (with the founder discount) doesn't start until month two.",
+    spFreeMonthNote: 'Zero risk: not convinced? Tell us before month two starts and you pay nothing.',
+    spFreeMonthCta: 'I want my free month →',
     spFounderBadge: 'Launch offer',
     spFounderTitle: 'Founding Sponsor: 30% off the fee',
     spFounderDesc: 'Valid for the first 50 Palma businesses or until August 15, 2026. After that, 15% off throughout the beta phase.',
@@ -497,6 +513,11 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silber', spPlanGoldName: 'Gold',
     spPlanCashLabel: 'Gebühr / Monat', spPlanRewardLabel: 'in Prämien (dein Produkt) / Monat',
     spPlanStandard: 'Standardpreis', spPlanCta: 'Ich will dieses Paket →',
+    spFreeMonthBadge: '🎁 Erster Monat gratis',
+    spFreeMonthTitle: 'Wir bewerben dich den ersten Monat kostenlos. Du bringst nur die Prämien.',
+    spFreeMonthDesc: 'Ab Tag 1 bist du auf der Appark-Karte sichtbar — vor Tausenden Fahrern, die in Palma einen Parkplatz suchen — ohne Gebühr. Die Gebühr deines Tiers (mit Gründerrabatt) beginnt erst im zweiten Monat.',
+    spFreeMonthNote: 'Kein Risiko: Sag uns vor Beginn des zweiten Monats Bescheid, wenn es nichts für dich ist, und du zahlst nichts.',
+    spFreeMonthCta: 'Ich will meinen Gratismonat →',
     spFounderBadge: 'Launch-Angebot',
     spFounderTitle: 'Gründungs-Sponsor: 30% Rabatt auf die Gebühr',
     spFounderDesc: 'Gültig für die ersten 50 Unternehmen aus Palma oder bis zum 15. August 2026. Danach 15% Rabatt während der gesamten Beta-Phase.',
