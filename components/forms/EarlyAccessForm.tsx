@@ -67,6 +67,7 @@ export default function EarlyAccessForm() {
           {t.eaSuccessBtn}
         </a>
         <p style={{ fontSize: 13, color: '#5C7681', lineHeight: 1.55, margin: '14px 0 0' }}>{t.eaSuccessSteps}</p>
+        <p style={{ fontSize: 13, color: '#B85412', lineHeight: 1.55, margin: '10px 0 0', background: '#FFF3EC', border: '1px solid #FFDAC4', borderRadius: 10, padding: '10px 13px', fontWeight: 600 }}>{t.eaSuccessPermissions}</p>
         <p style={{ fontSize: 12.5, color: '#8A9BA2', lineHeight: 1.5, margin: '10px 0 0' }}>{t.eaSuccessSpam}</p>
         <p style={{ fontSize: 13, color: '#0A2A36', fontWeight: 600, lineHeight: 1.55, margin: '18px 0 0', paddingTop: 16, borderTop: '1px solid rgba(10,42,54,.1)' }}>{t.eaSuccessReinforce}</p>
       </div>
