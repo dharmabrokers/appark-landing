@@ -49,7 +49,7 @@ export interface Translations {
   eaLabelName: string; eaPhName: string; eaLabelEmail: string; eaCheckbox: string
   eaBtn: string; eaSending: string; eaFormNote: string
   eaSuccessTitle: string; eaSuccessBody: string
-  eaSuccessBtn: string; eaSuccessSteps: string; eaSuccessPermissions: string; eaSuccessSpam: string; eaSuccessReinforce: string
+  eaSuccessWaiting: string; eaSuccessSpam: string
   eaErrName: string; eaErrEmail: string; eaErrAccept: string
   footTagline: string; footLegal: string; footPrivacy: string
   footTerms: string; footCookies: string; footContact: string; footCopyright: string
@@ -177,11 +177,8 @@ export const TRANS: Record<Lang, Translations> = {
     eaFormNote: 'Gratis y sin spam. Tras registrarte, accedes al instante.',
     eaSuccessTitle: '¡Bienvenido/a, fundador/a! 🎉',
     eaSuccessBody: 'Gracias por unirte durante el lanzamiento — como agradecimiento, tienes el doble de puntos y premios esperándote desde ya.',
-    eaSuccessBtn: 'Acceder a la app ahora →',
-    eaSuccessSteps: 'Pulsa el botón, confirma en Google Play y espera unos minutos a que aparezca el botón de instalar.',
-    eaSuccessPermissions: 'Al abrir la app por primera vez, cuando te pida ubicación elige "Permitir siempre" (no "solo mientras se usa la app") y acepta las notificaciones — son imprescindibles para que Appark detecte tu coche aparcado y te avise a tiempo.',
-    eaSuccessSpam: '¿No ves nada o algo tarda? Revisa también la carpeta de spam o promociones de tu correo.',
-    eaSuccessReinforce: 'Úsala de verdad en tus próximos aparcamientos por Palma: cualquier cosa que veas, cuéntanosla con el botón 💬 dentro de la app — nos ayuda muchísimo.',
+    eaSuccessWaiting: 'Te estamos añadiendo a la lista de acceso — normalmente en menos de 48h te llega un email con el enlace para instalar la app.',
+    eaSuccessSpam: 'Si en 48h no ves el email, revisa también la carpeta de spam o promociones de tu correo.',
     eaErrName: 'Escribe tu nombre para continuar.',
     eaErrEmail: 'Introduce un email válido.',
     eaErrAccept: 'Marca la casilla para unirte a la lista.',
@@ -308,11 +305,8 @@ export const TRANS: Record<Lang, Translations> = {
     eaFormNote: "Gratis i sense spam. Després de registrar-te, hi accedeixes a l'instant.",
     eaSuccessTitle: 'Benvingut/da, fundador/a! 🎉',
     eaSuccessBody: "Gràcies per unir-te durant el llançament — com a agraïment, tens el doble de punts i premis esperant-te des d'ara.",
-    eaSuccessBtn: "Accedir a l'app ara →",
-    eaSuccessSteps: "Prem el botó, confirma a Google Play i espera uns minuts que aparegui el botó d'instal·lar.",
-    eaSuccessPermissions: 'Quan obris l\'app per primer cop i et demani la ubicació, tria "Permet sempre" (no "només mentre s\'utilitza l\'app") i accepta les notificacions — són imprescindibles perquè Appark detecti el teu cotxe aparcat i t\'avisi a temps.',
-    eaSuccessSpam: 'No veus res o triga? Revisa també la carpeta de spam o promocions del teu correu.',
-    eaSuccessReinforce: "Fes-la servir de veritat en els teus pròxims aparcaments per Palma: qualsevol cosa que vegis, explica-nos-la amb el botó 💬 dins de l'app — ens ajuda moltíssim.",
+    eaSuccessWaiting: "T'estem afegint a la llista d'accés — normalment en menys de 48h et arriba un email amb l'enllaç per instal·lar l'app.",
+    eaSuccessSpam: 'Si en 48h no veus l\'email, revisa també la carpeta de spam o promocions del teu correu.',
     eaErrName: 'Escriu el teu nom per continuar.',
     eaErrEmail: 'Introdueix un email vàlid.',
     eaErrAccept: 'Marca la casella per unir-te a la llista.',
@@ -439,11 +433,8 @@ export const TRANS: Record<Lang, Translations> = {
     eaFormNote: "Free and no spam. You get instant access after signing up.",
     eaSuccessTitle: "Welcome, founder! 🎉",
     eaSuccessBody: "Thanks for joining during the launch — as a thank-you, double points and prizes are already waiting for you.",
-    eaSuccessBtn: "Access the app now →",
-    eaSuccessSteps: "Tap the button, confirm on Google Play, and wait a few minutes for the install button to appear.",
-    eaSuccessPermissions: 'When you open the app for the first time and it asks for location, choose "Allow all the time" (not "only while using the app") and accept notifications — both are essential for Appark to detect your parked car and alert you in time.',
-    eaSuccessSpam: "Don't see anything, or it's taking a while? Check your spam or promotions folder too.",
-    eaSuccessReinforce: "Use it for real on your next parking trips around Palma — anything you notice, tell us with the 💬 button inside the app. It helps us a lot.",
+    eaSuccessWaiting: "We're adding you to the access list — you'll usually get an email with the install link within 48h.",
+    eaSuccessSpam: "Don't see the email after 48h? Check your spam or promotions folder too.",
     eaErrName: 'Enter your name to continue.',
     eaErrEmail: 'Enter a valid email.',
     eaErrAccept: 'Tick the box to join the list.',
@@ -570,11 +561,8 @@ export const TRANS: Record<Lang, Translations> = {
     eaFormNote: 'Kostenlos und kein Spam. Nach der Anmeldung hast du sofort Zugang.',
     eaSuccessTitle: 'Willkommen, Gründer/in! 🎉',
     eaSuccessBody: 'Danke, dass du beim Start dabei bist — als Dankeschön warten doppelte Punkte und Prämien schon auf dich.',
-    eaSuccessBtn: 'Jetzt zur App →',
-    eaSuccessSteps: 'Tippe auf den Button, bestätige bei Google Play und warte ein paar Minuten, bis der Installieren-Button erscheint.',
-    eaSuccessPermissions: 'Wenn du die App zum ersten Mal öffnest und nach dem Standort gefragt wirst, wähle "Immer zulassen" (nicht "nur während der Nutzung der App") und erlaube Benachrichtigungen — beides ist notwendig, damit Appark dein geparktes Auto erkennt und dich rechtzeitig benachrichtigt.',
-    eaSuccessSpam: 'Kommt nichts an oder dauert es? Schau auch im Spam- oder Werbeordner deines Postfachs nach.',
-    eaSuccessReinforce: 'Nutze sie wirklich bei deinem nächsten Parken in Palma — alles, was dir auffällt, sag uns über den 💬-Button in der App. Das hilft uns enorm.',
+    eaSuccessWaiting: 'Wir fügen dich gerade zur Zugangsliste hinzu — normalerweise erhältst du innerhalb von 48h eine E-Mail mit dem Installationslink.',
+    eaSuccessSpam: 'Kommt die E-Mail nach 48h nicht an? Schau auch im Spam- oder Werbeordner deines Postfachs nach.',
     eaErrName: 'Gib deinen Namen ein, um fortzufahren.',
     eaErrEmail: 'Gib eine gültige E-Mail ein.',
     eaErrAccept: 'Setze das Häkchen, um der Liste beizutreten.',

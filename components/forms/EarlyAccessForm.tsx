@@ -4,8 +4,6 @@ import { useLang } from '@/components/LangContext'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
-const PLAY_STORE_TESTING_URL = 'https://play.google.com/apps/testing/es.appark.app'
-
 const SpinnerIcon = () => (
   <span className="animate-spin2" style={{ width: 17, height: 17, border: '2.5px solid rgba(255,255,255,.4)', borderTopColor: '#fff', borderRadius: '50%', display: 'inline-block' }} />
 )
@@ -60,16 +58,9 @@ export default function EarlyAccessForm() {
       <div style={{ textAlign: 'center', padding: '24px 6px' }}>
         <div style={{ fontSize: 46, lineHeight: 1, marginBottom: 14 }}>🎉</div>
         <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 23, color: '#0A2A36', margin: '0 0 10px' }}>{t.eaSuccessTitle}</h3>
-        <p style={{ fontSize: 15.5, color: '#5C7681', lineHeight: 1.6, margin: '0 0 20px' }}>{t.eaSuccessBody}</p>
-
-        <a href={PLAY_STORE_TESTING_URL} target="_blank" rel="noopener noreferrer"
-          style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, width: '100%', boxSizing: 'border-box', background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "'Manrope',sans-serif", padding: 16, borderRadius: 13, textDecoration: 'none', boxShadow: '0 10px 26px rgba(255,106,61,.34)' }}>
-          {t.eaSuccessBtn}
-        </a>
-        <p style={{ fontSize: 13, color: '#5C7681', lineHeight: 1.55, margin: '14px 0 0' }}>{t.eaSuccessSteps}</p>
-        <p style={{ fontSize: 13, color: '#B85412', lineHeight: 1.55, margin: '10px 0 0', background: '#FFF3EC', border: '1px solid #FFDAC4', borderRadius: 10, padding: '10px 13px', fontWeight: 600 }}>{t.eaSuccessPermissions}</p>
-        <p style={{ fontSize: 12.5, color: '#8A9BA2', lineHeight: 1.5, margin: '10px 0 0' }}>{t.eaSuccessSpam}</p>
-        <p style={{ fontSize: 13, color: '#0A2A36', fontWeight: 600, lineHeight: 1.55, margin: '18px 0 0', paddingTop: 16, borderTop: '1px solid rgba(10,42,54,.1)' }}>{t.eaSuccessReinforce}</p>
+        <p style={{ fontSize: 15.5, color: '#5C7681', lineHeight: 1.6, margin: '0 0 16px' }}>{t.eaSuccessBody}</p>
+        <p style={{ fontSize: 14, color: '#0A2A36', fontWeight: 600, lineHeight: 1.55, margin: 0, background: '#FBF6EE', border: '1px solid rgba(10,42,54,.1)', borderRadius: 12, padding: '13px 15px' }}>{t.eaSuccessWaiting}</p>
+        <p style={{ fontSize: 12.5, color: '#8A9BA2', lineHeight: 1.5, margin: '12px 0 0' }}>{t.eaSuccessSpam}</p>
       </div>
     )
   }
