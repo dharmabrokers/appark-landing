@@ -198,3 +198,39 @@ export async function deliverSponsorLead(data: {
   const delivered = results.some((r) => r === true)
   return { delivered, configured }
 }
+
+/** Email a tester's in-app feedback (app_feedback row) to the team.
+ * Reuses the same SMTP_* config as leads — nothing new to set up if
+ * early-access/sponsor emails already work. */
+export async function deliverAppFeedback(record: {
+  kind?: string
+  message?: string
+  user_email?: string | null
+  screen?: string | null
+  app_version?: string | null
+  platform?: string | null
+  os_version?: string | null
+  device_model?: string | null
+}): Promise<LeadDeliveryResult> {
+  const hasEmail = !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
+  const configured = hasEmail
+
+  const kindLabel = record.kind === 'idea' ? '💡 Idea' : '🐛 Error'
+  const rows = {
+    Tipo: kindLabel,
+    Mensaje: record.message || '—',
+    email: record.user_email || '—',
+    Pantalla: record.screen || '—',
+    'Versión app': record.app_version || '—',
+    Plataforma: `${record.platform || '?'} ${record.os_version || ''}`.trim(),
+    Dispositivo: record.device_model || '—',
+  }
+
+  const delivered = hasEmail ? await sendEmail(`${kindLabel} — Nuevo feedback de tester en Appark`, rows) : false
+
+  if (!configured) {
+    console.error('[leadDelivery] NO delivery channel configured for app feedback — set SMTP_* in Vercel env.', record)
+  }
+
+  return { delivered, configured }
+}
