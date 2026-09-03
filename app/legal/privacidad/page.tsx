@@ -71,7 +71,7 @@ export default function PrivacidadPage() {
             marginBottom: 40,
           }}
         >
-          Última actualización: 28 de junio de 2026
+          Última actualización: 3 de septiembre de 2026
         </p>
 
         <Paragraph>
@@ -135,6 +135,13 @@ export default function PrivacidadPage() {
           <li>
             <strong>Datos técnicos:</strong> dispositivo, sistema operativo, dirección IP,
             identificador de sesión.
+          </li>
+          <li>
+            <strong>Identificador de publicidad:</strong> el identificador publicitario que
+            tu dispositivo asigna a la app (Advertising ID en Android). Lo utiliza nuestro
+            proveedor de publicidad para medir y, si lo consientes, personalizar los
+            anuncios. Es un identificador reiniciable que puedes restablecer o desactivar en
+            cualquier momento desde los ajustes de tu dispositivo. Ver el apartado 6.
           </li>
         </ul>
 
@@ -202,6 +209,12 @@ export default function PrivacidadPage() {
             interés legítimo, según el caso; siempre puedes darte de baja).
           </li>
           <li>
+            <strong>Publicidad:</strong> mostrar y medir los anuncios que financian la app
+            (base legal: interés legítimo para los anuncios no personalizados y su medición;
+            tu consentimiento para los personalizados, que puedes retirar cuando quieras).
+            Ver el apartado 6.
+          </li>
+          <li>
             <strong>Cumplimiento legal:</strong> atender requerimientos judiciales o
             administrativos (base legal: obligación legal).
           </li>
@@ -237,11 +250,74 @@ export default function PrivacidadPage() {
             canjearon puntos en tu negocio este mes"), nunca datos personales identificables.
           </li>
           <li>
+            <strong>Proveedor de publicidad:</strong> Google Ireland Limited, a través de
+            Google AdMob, para mostrar y medir los anuncios descritos en el apartado 6.
+            Recibe tu identificador de publicidad, tu dirección IP y datos técnicos del
+            dispositivo. Google actúa como responsable independiente respecto de estos
+            datos, conforme a sus propias condiciones.
+          </li>
+          <li>
             <strong>Autoridades:</strong> cuando sea legalmente obligatorio.
           </li>
         </ul>
 
-        <SectionTitle id="cookies">6. Cookies</SectionTitle>
+        <SectionTitle id="publicidad">6. Publicidad</SectionTitle>
+        <Paragraph>
+          Appark es gratuita y se financia con publicidad. Mostramos dos tipos de anuncios en
+          el espacio inferior de la app: banners de los comercios colaboradores (sponsors) que
+          contratan ese espacio directamente con nosotros, y anuncios servidos por{' '}
+          <strong>Google AdMob</strong>.
+        </Paragraph>
+        <Paragraph>
+          Para los anuncios de AdMob, Google recibe tu identificador de publicidad, tu
+          dirección IP y datos técnicos del dispositivo. Con ellos puede estimar tu ubicación
+          aproximada (a nivel de ciudad o región, derivada de la IP), medir impresiones y
+          detectar fraude. Si has dado tu consentimiento, también los utiliza para
+          personalizar los anuncios que ves.
+        </Paragraph>
+        <div
+          style={{
+            background: '#FBF6EE',
+            border: '1.5px solid #FF6A3D',
+            borderRadius: 14,
+            padding: '20px 22px',
+            marginBottom: 16,
+          }}
+        >
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 0, marginBottom: 0 }}>
+            <strong>La ubicación precisa de tu coche y tu ubicación en segundo plano no se
+            usan para publicidad, ni se comparten con Google ni con ningún anunciante.</strong>{' '}
+            Los datos de aparcamiento que recoge Appark sirven para el servicio de plazas y
+            para nada más. El único dato con finalidad publicitaria que sale de la app es el
+            identificador de publicidad junto con los datos técnicos descritos arriba.
+          </p>
+        </div>
+        <Paragraph>
+          <strong>Tu consentimiento.</strong> La primera vez que abres la app te mostramos un
+          formulario de consentimiento gestionado por la Plataforma de Mensajes de Usuario de
+          Google, donde eliges si aceptas los anuncios personalizados. Si no lo aceptas,
+          seguirás viendo anuncios, pero no personalizados. Puedes cambiar tu decisión en
+          cualquier momento desde <strong>Perfil → Opciones de privacidad de los anuncios</strong>,
+          con la misma facilidad con la que la diste. La base legal es tu consentimiento.
+        </Paragraph>
+        <Paragraph>
+          <strong>Cómo limitar la publicidad.</strong> Puedes restablecer o eliminar tu
+          identificador de publicidad desde los ajustes de tu dispositivo (en Android,
+          Ajustes → Privacidad → Anuncios), lo que impide que se te asocie un perfil
+          publicitario persistente. Encontrarás información sobre cómo trata Google estos
+          datos en su{' '}
+          <a
+            href="https://policies.google.com/technologies/partner-sites"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#1FB877' }}
+          >
+            política de socios publicitarios
+          </a>
+          .
+        </Paragraph>
+
+        <SectionTitle id="cookies">7. Cookies</SectionTitle>
         <Paragraph>
           Usamos cookies esenciales para el funcionamiento del sitio web y de la aplicación
           (sesión, preferencias de idioma). Si aceptas, también usamos cookies de análisis
@@ -252,7 +328,7 @@ export default function PrivacidadPage() {
           aparece en tu primera visita.
         </Paragraph>
 
-        <SectionTitle>7. Tus derechos (RGPD y LOPDGDD)</SectionTitle>
+        <SectionTitle>8. Tus derechos (RGPD y LOPDGDD)</SectionTitle>
         <Paragraph>Tienes derecho a:</Paragraph>
         <ul
           style={{
@@ -305,35 +381,37 @@ export default function PrivacidadPage() {
           .
         </Paragraph>
 
-        <SectionTitle>8. Seguridad</SectionTitle>
+        <SectionTitle>9. Seguridad</SectionTitle>
         <Paragraph>
           Aplicamos medidas técnicas y organizativas para proteger tus datos frente a acceso
           no autorizado, pérdida o destrucción (encriptación, autenticación segura,
           cortafuegos, auditorías periódicas).
         </Paragraph>
 
-        <SectionTitle>9. Transferencias internacionales</SectionTitle>
+        <SectionTitle>10. Transferencias internacionales</SectionTitle>
         <Paragraph>
-          Si usamos proveedores fuera de la Unión Europea, nos aseguramos de que cumplan con
-          las garantías del RGPD (cláusulas contractuales tipo, certificación Privacy Shield
-          o equivalente).
+          Algunos de nuestros proveedores, como Google, pueden tratar datos fuera del
+          Espacio Económico Europeo. En esos casos la transferencia se ampara en las
+          garantías previstas por el RGPD: cláusulas contractuales tipo aprobadas por la
+          Comisión Europea y, para proveedores estadounidenses adheridos, el Marco de
+          Privacidad de Datos UE-EE. UU.
         </Paragraph>
 
-        <SectionTitle>10. Menores de edad</SectionTitle>
+        <SectionTitle>11. Menores de edad</SectionTitle>
         <Paragraph>
           Appark está dirigida a mayores de 14 años. Si eres menor de 14 años, necesitas el
           consentimiento de tus padres o tutores para usar la app. Si detectamos que un menor
           de 14 años se ha registrado sin consentimiento parental, eliminaremos su cuenta.
         </Paragraph>
 
-        <SectionTitle>11. Cambios en esta política</SectionTitle>
+        <SectionTitle>12. Cambios en esta política</SectionTitle>
         <Paragraph>
           Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos los
           cambios significativos a través de la app o por email. La fecha de "Última
           actualización" al inicio del documento indica la versión vigente.
         </Paragraph>
 
-        <SectionTitle>12. Contacto</SectionTitle>
+        <SectionTitle>13. Contacto</SectionTitle>
         <Paragraph>
           Si tienes dudas sobre esta Política de Privacidad o sobre el tratamiento de tus
           datos, escríbenos a{' '}

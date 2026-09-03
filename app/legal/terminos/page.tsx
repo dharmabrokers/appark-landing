@@ -70,7 +70,7 @@ export default function TerminosPage() {
             marginBottom: 40,
           }}
         >
-          Última actualización: 28 de junio de 2026
+          Última actualización: 3 de septiembre de 2026
         </p>
 
         <Paragraph>
@@ -193,8 +193,21 @@ export default function TerminosPage() {
           canje de premios.
         </Paragraph>
         <Paragraph>
-          No vendemos tus datos personales a sponsors. Solo compartimos datos agregados y
-          anónimos (ej: "50 usuarios canjearon puntos en tu negocio este mes").
+          Además de los banners de sponsors, la app muestra anuncios servidos por Google
+          AdMob. No controlamos qué anuncios concretos se muestran ni respondemos del
+          contenido, los productos o los servicios de terceros anunciados; cualquier
+          relación que establezcas con un anunciante es exclusivamente entre tú y él.
+        </Paragraph>
+        <Paragraph>
+          No vendemos tus datos personales a sponsors ni a anunciantes. Solo compartimos con
+          los sponsors datos agregados y anónimos (ej: &quot;50 usuarios canjearon puntos en tu
+          negocio este mes&quot;). Los datos que se comparten con Google para servir los anuncios,
+          y cómo consentir o rechazar los anuncios personalizados, se detallan en el apartado
+          6 de la{' '}
+          <a href="/legal/privacidad#publicidad" style={{ color: '#1FB877' }}>
+            Política de Privacidad
+          </a>
+          .
         </Paragraph>
 
         <SectionTitle>8. Limitación de responsabilidad</SectionTitle>
