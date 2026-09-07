@@ -32,6 +32,7 @@ export interface Translations {
   spPlanRecommended: string
   spPlanBronzeName: string; spPlanSilverName: string; spPlanGoldName: string
   spPlanCashLabel: string; spPlanRewardLabel: string; spPlanStandard: string; spPlanCta: string
+  spPlanFounderTerms: string
   spFreeMonthBadge: string; spFreeMonthTitle: string; spFreeMonthDesc: string; spFreeMonthNote: string; spFreeMonthCta: string
   spFounderBadge: string; spFounderTitle: string; spFounderDesc: string; spFounderNote: string
   spComing: string; spLogo: string
@@ -134,8 +135,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Todos combinan cuota y premios de tu propio negocio. Cuanto más arriba, más visibilidad y más puntos en juego para tus clientes.',
     spPlanRecommended: 'Recomendado',
     spPlanBronzeName: 'Bronce', spPlanSilverName: 'Plata', spPlanGoldName: 'Oro',
-    spPlanCashLabel: 'de cuota / mes', spPlanRewardLabel: 'en premios (tu producto) / mes',
+    spPlanCashLabel: 'de cuota / mes + IVA', spPlanRewardLabel: 'en premios (tu producto) / mes',
     spPlanStandard: 'Precio estándar', spPlanCta: 'Quiero este paquete →',
+    spPlanFounderTerms: 'Precio fundador durante 12 meses para los comercios que se den de alta en 2026. Después pasa al precio estándar. Precios sin IVA. Sin permanencia: puedes cancelar cuando quieras.',
     spFreeMonthBadge: '🎁 Primer mes gratis',
     spFreeMonthTitle: 'Te anunciamos gratis el primer mes. Tú solo pones los premios.',
     spFreeMonthDesc: 'Desde el día 1 apareces en el mapa de Appark ante miles de conductores buscando aparcar en Palma — sin pagar cuota. La cuota de tu tier (con el descuento fundador) no empieza hasta el segundo mes.',
@@ -262,8 +264,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Tots combinen quota i premis del teu propi negoci. Com més amunt, més visibilitat i més punts en joc per als teus clients.',
     spPlanRecommended: 'Recomanat',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Plata', spPlanGoldName: 'Or',
-    spPlanCashLabel: 'de quota / mes', spPlanRewardLabel: 'en premis (el teu producte) / mes',
+    spPlanCashLabel: 'de quota / mes + IVA', spPlanRewardLabel: 'en premis (el teu producte) / mes',
     spPlanStandard: 'Preu estàndard', spPlanCta: 'Vull aquest paquet →',
+    spPlanFounderTerms: 'Preu fundador durant 12 mesos per als comerços que es donin d’alta el 2026. Després passa al preu estàndard. Preus sense IVA. Sense permanència: pots cancel·lar quan vulguis.',
     spFreeMonthBadge: '🎁 Primer mes gratis',
     spFreeMonthTitle: "T'anunciem gratis el primer mes. Tu només poses els premis.",
     spFreeMonthDesc: "Des del dia 1 apareixes al mapa d'Appark davant de milers de conductors que busquen aparcar a Palma — sense pagar quota. La quota del teu tier (amb el descompte fundador) no comença fins al segon mes.",
@@ -390,8 +393,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'All of them combine a fee and rewards from your own business. The higher the tier, the more visibility and the more points at stake for your customers.',
     spPlanRecommended: 'Recommended',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silver', spPlanGoldName: 'Gold',
-    spPlanCashLabel: 'fee / month', spPlanRewardLabel: 'in rewards (your product) / month',
+    spPlanCashLabel: 'fee / month + VAT', spPlanRewardLabel: 'in rewards (your product) / month',
     spPlanStandard: 'Standard price', spPlanCta: 'I want this package →',
+    spPlanFounderTerms: 'Founder pricing for 12 months for shops that sign up during 2026. After that it moves to the standard price. Prices exclude VAT. No lock-in: cancel whenever you want.',
     spFreeMonthBadge: '🎁 First month free',
     spFreeMonthTitle: 'We advertise you for free the first month. You just bring the rewards.',
     spFreeMonthDesc: "From day 1 you're on the Appark map in front of thousands of drivers looking for parking in Palma — no fee. Your tier's fee (with the founder discount) doesn't start until month two.",
@@ -518,8 +522,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Alle kombinieren eine Gebühr und Prämien aus deinem eigenen Geschäft. Je höher die Stufe, desto mehr Sichtbarkeit und Punkte für deine Kunden.',
     spPlanRecommended: 'Empfohlen',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silber', spPlanGoldName: 'Gold',
-    spPlanCashLabel: 'Gebühr / Monat', spPlanRewardLabel: 'in Prämien (dein Produkt) / Monat',
+    spPlanCashLabel: 'Gebühr / Monat zzgl. MwSt.', spPlanRewardLabel: 'in Prämien (dein Produkt) / Monat',
     spPlanStandard: 'Standardpreis', spPlanCta: 'Ich will dieses Paket →',
+    spPlanFounderTerms: 'Gründerpreis für 12 Monate für Betriebe, die sich 2026 anmelden. Danach gilt der Standardpreis. Preise zzgl. MwSt. Keine Mindestlaufzeit: jederzeit kündbar.',
     spFreeMonthBadge: '🎁 Erster Monat gratis',
     spFreeMonthTitle: 'Wir bewerben dich den ersten Monat kostenlos. Du bringst nur die Prämien.',
     spFreeMonthDesc: 'Ab Tag 1 bist du auf der Appark-Karte sichtbar — vor Tausenden Fahrern, die in Palma einen Parkplatz suchen — ohne Gebühr. Die Gebühr deines Tiers (mit Gründerrabatt) beginnt erst im zweiten Monat.',
