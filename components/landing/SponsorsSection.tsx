@@ -269,6 +269,15 @@ export default function SponsorsSection() {
           {plans.map(plan => <PlanCard key={plan.key} plan={plan} t={t} />)}
         </div>
 
+        {/* El plazo del descuento, escrito donde se ve el precio.
+            El precio tachado ya promete un descuento; sin decir
+            cuanto dura, el comercio se lo imagina para siempre y se
+            entera de lo contrario en la factura del mes 13, que es
+            justo donde no se puede permitir una sorpresa. */}
+        <p style={{ fontSize: 12.5, lineHeight: 1.6, color: '#7C919A', textAlign: 'center', margin: '18px auto 0', maxWidth: 620 }}>
+          {t.spPlanFounderTerms}
+        </p>
+
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '44px 56px', alignItems: 'flex-start' }}>
           {/* Left: body + benefits + logo grid */}
           <div style={{ flex: '1 1 420px', minWidth: 300 }}>
