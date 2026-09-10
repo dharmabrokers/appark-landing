@@ -68,6 +68,8 @@ interface Plan {
   founderFee: number
   reward: number
   recommended: boolean
+  /** Lo que incluye este paquete, en la lengua activa. */
+  feats: readonly string[]
 }
 
 function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] }) {
@@ -102,6 +104,18 @@ function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] 
         <div style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginTop: 2 }}>{t.spPlanRewardLabel}</div>
       </div>
 
+      {/* Qué incluye cada paquete. Sin esto los tres se leían como el
+          mismo producto a tres precios distintos, y cualquiera que
+          compare elige el más barato — con razón. */}
+      <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 20px', display: 'grid', gap: 7 }}>
+        {plan.feats.map((f: string) => (
+          <li key={f} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', fontSize: 13, color: '#45626C', lineHeight: 1.45 }}>
+            <span style={{ color: '#1B8A5A', fontWeight: 800, flexShrink: 0 }}>✓</span>
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+
       <a href="#sponsor-form"
         style={{ display: 'block', textAlign: 'center', textDecoration: 'none', width: '100%', background: recommended ? '#FF6A3D' : '#fff', color: recommended ? '#fff' : '#0A2A36', fontWeight: 700, fontSize: 15, padding: '14px', borderRadius: 13, border: recommended ? 'none' : '1.5px solid rgba(10,42,54,.14)', boxShadow: recommended ? '0 10px 26px rgba(255,106,61,.32)' : 'none' }}>
         {t.spPlanCta}
@@ -114,9 +128,9 @@ export default function SponsorsSection() {
   const { t } = useLang()
 
   const plans: Plan[] = [
-    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, reward: 50, recommended: false },
-    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, reward: 100, recommended: true },
-    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, reward: 150, recommended: false },
+    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, reward: 50, recommended: false, feats: t.spPlanFeatBronze },
+    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, reward: 100, recommended: true, feats: t.spPlanFeatSilver },
+    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, reward: 150, recommended: false, feats: t.spPlanFeatGold },
   ]
 
   const benefits = [
