@@ -32,6 +32,7 @@ export interface Translations {
   spPlanRecommended: string
   spPlanBronzeName: string; spPlanSilverName: string; spPlanGoldName: string
   spPlanCashLabel: string; spPlanRewardLabel: string; spPlanStandard: string; spPlanCta: string
+  spPlanFeatBronze: string[]; spPlanFeatSilver: string[]; spPlanFeatGold: string[]
   spPlanFounderTerms: string
   spFreeMonthBadge: string; spFreeMonthTitle: string; spFreeMonthDesc: string; spFreeMonthNote: string; spFreeMonthCta: string
   spFounderBadge: string; spFounderTitle: string; spFounderDesc: string; spFounderNote: string
@@ -137,6 +138,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronce', spPlanSilverName: 'Plata', spPlanGoldName: 'Oro',
     spPlanCashLabel: 'de cuota / mes + IVA', spPlanRewardLabel: 'en premios (tu producto) / mes',
     spPlanStandard: 'Precio estándar', spPlanCta: 'Quiero este paquete →',
+    spPlanFeatBronze: ['1 local en el mapa', '1 premio activo', 'Panel con tus canjes'],
+    spPlanFeatSilver: ['3 locales', '3 premios activos', 'Estadísticas de público', 'Prioridad en el mapa'],
+    spPlanFeatGold: ['Locales y premios sin límite', 'Estadísticas de público', 'Máxima prioridad en el mapa', 'Banner en portada de la app'],
     spPlanFounderTerms: 'Precio fundador durante 12 meses para los comercios que se den de alta en 2026. Después pasa al precio estándar. Precios sin IVA. Sin permanencia: puedes cancelar cuando quieras.',
     spFreeMonthBadge: '🎁 Primer mes gratis',
     spFreeMonthTitle: 'Te anunciamos gratis el primer mes. Tú solo pones los premios.',
@@ -266,6 +270,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Plata', spPlanGoldName: 'Or',
     spPlanCashLabel: 'de quota / mes + IVA', spPlanRewardLabel: 'en premis (el teu producte) / mes',
     spPlanStandard: 'Preu estàndard', spPlanCta: 'Vull aquest paquet →',
+    spPlanFeatBronze: ['1 local al mapa', '1 premi actiu', 'Panell amb els teus bescanvis'],
+    spPlanFeatSilver: ['3 locals', '3 premis actius', 'Estadístiques de públic', 'Prioritat al mapa'],
+    spPlanFeatGold: ['Locals i premis sense límit', 'Estadístiques de públic', 'Màxima prioritat al mapa', 'Bànner a portada'],
     spPlanFounderTerms: 'Preu fundador durant 12 mesos per als comerços que es donin d’alta el 2026. Després passa al preu estàndard. Preus sense IVA. Sense permanència: pots cancel·lar quan vulguis.',
     spFreeMonthBadge: '🎁 Primer mes gratis',
     spFreeMonthTitle: "T'anunciem gratis el primer mes. Tu només poses els premis.",
@@ -395,6 +402,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silver', spPlanGoldName: 'Gold',
     spPlanCashLabel: 'fee / month + VAT', spPlanRewardLabel: 'in rewards (your product) / month',
     spPlanStandard: 'Standard price', spPlanCta: 'I want this package →',
+    spPlanFeatBronze: ['1 location on the map', '1 active reward', 'Panel with your redemptions'],
+    spPlanFeatSilver: ['3 locations', '3 active rewards', 'Audience stats', 'Map priority'],
+    spPlanFeatGold: ['Unlimited locations and rewards', 'Audience stats', 'Top map priority', 'Front-page banner'],
     spPlanFounderTerms: 'Founder pricing for 12 months for shops that sign up during 2026. After that it moves to the standard price. Prices exclude VAT. No lock-in: cancel whenever you want.',
     spFreeMonthBadge: '🎁 First month free',
     spFreeMonthTitle: 'We advertise you for free the first month. You just bring the rewards.',
@@ -524,6 +534,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silber', spPlanGoldName: 'Gold',
     spPlanCashLabel: 'Gebühr / Monat zzgl. MwSt.', spPlanRewardLabel: 'in Prämien (dein Produkt) / Monat',
     spPlanStandard: 'Standardpreis', spPlanCta: 'Ich will dieses Paket →',
+    spPlanFeatBronze: ['1 Standort auf der Karte', '1 aktive Prämie', 'Panel mit deinen Einlösungen'],
+    spPlanFeatSilver: ['3 Standorte', '3 aktive Prämien', 'Publikumsstatistiken', 'Karten-Priorität'],
+    spPlanFeatGold: ['Unbegrenzte Standorte und Prämien', 'Publikumsstatistiken', 'Höchste Karten-Priorität', 'Startseiten-Banner'],
     spPlanFounderTerms: 'Gründerpreis für 12 Monate für Betriebe, die sich 2026 anmelden. Danach gilt der Standardpreis. Preise zzgl. MwSt. Keine Mindestlaufzeit: jederzeit kündbar.',
     spFreeMonthBadge: '🎁 Erster Monat gratis',
     spFreeMonthTitle: 'Wir bewerben dich den ersten Monat kostenlos. Du bringst nur die Prämien.',
