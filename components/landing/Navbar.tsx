@@ -4,10 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 import { useLang } from '@/components/LangContext'
 import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 
-// Variante oscura: la navbar va sobre fondo claro. La blanca
-// (logo-appark-blanco.png) es la del footer, que va sobre azul.
+// El distintivo: la marca sobre el azul degradado de la identidad, que
+// es como se presenta, y ademas el mismo bloque que el icono de la app.
+// La variante suelta sobre fondo claro quedaba como un glifo, no como
+// una marca. La blanca (logo-appark-blanco.png) sigue en el footer,
+// donde un distintivo azul sobre azul no se veria.
 const Logo = () => (
-  <Image src="/logo-appark.png" alt="" width={31} height={32} priority style={{ display: 'block' }} />
+  <Image src="/logo-appark-badge.png" alt="" width={32} height={32} priority
+    style={{ display: 'block', borderRadius: 7 }} />
 )
 
 const GlobeIcon = () => (
