@@ -4,14 +4,13 @@ import { useState, useEffect, useRef } from 'react'
 import { useLang } from '@/components/LangContext'
 import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 
-// El distintivo: la marca sobre el azul degradado de la identidad, que
-// es como se presenta, y ademas el mismo bloque que el icono de la app.
-// La variante suelta sobre fondo claro quedaba como un glifo, no como
-// una marca. La blanca (logo-appark-blanco.png) sigue en el footer,
-// donde un distintivo azul sobre azul no se veria.
+// El logotipo completo, no la marca suelta junto a un <span>Appark</span>:
+// en la identidad nueva el isotipo ES la A de Appark, asi que ponerlo al
+// lado de la palabra la repetia. El nombre va dentro de la imagen, y por
+// eso este alt si describe ("Appark") en vez de quedar vacio.
 const Logo = () => (
-  <Image src="/logo-appark-badge.png" alt="" width={32} height={32} priority
-    style={{ display: 'block', borderRadius: 7 }} />
+  <Image src="/logo-lockup.png" alt="Appark" width={113} height={30} priority
+    style={{ display: 'block' }} />
 )
 
 const GlobeIcon = () => (
@@ -54,7 +53,6 @@ export default function Navbar() {
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxSizing: 'border-box' }}>
         <a href="#hero" onClick={() => setMobileOpen(false)} aria-label="Appark inicio" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <Logo />
-          <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: '-.5px', color: '#0A2A36' }}>Appark</span>
         </a>
 
         {!isNarrow && (

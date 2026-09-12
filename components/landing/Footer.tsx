@@ -2,9 +2,10 @@
 import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
 
-// Variante blanca: el footer va sobre azul oscuro.
+// Logotipo completo en blanco: el footer va sobre azul oscuro y el
+// nombre ya viaja dentro de la imagen.
 const Logo = () => (
-  <Image src="/logo-appark-blanco.png" alt="" width={28} height={29} style={{ display: 'block' }} />
+  <Image src="/logo-lockup-white.png" alt="Appark" width={106} height={28} style={{ display: 'block' }} />
 )
 
 const InstagramIcon = () => (
@@ -36,7 +37,6 @@ export default function Footer() {
           <div style={{ flex: '1 1 280px', minWidth: 240 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
               <Logo />
-              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 21, color: '#fff' }}>Appark</span>
             </div>
             <p style={{ fontSize: 14.5, color: '#9FB6BD', lineHeight: 1.6, margin: 0, maxWidth: 280 }}>{t.footTagline}</p>
           </div>
