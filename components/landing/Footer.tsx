@@ -1,11 +1,10 @@
 'use client'
+import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
 
-const LogoSVG = () => (
-  <svg width="24" height="29" viewBox="0 0 28 34" aria-hidden="true">
-    <path d="M14 1.5C7.1 1.5 1.5 6.9 1.5 13.6C1.5 22.8 14 32.5 14 32.5C14 32.5 26.5 22.8 26.5 13.6C26.5 6.9 20.9 1.5 14 1.5Z" fill="#FF6A3D" />
-    <text x="14" y="19.5" textAnchor="middle" fontFamily="'Bricolage Grotesque',sans-serif" fontWeight="800" fontSize="15" fill="#fff">P</text>
-  </svg>
+// Variante blanca: el footer va sobre azul oscuro.
+const Logo = () => (
+  <Image src="/logo-appark-blanco.png" alt="" width={28} height={29} style={{ display: 'block' }} />
 )
 
 const InstagramIcon = () => (
@@ -36,7 +35,7 @@ export default function Footer() {
           {/* Col 1: Logo + tagline */}
           <div style={{ flex: '1 1 280px', minWidth: 240 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-              <LogoSVG />
+              <Logo />
               <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 21, color: '#fff' }}>Appark</span>
             </div>
             <p style={{ fontSize: 14.5, color: '#9FB6BD', lineHeight: 1.6, margin: 0, maxWidth: 280 }}>{t.footTagline}</p>
