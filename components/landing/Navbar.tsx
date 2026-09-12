@@ -1,13 +1,13 @@
 'use client'
+import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { useLang } from '@/components/LangContext'
 import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 
-const LogoSVG = () => (
-  <svg width="26" height="32" viewBox="0 0 28 34" aria-hidden="true" style={{ display: 'block' }}>
-    <path d="M14 1.5C7.1 1.5 1.5 6.9 1.5 13.6C1.5 22.8 14 32.5 14 32.5C14 32.5 26.5 22.8 26.5 13.6C26.5 6.9 20.9 1.5 14 1.5Z" fill="#FF6A3D" />
-    <text x="14" y="19.5" textAnchor="middle" fontFamily="'Bricolage Grotesque',sans-serif" fontWeight="800" fontSize="15" fill="#fff">P</text>
-  </svg>
+// Variante oscura: la navbar va sobre fondo claro. La blanca
+// (logo-appark-blanco.png) es la del footer, que va sobre azul.
+const Logo = () => (
+  <Image src="/logo-appark.png" alt="" width={31} height={32} priority style={{ display: 'block' }} />
 )
 
 const GlobeIcon = () => (
@@ -49,7 +49,7 @@ export default function Navbar() {
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90, background: navBg, boxShadow: navShadow, borderBottom: navBorder, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', transition: 'background .3s,box-shadow .3s,border-color .3s' }}>
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxSizing: 'border-box' }}>
         <a href="#hero" onClick={() => setMobileOpen(false)} aria-label="Appark inicio" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <LogoSVG />
+          <Logo />
           <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: '-.5px', color: '#0A2A36' }}>Appark</span>
         </a>
 
