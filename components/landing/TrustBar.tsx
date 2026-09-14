@@ -10,7 +10,7 @@ export default function TrustBar() {
         <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#C9B79A', display: 'inline-block' }} />
         <span style={{ fontSize: 14.5, fontWeight: 600, color: '#34525C' }}>✅ {t.trust2}</span>
         <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#C9B79A', display: 'inline-block' }} />
-        <span style={{ fontSize: 14.5, fontWeight: 600, color: '#34525C' }}>📅 {t.trust3}</span>
+        <span style={{ fontSize: 14.5, fontWeight: 600, color: '#34525C' }}>🌍 {t.trust3}</span>
         <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#C9B79A', display: 'inline-block' }} />
         <span style={{ fontSize: 14.5, fontWeight: 600, color: '#34525C' }}>🤝 {t.trust4}</span>
       </div>

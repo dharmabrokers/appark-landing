@@ -2,10 +2,15 @@
 import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
 
-// Logotipo completo con claim, variante blanca: el footer va sobre azul
-// oscuro.
+// Logotipo en blanco (el footer va sobre azul oscuro) y el slogan
+// debajo, en texto grande: naranja y blanco, como el arte de marca.
 const Logo = () => (
-  <Image src="/logo-appark-claim-blanco.png" alt="Appark · Menos vueltas. Más Palma." width={159} height={60} style={{ display: 'block', height: 60, width: 'auto' }} />
+  <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
+    <Image src="/logo-appark-logotipo-blanco.png" alt="Appark" width={0} height={0} sizes="150px" style={{ display: 'block', height: 40, width: 'auto' }} />
+    <span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+      <span style={{ color: '#FF4E00' }}>Menos vueltas.</span> <span style={{ color: '#fff' }}>Más Palma.</span>
+    </span>
+  </span>
 )
 
 const InstagramIcon = () => (

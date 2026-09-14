@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useLang } from '@/components/LangContext'
+import { APP_LAUNCHED } from '@/lib/stores'
 
 /**
  * Mobile-only sticky CTA. The signup form sits far below the fold after
@@ -14,7 +15,7 @@ export default function StickyCta() {
 
   useEffect(() => {
     const hero = document.getElementById('hero')
-    const ea = document.getElementById('early-access')
+    const ea = document.getElementById(APP_LAUNCHED ? 'descargar' : 'early-access')
     const onScroll = () => {
       const scrolledPastHero = hero ? hero.getBoundingClientRect().bottom < 40 : window.scrollY > 400
       const eaInView = ea ? ea.getBoundingClientRect().top < window.innerHeight * 0.9 : false
@@ -44,18 +45,18 @@ export default function StickyCta() {
       className="sticky-cta-mobile"
     >
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontWeight: 800, fontSize: 13.5, color: '#0A2A36', lineHeight: 1.15 }}>🎁 {t.stickyTitle}</div>
+        <div style={{ fontWeight: 800, fontSize: 13.5, color: '#0A2A36', lineHeight: 1.15 }}>{APP_LAUNCHED ? `📲 ${t.stickyDlTitle}` : `🅿️ ${t.stickyTitle}`}</div>
         <div style={{ fontSize: 11.5, color: '#5C7681', fontWeight: 600 }}>{t.stickySub}</div>
       </div>
       <a
-        href="#early-access"
+        href={APP_LAUNCHED ? '#descargar' : '#early-access'}
         style={{
           flex: 'none', textDecoration: 'none', background: '#FF6A3D', color: '#fff',
           fontWeight: 800, fontSize: 14, padding: '12px 18px', borderRadius: 12,
           boxShadow: '0 8px 20px rgba(255,106,61,.34)', whiteSpace: 'nowrap',
         }}
       >
-        {t.stickyBtn}
+        {APP_LAUNCHED ? t.stickyDlBtn : t.stickyBtn}
       </a>
     </div>
   )

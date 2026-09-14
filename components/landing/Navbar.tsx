@@ -2,15 +2,21 @@
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { useLang } from '@/components/LangContext'
+import { APP_LAUNCHED } from '@/lib/stores'
 import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 
-// El logotipo completo, con el claim debajo, tal y como viene en los
-// originales de marca. Donde se ve el nombre va el lockup entero: poner
-// la A suelta y al lado "Appark" en texto es justo lo que la identidad
-// dice que no se haga. Variante oscura porque la navbar va sobre claro;
-// la blanca es la del footer, que va sobre azul.
+// El logotipo, y DEBAJO el slogan en texto a un tamaño que se lee. El
+// lockup con el claim dibujado lo dejaba en letra de siete píxeles a la
+// altura de una navbar. Mismos colores que el arte de marca: la primera
+// mitad en naranja, la segunda en azul. Variante oscura porque la navbar
+// va sobre claro; la blanca es la del footer.
 const Logo = () => (
-  <Image src="/logo-appark-claim.png" alt="Appark · Menos vueltas. Más Palma." width={127} height={48} priority style={{ display: 'block', height: 48, width: 'auto' }} />
+  <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
+    <Image src="/logo-appark-logotipo.png" alt="Appark" width={0} height={0} sizes="120px" priority style={{ display: 'block', height: 32, width: 'auto' }} />
+    <span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 800, fontSize: 13.5, lineHeight: 1, letterSpacing: '-.1px', whiteSpace: 'nowrap' }}>
+      <span style={{ color: '#FF4E00' }}>Menos vueltas.</span> <span style={{ color: '#0A2A36' }}>Más Palma.</span>
+    </span>
+  </span>
 )
 
 const GlobeIcon = () => (
@@ -97,10 +103,10 @@ export default function Navbar() {
               )}
             </div>
 
-            <a href="#early-access" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 15, padding: '11px 22px', borderRadius: 13, boxShadow: '0 8px 22px rgba(255,106,61,.32)' }}
+            <a href={APP_LAUNCHED ? '#descargar' : '#early-access'} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 15, padding: '11px 22px', borderRadius: 13, boxShadow: '0 8px 22px rgba(255,106,61,.32)' }}
               onMouseEnter={e => { e.currentTarget.style.filter = 'brightness(1.06)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
               onMouseLeave={e => { e.currentTarget.style.filter = ''; e.currentTarget.style.transform = '' }}>
-              {t.navJoin} <span style={{ fontSize: 16 }}>→</span>
+              {APP_LAUNCHED ? t.navDownload : t.navJoin} <span style={{ fontSize: 16 }}>→</span>
             </a>
           </div>
         )}
@@ -136,9 +142,9 @@ export default function Navbar() {
             style={{ textDecoration: 'none', color: '#FF6A3D', fontWeight: 700, fontSize: 17, padding: '12px 4px' }}>
             {t.navListen}
           </a>
-          <a href="#early-access" onClick={() => setMobileOpen(false)}
+          <a href={APP_LAUNCHED ? '#descargar' : '#early-access'} onClick={() => setMobileOpen(false)}
             style={{ textDecoration: 'none', textAlign: 'center', background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, padding: 14, borderRadius: 13, marginTop: 8 }}>
-            {t.navJoinList} →
+            {APP_LAUNCHED ? t.navDownload : t.navJoinList} →
           </a>
         </div>
       )}

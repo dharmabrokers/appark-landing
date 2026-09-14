@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
+import { APP_LAUNCHED } from '@/lib/stores'
 
 const PingDot = ({ color = '#1FB877' }: { color?: string }) => (
   <span style={{ position: 'relative', width: 9, height: 9, display: 'inline-block' }}>
@@ -32,11 +33,11 @@ export default function Hero() {
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, alignItems: 'center' }}>
-            <a href="#early-access"
+            <a href={APP_LAUNCHED ? '#descargar' : '#early-access'}
               style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 17, padding: '17px 30px', borderRadius: 15, boxShadow: '0 14px 34px rgba(255,106,61,.38)' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.filter = 'brightness(1.05)' }}
               onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.filter = '' }}>
-              {t.heroCta1} <span style={{ fontSize: 18 }}>→</span>
+              {APP_LAUNCHED ? t.heroCtaDownload : t.heroCta1} <span style={{ fontSize: 18 }}>→</span>
             </a>
             <a href="#sponsors"
               style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 9, background: '#fff', color: '#0A2A36', fontWeight: 700, fontSize: 17, padding: '17px 28px', borderRadius: 15, border: '1.5px solid rgba(10,42,54,.14)' }}
