@@ -2,9 +2,10 @@
 import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
 
-// Variante blanca: el footer va sobre azul oscuro.
+// Logotipo completo con claim, variante blanca: el footer va sobre azul
+// oscuro.
 const Logo = () => (
-  <Image src="/logo-appark-blanco.png" alt="" width={28} height={29} style={{ display: 'block' }} />
+  <Image src="/logo-appark-claim-blanco.png" alt="Appark · Menos vueltas. Más Palma." width={159} height={60} style={{ display: 'block', height: 60, width: 'auto' }} />
 )
 
 const InstagramIcon = () => (
@@ -36,7 +37,6 @@ export default function Footer() {
           <div style={{ flex: '1 1 280px', minWidth: 240 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
               <Logo />
-              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 21, color: '#fff' }}>Appark</span>
             </div>
             <p style={{ fontSize: 14.5, color: '#9FB6BD', lineHeight: 1.6, margin: 0, maxWidth: 280 }}>{t.footTagline}</p>
           </div>
