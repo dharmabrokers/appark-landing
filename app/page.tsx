@@ -8,6 +8,8 @@ import SolutionSection from '@/components/landing/SolutionSection'
 import RegaloSection from '@/components/landing/RegaloSection'
 import SponsorsSection from '@/components/landing/SponsorsSection'
 import EarlyAccessSection from '@/components/landing/EarlyAccessSection'
+import DownloadSection from '@/components/landing/DownloadSection'
+import { APP_LAUNCHED } from '@/lib/stores'
 import AnthemSection from '@/components/landing/AnthemSection'
 import Footer from '@/components/landing/Footer'
 import StickyCta from '@/components/landing/StickyCta'
@@ -23,7 +25,8 @@ export default function Home() {
         <SolutionSection />
         <RegaloSection />
         <SponsorsSection />
-        <EarlyAccessSection />
+        {/* Tras el lanzamiento se descarga; antes, se pide acceso. lib/stores.ts */}
+        {APP_LAUNCHED ? <DownloadSection /> : <EarlyAccessSection />}
         <AnthemSection />
       </main>
       <Footer />
