@@ -4,10 +4,13 @@ import { useState, useEffect, useRef } from 'react'
 import { useLang } from '@/components/LangContext'
 import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 
-// Variante oscura: la navbar va sobre fondo claro. La blanca
-// (logo-appark-blanco.png) es la del footer, que va sobre azul.
+// El logotipo completo, con el claim debajo, tal y como viene en los
+// originales de marca. Donde se ve el nombre va el lockup entero: poner
+// la A suelta y al lado "Appark" en texto es justo lo que la identidad
+// dice que no se haga. Variante oscura porque la navbar va sobre claro;
+// la blanca es la del footer, que va sobre azul.
 const Logo = () => (
-  <Image src="/logo-appark.png" alt="" width={31} height={32} priority style={{ display: 'block' }} />
+  <Image src="/logo-appark-claim.png" alt="Appark · Menos vueltas. Más Palma." width={127} height={48} priority style={{ display: 'block', height: 48, width: 'auto' }} />
 )
 
 const GlobeIcon = () => (
@@ -48,9 +51,8 @@ export default function Navbar() {
   return (
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 90, background: navBg, boxShadow: navShadow, borderBottom: navBorder, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', transition: 'background .3s,box-shadow .3s,border-color .3s' }}>
       <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxSizing: 'border-box' }}>
-        <a href="#hero" onClick={() => setMobileOpen(false)} aria-label="Appark inicio" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+        <a href="#hero" onClick={() => setMobileOpen(false)} aria-label="Appark inicio" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <Logo />
-          <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, letterSpacing: '-.5px', color: '#0A2A36' }}>Appark</span>
         </a>
 
         {!isNarrow && (
