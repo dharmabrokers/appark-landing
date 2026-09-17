@@ -21,6 +21,11 @@ const body = Manrope({
 })
 
 export const metadata: Metadata = {
+  // Absolute URLs for the icon, Open Graph and canonical tags: Google reads
+  // the favicon from the page it indexed, and relative URLs resolve against
+  // whatever host it happened to crawl.
+  metadataBase: new URL('https://appark.es'),
+  alternates: { canonical: '/' },
   title: 'Appark | La app gratuita de parking colaborativo en Palma de Mallorca',
   description: 'Appark te ayuda a encontrar aparcamiento gratis en Palma de Mallorca en tiempo real. Colaborativa, gratuita y local. Únete a la lista de espera. Verano 2026.',
   keywords: ['Appark', 'parking Palma', 'app parking Palma de Mallorca', 'encuentra parking Palma', 'aparcamiento Palma de Mallorca'],
