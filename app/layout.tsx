@@ -27,11 +27,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://appark.es'),
   alternates: { canonical: '/' },
   title: 'Appark | La app gratuita de parking colaborativo en Palma de Mallorca',
-  description: 'Appark te ayuda a encontrar aparcamiento gratis en Palma de Mallorca en tiempo real. Colaborativa, gratuita y local. Únete a la lista de espera. Verano 2026.',
+  description: 'Appark es la app gratuita para aparcar en Palma: plazas libres en tiempo real que comparten otros conductores, y premios en comercios locales por colaborar.',
   keywords: ['Appark', 'parking Palma', 'app parking Palma de Mallorca', 'encuentra parking Palma', 'aparcamiento Palma de Mallorca'],
   openGraph: {
     title: 'Appark | Parking colaborativo en Palma de Mallorca',
-    description: 'La app gratuita que resuelve el parking en Palma. Colaborativa, local, gratuita. Verano 2026.',
+    description: 'Plazas libres en Palma en tiempo real, compartidas por otros conductores. Gratis. Menos vueltas, más Palma.',
     url: 'https://appark.es',
     siteName: 'Appark',
     locale: 'es_ES',
@@ -40,14 +40,33 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Appark | Parking colaborativo en Palma de Mallorca',
-    description: 'La app gratuita que resuelve el parking en Palma. Colaborativa, local, gratuita. Verano 2026.',
+    description: 'Plazas libres en Palma en tiempo real, compartidas por otros conductores. Gratis. Menos vueltas, más Palma.',
   },
+}
+
+
+const APP_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: 'Appark',
+  alternateName: 'Appark: Parking en Palma',
+  url: 'https://appark.es',
+  applicationCategory: 'TravelApplication',
+  operatingSystem: 'Android, iOS',
+  description: 'App gratuita y colaborativa para encontrar aparcamiento en Palma de Mallorca en tiempo real.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  installUrl: 'https://play.google.com/store/apps/details?id=es.appark.app',
+  publisher: { '@type': 'Organization', name: "DHARMA BROKERS' CONSULTING SL", email: 'hola@appark.es' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${display.variable} ${body.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(APP_JSON_LD) }}
+        />
         {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
           <script
             src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
