@@ -147,6 +147,10 @@ export async function deliverEarlyAccessLead(data: {
 /** Deliver a sponsor-contact lead through every configured channel. */
 export async function deliverSponsorLead(data: {
   empresa: string
+  /** CIF/NIF del negocio. Va a la ficha del CRM y sirve para facturar. */
+  cif?: string
+  /** Dirección: es la que sitúa su pin en el mapa cuando se da de alta. */
+  direccion?: string
   email: string
   telefono?: string
   tipoNegocio?: string
@@ -165,6 +169,8 @@ export async function deliverSponsorLead(data: {
   const leadRow = {
     empresa: data.empresa,
     email: data.email,
+    tax_id: data.cif || null,
+    address: data.direccion || null,
     telefono: data.telefono || null,
     tipo_negocio: data.tipoNegocio || null,
     mensaje: data.mensaje || null,

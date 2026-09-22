@@ -28,6 +28,8 @@ const labelStyle: React.CSSProperties = {
 export default function SponsorForm() {
   const { t, lang } = useLang()
   const [empresa, setEmpresa] = useState('')
+  const [cif, setCif] = useState('')
+  const [direccion, setDireccion] = useState('')
   const [email, setEmail] = useState('')
   const [telefono, setTelefono] = useState('')
   const [tipo, setTipo] = useState('')
@@ -41,6 +43,8 @@ export default function SponsorForm() {
     e.preventDefault()
     if (!empresa.trim()) { setStatus('error'); setError(t.spErrEmpresa); return }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus('error'); setError(t.spErrEmail); return }
+    if (cif.trim().length < 8) { setStatus('error'); setError(t.spErrCif); return }
+    if (direccion.trim().length < 5) { setStatus('error'); setError(t.spErrDireccion); return }
     if (!tipo) { setStatus('error'); setError(t.spErrTipo); return }
 
     setStatus('loading'); setError('')
@@ -54,7 +58,7 @@ export default function SponsorForm() {
       const res = await fetch('/api/sponsor-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ empresa, email, telefono, tipoNegocio: tipo, mensaje, language: lang, recaptchaToken }),
+        body: JSON.stringify({ empresa, cif, direccion, email, telefono, tipoNegocio: tipo, mensaje, language: lang, recaptchaToken }),
       })
 
       if (!res.ok) throw new Error('Server error')
@@ -93,6 +97,21 @@ export default function SponsorForm() {
             <label htmlFor="sp-email" style={labelStyle}>{t.spLabelEmail} <span style={{ color: '#FF6A3D' }}>*</span></label>
             <input id="sp-email" type="email" value={email} onChange={e => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }}
               placeholder="hola@tunegocio.es" style={inputStyle}
+              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
+              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
+          </div>
+          <div>
+            <label htmlFor="sp-cif" style={labelStyle}>{t.spLabelCif} <span style={{ color: '#FF6A3D' }}>*</span></label>
+            <input id="sp-cif" type="text" value={cif} onChange={e => { setCif(e.target.value.toUpperCase()); if (status === 'error') setStatus('idle') }}
+              placeholder={t.spPhCif} maxLength={20} style={inputStyle}
+              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
+              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
+            <div style={{ fontSize: 12.5, color: '#8A9BA2', marginTop: 5 }}>{t.spHintCif}</div>
+          </div>
+          <div>
+            <label htmlFor="sp-dir" style={labelStyle}>{t.spLabelDireccion} <span style={{ color: '#FF6A3D' }}>*</span></label>
+            <input id="sp-dir" type="text" value={direccion} onChange={e => { setDireccion(e.target.value); if (status === 'error') setStatus('idle') }}
+              placeholder={t.spPhDireccion} maxLength={200} style={inputStyle}
               onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
               onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
           </div>
