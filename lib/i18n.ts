@@ -45,6 +45,9 @@ export interface Translations {
   spLabelMsg: string; spPhMsg: string; spBtn: string; spSending: string; spFormNote: string
   spSuccessTitle: string; spSuccessBody: string
   spErrEmpresa: string; spErrEmail: string; spErrTipo: string
+  spLabelCif: string; spPhCif: string; spHintCif: string
+  spLabelDireccion: string; spPhDireccion: string
+  spErrCif: string; spErrDireccion: string
   eaEyebrow: string; eaH2: string; eaSub: string; eaBody: string
   eaChip1: string; eaChip2: string; eaChip3: string; eaChip4: string
   tl1t: string; tl1d: string; tl2t: string; tl2d: string; tl3t: string; tl3d: string
@@ -173,6 +176,7 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmpresa: 'Dinos el nombre de tu empresa.',
     spErrEmail: 'Introduce un email de contacto válido.',
     spErrTipo: 'Selecciona tu tipo de negocio.',
+    spLabelCif: 'CIF / NIF', spPhCif: 'B12345678', spHintCif: 'Lo pedimos para dar de alta tu negocio y poder facturarte. No se publica en la app.', spLabelDireccion: 'Dirección del negocio', spPhDireccion: 'Calle, número — Palma', spErrCif: 'Escribe el CIF o NIF de tu negocio.', spErrDireccion: 'Escribe la dirección de tu negocio.',
     eaEyebrow: 'Acceso anticipado · gratis', eaH2: 'Prueba Appark antes que nadie en Palma',
     eaSub: 'La app ya funciona. Déjanos tu email y te damos acceso mientras llega a Google Play y App Store.',
     eaBody: 'Sin coste ni compromiso. Cada plaza que avises suma puntos que canjeas por premios en comercios de Palma.',
@@ -306,6 +310,7 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmpresa: 'Digues-nos el nom de la teva empresa.',
     spErrEmail: 'Introdueix un email de contacte vàlid.',
     spErrTipo: 'Selecciona el tipus de negoci.',
+    spLabelCif: 'CIF / NIF', spPhCif: 'B12345678', spHintCif: 'El demanem per donar d\'alta el teu negoci i poder facturar-te. No es publica a l\'app.', spLabelDireccion: 'Adreça del negoci', spPhDireccion: 'Carrer, número — Palma', spErrCif: 'Escriu el CIF o NIF del teu negoci.', spErrDireccion: 'Escriu l\'adreça del teu negoci.',
     eaEyebrow: 'Accés anticipat · gratis', eaH2: 'Prova Appark abans que ningú a Palma',
     eaSub: 'L\'app ja funciona. Deixa\'ns el teu email i et donem accés mentre arriba a Google Play i App Store.',
     eaBody: 'Sense cost ni compromís. Cada plaça que avisis suma punts que bescanvies per premis a comerços de Palma.',
@@ -439,6 +444,7 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmpresa: 'Tell us your company name.',
     spErrEmail: 'Enter a valid contact email.',
     spErrTipo: 'Select your business type.',
+    spLabelCif: 'Tax ID', spPhCif: 'B12345678', spHintCif: 'We ask for it to register your business and to invoice you. It is never shown in the app.', spLabelDireccion: 'Business address', spPhDireccion: 'Street, number — Palma', spErrCif: 'Enter your business tax ID.', spErrDireccion: 'Enter your business address.',
     eaEyebrow: 'Early access · free', eaH2: 'Try Appark before anyone else in Palma',
     eaSub: 'The app already works. Leave your email and we\'ll give you access while it reaches Google Play and the App Store.',
     eaBody: 'No cost, no commitment. Every spot you share earns points you can swap for rewards at Palma shops.',
@@ -572,6 +578,7 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmpresa: 'Sag uns den Namen deines Unternehmens.',
     spErrEmail: 'Gib eine gültige Kontakt-E-Mail ein.',
     spErrTipo: 'Wähle die Art deines Geschäfts.',
+    spLabelCif: 'Steuernummer', spPhCif: 'B12345678', spHintCif: 'Wir brauchen sie für die Anmeldung und die Rechnung. Sie wird in der App nie angezeigt.', spLabelDireccion: 'Adresse des Geschäfts', spPhDireccion: 'Straße, Nummer — Palma', spErrCif: 'Gib die Steuernummer deines Unternehmens ein.', spErrDireccion: 'Gib die Adresse deines Geschäfts ein.',
     eaEyebrow: 'Früher Zugang · kostenlos', eaH2: 'Teste Appark vor allen anderen in Palma',
     eaSub: 'Die App funktioniert bereits. Hinterlass deine E-Mail und wir geben dir Zugang, bis sie bei Google Play und im App Store erscheint.',
     eaBody: 'Kostenlos und unverbindlich. Jeder gemeldete Platz bringt Punkte, die du bei Geschäften in Palma gegen Prämien eintauschst.',

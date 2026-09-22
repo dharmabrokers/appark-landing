@@ -12,6 +12,12 @@ export const earlyAccessSchema = z.object({
 
 export const sponsorSchema = z.object({
   empresa: z.string().min(2, 'Company name is required'),
+  // El alta de comercio es autoservicio y acaba publicando un negocio en
+  // el mapa. Sin identificador fiscal ni dirección, cualquiera puede
+  // montar uno que no existe; con ellos hay algo verificable y, de paso,
+  // lo que hace falta para facturar. Mismo criterio que la migración 0050.
+  cif: z.string().min(8, 'Tax ID is required').max(20),
+  direccion: z.string().min(5, 'Address is required').max(200),
   email: z.string().email('Invalid email'),
   telefono: z.string().optional(),
   tipoNegocio: z.string().min(1, 'Business type is required'),

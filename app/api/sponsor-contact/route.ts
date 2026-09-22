@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
     }
 
-    const { empresa, email, telefono, tipoNegocio, mensaje, language, recaptchaToken } = parsed.data
+    const { empresa, cif, direccion, email, telefono, tipoNegocio, mensaje, language, recaptchaToken } = parsed.data
 
     if (recaptchaToken) {
       const valid = await verifyRecaptcha(recaptchaToken)
@@ -26,6 +26,8 @@ export async function POST(req: Request) {
 
     const { delivered, configured } = await deliverSponsorLead({
       empresa,
+      cif,
+      direccion,
       email,
       telefono,
       tipoNegocio,
