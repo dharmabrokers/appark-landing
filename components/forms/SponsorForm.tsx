@@ -34,6 +34,10 @@ export default function SponsorForm() {
   const [telefono, setTelefono] = useState('')
   const [tipo, setTipo] = useState('')
   const [mensaje, setMensaje] = useState('')
+  /** Código del conductor que le recomendó Appark. Opcional y sin
+   *  validar: quien decide si vale es el servidor al dar de alta, y
+   *  rechazar aquí un código mal tecleado costaría un alta por un extra. */
+  const [referralCode, setReferralCode] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
 
@@ -58,7 +62,7 @@ export default function SponsorForm() {
       const res = await fetch('/api/sponsor-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ empresa, cif, direccion, email, telefono, tipoNegocio: tipo, mensaje, language: lang, recaptchaToken }),
+        body: JSON.stringify({ empresa, cif, direccion, email, telefono, tipoNegocio: tipo, mensaje, referralCode: referralCode || undefined, language: lang, recaptchaToken }),
       })
 
       if (!res.ok) throw new Error('Server error')
@@ -114,6 +118,15 @@ export default function SponsorForm() {
               placeholder={t.spPhDireccion} maxLength={200} style={inputStyle}
               onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
               onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
+          </div>
+          <div>
+            <label htmlFor="sp-ref" style={labelStyle}>{t.spLabelReferral}</label>
+            <input id="sp-ref" type="text" value={referralCode}
+              onChange={e => setReferralCode(e.target.value.toUpperCase().replace(/\s+/g, ''))}
+              placeholder="APKXXXXXX" maxLength={12} autoComplete="off" style={inputStyle}
+              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
+              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
+            <div style={{ fontSize: 12.5, color: '#8A9BA2', marginTop: 5 }}>{t.spHintReferral}</div>
           </div>
           <div>
             <label htmlFor="sp-tel" style={labelStyle}>{t.spLabelTel}</label>

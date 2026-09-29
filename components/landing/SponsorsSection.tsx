@@ -66,7 +66,13 @@ interface Plan {
   name: string
   standardFee: number
   founderFee: number
-  reward: number
+  /** Los dos límites que el servidor aplica de verdad (migración 0058).
+   *  0 = sin límite, la convención de tier_limit. Sustituyen al «+ €50 en
+   *  premios» que estuvo aquí: nadie podía comprobar lo que valía un
+   *  premio en euros, y pedirle al comercio que convierta puntos a euros
+   *  es pedirle un cambio de moneda que no existe. */
+  redemptionsWeek: number
+  maxPrizePoints: number
   recommended: boolean
   /** Lo que incluye este paquete, en la lengua activa. */
   feats: readonly string[]
@@ -100,8 +106,20 @@ function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] 
       <div style={{ textAlign: 'center', fontSize: 13.5, color: '#5C7681', fontWeight: 600, marginBottom: 18 }}>{t.spPlanCashLabel}</div>
 
       <div style={{ background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 14, padding: '14px 16px', textAlign: 'center', marginBottom: 22 }}>
-        <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>+ €{plan.reward}</span>
-        <div style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginTop: 2 }}>{t.spPlanRewardLabel}</div>
+        {plan.redemptionsWeek === 0 && plan.maxPrizePoints === 0 ? (
+          <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 17, color: '#1B8A5A' }}>{t.spPlanLimitNone}</span>
+        ) : (
+          <div style={{ display: 'grid', gap: 6 }}>
+            <div>
+              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.redemptionsWeek}</span>
+              <span style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginLeft: 6 }}>{t.spPlanLimitRedemptions}</span>
+            </div>
+            <div>
+              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.maxPrizePoints}</span>
+              <span style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginLeft: 6 }}>{t.spPlanLimitPoints}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Qué incluye cada paquete. Sin esto los tres se leían como el
@@ -128,9 +146,13 @@ export default function SponsorsSection() {
   const { t } = useLang()
 
   const plans: Plan[] = [
-    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, reward: 50, recommended: false, feats: t.spPlanFeatBronze },
-    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, reward: 100, recommended: true, feats: t.spPlanFeatSilver },
-    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, reward: 150, recommended: false, feats: t.spPlanFeatGold },
+    // Estos cuatro números tienen que coincidir con app_config en Supabase
+    // (tier.*.redemptions_week y tier.*.max_prize_points, migración 0058),
+    // que es donde el servidor los aplica. Si se recalibran allí, se
+    // cambian aquí: es la única copia que queda fuera de la base.
+    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, redemptionsWeek: 5, maxPrizePoints: 150, recommended: false, feats: t.spPlanFeatBronze },
+    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, redemptionsWeek: 15, maxPrizePoints: 300, recommended: true, feats: t.spPlanFeatSilver },
+    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, redemptionsWeek: 0, maxPrizePoints: 0, recommended: false, feats: t.spPlanFeatGold },
   ]
 
   const benefits = [
