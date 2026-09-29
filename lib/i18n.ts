@@ -48,6 +48,7 @@ export interface Translations {
   spErrEmpresa: string; spErrEmail: string; spErrTipo: string
   spLabelCif: string; spPhCif: string; spHintCif: string
   spLabelDireccion: string; spPhDireccion: string
+  spLabelReferral: string; spHintReferral: string
   spErrCif: string; spErrDireccion: string
   eaEyebrow: string; eaH2: string; eaSub: string; eaBody: string
   eaChip1: string; eaChip2: string; eaChip3: string; eaChip4: string
@@ -180,6 +181,8 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmail: 'Introduce un email de contacto válido.',
     spErrTipo: 'Selecciona tu tipo de negocio.',
     spLabelCif: 'CIF / NIF', spPhCif: 'B12345678', spHintCif: 'Lo pedimos para dar de alta tu negocio y poder facturarte. No se publica en la app.', spLabelDireccion: 'Dirección del negocio', spPhDireccion: 'Calle, número — Palma', spErrCif: 'Escribe el CIF o NIF de tu negocio.', spErrDireccion: 'Escribe la dirección de tu negocio.',
+    spLabelReferral: 'Código de recomendación (opcional)',
+    spHintReferral: 'Si un conductor de Appark te lo ha pasado, ponlo aquí: al activar tu ficha desde la app se le reconocerá a él.',
     eaEyebrow: 'Acceso anticipado · gratis', eaH2: 'Prueba Appark antes que nadie en Palma',
     eaSub: 'La app ya funciona. Déjanos tu email y te damos acceso mientras llega a Google Play y App Store.',
     eaBody: 'Sin coste ni compromiso. Cada plaza que avises suma puntos que canjeas por premios en comercios de Palma.',
@@ -316,6 +319,8 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmail: 'Introdueix un email de contacte vàlid.',
     spErrTipo: 'Selecciona el tipus de negoci.',
     spLabelCif: 'CIF / NIF', spPhCif: 'B12345678', spHintCif: 'El demanem per donar d\'alta el teu negoci i poder facturar-te. No es publica a l\'app.', spLabelDireccion: 'Adreça del negoci', spPhDireccion: 'Carrer, número — Palma', spErrCif: 'Escriu el CIF o NIF del teu negoci.', spErrDireccion: 'Escriu l\'adreça del teu negoci.',
+    spLabelReferral: 'Codi de recomanació (opcional)',
+    spHintReferral: 'Si un conductor d’Appark te l’ha passat, posa’l aquí: en activar la teva fitxa des de l’app, se li reconeixerà a ell.',
     eaEyebrow: 'Accés anticipat · gratis', eaH2: 'Prova Appark abans que ningú a Palma',
     eaSub: 'L\'app ja funciona. Deixa\'ns el teu email i et donem accés mentre arriba a Google Play i App Store.',
     eaBody: 'Sense cost ni compromís. Cada plaça que avisis suma punts que bescanvies per premis a comerços de Palma.',
@@ -452,6 +457,8 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmail: 'Enter a valid contact email.',
     spErrTipo: 'Select your business type.',
     spLabelCif: 'Tax ID', spPhCif: 'B12345678', spHintCif: 'We ask for it to register your business and to invoice you. It is never shown in the app.', spLabelDireccion: 'Business address', spPhDireccion: 'Street, number — Palma', spErrCif: 'Enter your business tax ID.', spErrDireccion: 'Enter your business address.',
+    spLabelReferral: 'Referral code (optional)',
+    spHintReferral: 'If an Appark driver passed it to you, enter it here: they get the credit when you activate your listing from the app.',
     eaEyebrow: 'Early access · free', eaH2: 'Try Appark before anyone else in Palma',
     eaSub: 'The app already works. Leave your email and we\'ll give you access while it reaches Google Play and the App Store.',
     eaBody: 'No cost, no commitment. Every spot you share earns points you can swap for rewards at Palma shops.',
@@ -588,6 +595,8 @@ export const TRANS: Record<Lang, Translations> = {
     spErrEmail: 'Gib eine gültige Kontakt-E-Mail ein.',
     spErrTipo: 'Wähle die Art deines Geschäfts.',
     spLabelCif: 'Steuernummer', spPhCif: 'B12345678', spHintCif: 'Wir brauchen sie für die Anmeldung und die Rechnung. Sie wird in der App nie angezeigt.', spLabelDireccion: 'Adresse des Geschäfts', spPhDireccion: 'Straße, Nummer — Palma', spErrCif: 'Gib die Steuernummer deines Unternehmens ein.', spErrDireccion: 'Gib die Adresse deines Geschäfts ein.',
+    spLabelReferral: 'Empfehlungscode (optional)',
+    spHintReferral: 'Wenn dir ein Appark-Fahrer einen gegeben hat, trag ihn hier ein: Er wird ihm gutgeschrieben, sobald du deinen Eintrag in der App aktivierst.',
     eaEyebrow: 'Früher Zugang · kostenlos', eaH2: 'Teste Appark vor allen anderen in Palma',
     eaSub: 'Die App funktioniert bereits. Hinterlass deine E-Mail und wir geben dir Zugang, bis sie bei Google Play und im App Store erscheint.',
     eaBody: 'Kostenlos und unverbindlich. Jeder gemeldete Platz bringt Punkte, die du bei Geschäften in Palma gegen Prämien eintauschst.',

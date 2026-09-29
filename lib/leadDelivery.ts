@@ -155,6 +155,8 @@ export async function deliverSponsorLead(data: {
   telefono?: string
   tipoNegocio?: string
   mensaje?: string
+  /** Código del conductor que le recomendó Appark, si vino con uno. */
+  referralCode?: string
   language: string
 }): Promise<LeadDeliveryResult> {
   const webhookUrl = process.env.N8N_SPONSOR_WEBHOOK_URL
@@ -174,6 +176,10 @@ export async function deliverSponsorLead(data: {
     telefono: data.telefono || null,
     tipo_negocio: data.tipoNegocio || null,
     mensaje: data.mensaje || null,
+    // Quién le trajo (migración 0060). Aquí no paga nada: la app lo
+    // recoge al dar de alta y se lo pasa a attach_referral_code, que es
+    // quien valida el código y registra la referencia.
+    referral_code: data.referralCode || null,
     language: data.language,
     source: 'appark.es',
     status: 'lead',

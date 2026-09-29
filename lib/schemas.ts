@@ -22,6 +22,11 @@ export const sponsorSchema = z.object({
   telefono: z.string().optional(),
   tipoNegocio: z.string().min(1, 'Business type is required'),
   mensaje: z.string().max(500).optional(),
+  // El código del conductor que le recomendó Appark, si vino por ahí
+  // (migración 0055). Opcional siempre y sin validar su forma: quien
+  // decide si vale es el servidor al dar de alta, y rechazar aquí un
+  // código mal tecleado costaría un alta por un extra.
+  referralCode: z.string().max(12).optional(),
   language: z.enum(['es', 'ca', 'en', 'de']).default('es'),
   recaptchaToken: z.string().optional(),
 })
