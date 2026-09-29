@@ -31,7 +31,8 @@ export interface Translations {
   spPlansEyebrow: string; spPlansH2: string; spPlansSub: string
   spPlanRecommended: string
   spPlanBronzeName: string; spPlanSilverName: string; spPlanGoldName: string
-  spPlanCashLabel: string; spPlanRewardLabel: string; spPlanStandard: string; spPlanCta: string
+  spPlanCashLabel: string; spPlanLimitRedemptions: string; spPlanLimitPoints: string
+  spPlanLimitNone: string; spPlanStandard: string; spPlanCta: string
   spPlanFeatBronze: string[]; spPlanFeatSilver: string[]; spPlanFeatGold: string[]
   spPlanFounderTerms: string
   spFreeMonthBadge: string; spFreeMonthTitle: string; spFreeMonthDesc: string; spFreeMonthNote: string; spFreeMonthCta: string
@@ -144,7 +145,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Todos combinan cuota y premios de tu propio negocio. Cuanto más arriba, más visibilidad y más puntos en juego para tus clientes.',
     spPlanRecommended: 'Recomendado',
     spPlanBronzeName: 'Bronce', spPlanSilverName: 'Plata', spPlanGoldName: 'Oro',
-    spPlanCashLabel: 'de cuota / mes + IVA', spPlanRewardLabel: 'en premios (tu producto) / mes',
+    spPlanCashLabel: 'de cuota / mes + IVA',
+    spPlanLimitRedemptions: 'canjes a la semana', spPlanLimitPoints: 'puntos máx. por premio',
+    spPlanLimitNone: 'Canjes y premios sin límite',
     spPlanStandard: 'Precio estándar', spPlanCta: 'Quiero este paquete →',
     spPlanFeatBronze: ['1 local en el mapa', '1 premio activo', 'Panel con tus canjes'],
     spPlanFeatSilver: ['3 locales', '3 premios activos', 'Estadísticas de público', 'Prioridad en el mapa'],
@@ -278,7 +281,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Tots combinen quota i premis del teu propi negoci. Com més amunt, més visibilitat i més punts en joc per als teus clients.',
     spPlanRecommended: 'Recomanat',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Plata', spPlanGoldName: 'Or',
-    spPlanCashLabel: 'de quota / mes + IVA', spPlanRewardLabel: 'en premis (el teu producte) / mes',
+    spPlanCashLabel: 'de quota / mes + IVA',
+    spPlanLimitRedemptions: 'bescanvis a la setmana', spPlanLimitPoints: 'punts màx. per premi',
+    spPlanLimitNone: 'Bescanvis i premis sense límit',
     spPlanStandard: 'Preu estàndard', spPlanCta: 'Vull aquest paquet →',
     spPlanFeatBronze: ['1 local al mapa', '1 premi actiu', 'Panell amb els teus bescanvis'],
     spPlanFeatSilver: ['3 locals', '3 premis actius', 'Estadístiques de públic', 'Prioritat al mapa'],
@@ -412,7 +417,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'All of them combine a fee and rewards from your own business. The higher the tier, the more visibility and the more points at stake for your customers.',
     spPlanRecommended: 'Recommended',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silver', spPlanGoldName: 'Gold',
-    spPlanCashLabel: 'fee / month + VAT', spPlanRewardLabel: 'in rewards (your product) / month',
+    spPlanCashLabel: 'fee / month + VAT',
+    spPlanLimitRedemptions: 'redemptions a week', spPlanLimitPoints: 'max points per reward',
+    spPlanLimitNone: 'Unlimited redemptions and rewards',
     spPlanStandard: 'Standard price', spPlanCta: 'I want this package →',
     spPlanFeatBronze: ['1 location on the map', '1 active reward', 'Panel with your redemptions'],
     spPlanFeatSilver: ['3 locations', '3 active rewards', 'Audience stats', 'Map priority'],
@@ -546,7 +553,9 @@ export const TRANS: Record<Lang, Translations> = {
     spPlansSub: 'Alle kombinieren eine Gebühr und Prämien aus deinem eigenen Geschäft. Je höher die Stufe, desto mehr Sichtbarkeit und Punkte für deine Kunden.',
     spPlanRecommended: 'Empfohlen',
     spPlanBronzeName: 'Bronze', spPlanSilverName: 'Silber', spPlanGoldName: 'Gold',
-    spPlanCashLabel: 'Gebühr / Monat zzgl. MwSt.', spPlanRewardLabel: 'in Prämien (dein Produkt) / Monat',
+    spPlanCashLabel: 'Gebühr / Monat zzgl. MwSt.',
+    spPlanLimitRedemptions: 'Einlösungen pro Woche', spPlanLimitPoints: 'max. Punkte pro Prämie',
+    spPlanLimitNone: 'Einlösungen und Prämien ohne Limit',
     spPlanStandard: 'Standardpreis', spPlanCta: 'Ich will dieses Paket →',
     spPlanFeatBronze: ['1 Standort auf der Karte', '1 aktive Prämie', 'Panel mit deinen Einlösungen'],
     spPlanFeatSilver: ['3 Standorte', '3 aktive Prämien', 'Publikumsstatistiken', 'Karten-Priorität'],
