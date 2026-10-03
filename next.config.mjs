@@ -22,7 +22,15 @@ const N8N_WEBHOOK_BASE = (
 // (/n8n/:path*): un comodín publicaría bajo appark.es cualquier webhook
 // que exista hoy o se cree mañana, incluidos los que no esperan visitas
 // de fuera.
-const N8N_ROUTES = ['/baja', '/baja-confirmar']
+//
+// /prospect-open es el píxel de apertura y /prospect-click el enlace con
+// seguimiento de los correos a comercios. El de clic redirige, y por eso
+// sólo está aquí porque n8n valida el destino contra appark.es y manda
+// cualquier otro a la portada: un redirector que aceptase la URL que le
+// llegue convertiría appark.es en la herramienta de la siguiente
+// campaña de phishing. Si esa validación se quita en n8n, esta ruta se
+// quita de aquí.
+const N8N_ROUTES = ['/baja', '/baja-confirmar', '/prospect-open', '/prospect-click']
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

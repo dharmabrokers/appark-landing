@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     // /baja cubre también /baja-confirmar (es un prefijo). Son las
     // páginas de baja del correo, que atiende n8n: no tienen nada que
     // indexar y su URL identifica a una persona.
-    rules: { userAgent: '*', allow: '/', disallow: ['/api/', '/baja'] },
+    rules: { userAgent: '*', allow: '/', disallow: ['/api/', '/baja', '/prospect-'] },
     sitemap: 'https://appark.es/sitemap.xml',
   }
 }
