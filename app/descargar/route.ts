@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { waitUntil } from '@vercel/functions'
 import { STORES } from '@/lib/stores'
+import { buildClick, isPerson, logClick, type Platform, type Target } from '@/lib/linkClicks'
 
 /**
  * appark.es/descargar — the one link printed on every QR.
@@ -13,6 +15,9 @@ import { STORES } from '@/lib/stores'
  * It reads the same NEXT_PUBLIC_*_LIVE switches as the landing, so the
  * day Apple approves, flipping NEXT_PUBLIC_APP_STORE_LIVE in Vercel is
  * the only thing needed; the printed QR stays the same.
+ *
+ * Every click by a person is counted (lib/linkClicks.ts) after the
+ * redirect has been decided, and the response does not wait for it.
  */
 export const dynamic = 'force-dynamic'
 
@@ -23,8 +28,14 @@ export function GET(req: NextRequest) {
   const isIOS = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && /mobile/i.test(ua))
 
   let target = new URL('/#descargar', req.url).toString()
-  if (isAndroid && STORES.googlePlay.live) target = STORES.googlePlay.url
-  else if (isIOS && STORES.appStore.live) target = STORES.appStore.url
+  let sentTo: Target = 'web'
+  if (isAndroid && STORES.googlePlay.live) {
+    target = STORES.googlePlay.url
+    sentTo = 'play'
+  } else if (isIOS && STORES.appStore.live) {
+    target = STORES.appStore.url
+    sentTo = 'appstore'
+  }
 
   // Campaign tags (?utm_source=cartel…) travel on to the store, so each
   // poster or post can be measured separately.
@@ -33,6 +44,13 @@ export function GET(req: NextRequest) {
     const out = new URL(target)
     out.searchParams.set('referrer', src.toString())
     target = out.toString()
+  }
+
+  if (isPerson(ua)) {
+    const platform: Platform = isAndroid ? 'android' : isIOS ? 'ios' : 'other'
+    // waitUntil keeps the function alive until the click is written,
+    // without making the phone wait for it.
+    waitUntil(logClick(buildClick(src, platform, sentTo, req.headers.get('x-vercel-ip-country'))))
   }
 
   return NextResponse.redirect(target, 302)
