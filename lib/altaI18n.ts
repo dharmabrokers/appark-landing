@@ -52,6 +52,8 @@ export interface AltaText {
   sumCancel: string
   accept: [string, string, string]
   cta: string
+  ctaPay: string
+  noTrialNote: string
   ctaLoading: string
   secure: string
   back: string
@@ -133,6 +135,8 @@ const ES: AltaText = {
   sumCancel: 'Cancelas cuando quieras, con un clic desde el correo de Stripe. Si cancelas en el primer mes, no pagas nada.',
   accept: ['Acepto las ', 'condiciones de patrocinio', ' de Appark.'],
   cta: 'Registrar tarjeta · hoy 0 €',
+  ctaPay: 'Continuar al pago seguro',
+  noTrialNote: 'Ya disfrutaste de tu mes gratis, así que el primer cobro es hoy. Sin permanencia: cancelas cuando quieras.',
   ctaLoading: 'Abriendo el pago seguro…',
   secure: 'Pago seguro con Stripe. Appark no ve los datos de tu tarjeta.',
   back: '← Atrás',
@@ -223,6 +227,8 @@ const CA: AltaText = {
   sumCancel: 'Cancel·les quan vulguis, amb un clic des del correu de Stripe. Si cancel·les el primer mes, no pagues res.',
   accept: ['Accepto les ', 'condicions de patrocini', ' d’Appark.'],
   cta: 'Registrar targeta · avui 0 €',
+  ctaPay: 'Continuar al pagament segur',
+  noTrialNote: 'Ja vas gaudir del teu mes gratis, així que el primer cobrament és avui. Sense permanència: cancel·les quan vulguis.',
   ctaLoading: 'Obrint el pagament segur…',
   secure: 'Pagament segur amb Stripe. Appark no veu les dades de la teva targeta.',
   back: '← Enrere',
@@ -313,6 +319,8 @@ const EN: AltaText = {
   sumCancel: 'Cancel any time with one click from the Stripe email. Cancel in the first month and you pay nothing.',
   accept: ['I accept Appark’s ', 'sponsorship terms', '.'],
   cta: 'Add card · €0 today',
+  ctaPay: 'Continue to secure payment',
+  noTrialNote: 'You have already had your free month, so the first payment is today. No commitment: cancel whenever you want.',
   ctaLoading: 'Opening secure payment…',
   secure: 'Secure payment with Stripe. Appark never sees your card details.',
   back: '← Back',
@@ -403,6 +411,8 @@ const DE: AltaText = {
   sumCancel: 'Jederzeit mit einem Klick über die E-Mail von Stripe kündbar. Kündigst du im ersten Monat, zahlst du nichts.',
   accept: ['Ich akzeptiere die ', 'Sponsoring-Bedingungen', ' von Appark.'],
   cta: 'Karte hinterlegen · heute 0 €',
+  ctaPay: 'Weiter zur sicheren Zahlung',
+  noTrialNote: 'Du hattest deinen Gratismonat schon, daher erfolgt die erste Zahlung heute. Keine Mindestlaufzeit: jederzeit kündbar.',
   ctaLoading: 'Sichere Zahlung wird geöffnet…',
   secure: 'Sichere Zahlung mit Stripe. Appark sieht deine Kartendaten nicht.',
   back: '← Zurück',

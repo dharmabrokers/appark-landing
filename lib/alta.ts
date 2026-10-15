@@ -37,7 +37,9 @@ export const TERMS_VERSION = '2026-10-15'
  * Cuándo cobra Stripe por primera vez: a los 30 días, o el día que acababa la prueba
  * sin tarjeta de un comercio que ya estaba (si faltan más de 48 h; si no, hoy).
  */
-export function firstChargeAt(now: number, existingTrialEnd?: string | null): { at: number; trial: boolean } {
+export function firstChargeAt(now: number, existingTrialEnd?: string | null, noTrial = false): { at: number; trial: boolean } {
+  // Ya tuvo su mes gratis (caducado o ya pagó): paga desde hoy (migración 0093).
+  if (noTrial) return { at: now, trial: false }
   if (existingTrialEnd) {
     const end = Date.parse(existingTrialEnd)
     if (Number.isFinite(end) && end > now + 48 * 3600 * 1000) return { at: end, trial: true }

@@ -54,6 +54,8 @@ interface Prefill {
   plan?: string | null
   referral_code?: string | null
   trial_ends_at?: string | null
+  /** Ya tuvo su mes gratis: paga desde hoy (0093). */
+  no_trial?: boolean
 }
 
 type Step = 1 | 2 | 3
@@ -80,6 +82,7 @@ export default function AltaFlow() {
   const [accept, setAccept] = useState(false)
   const [prefilled, setPrefilled] = useState(false)
   const [existingTrialEnd, setExistingTrialEnd] = useState<string | null>(null)
+  const [noTrial, setNoTrial] = useState(false)
 
   const [errors, setErrors] = useState<Partial<Record<Field | 'accept', string>>>({})
   const [formError, setFormError] = useState('')
@@ -128,6 +131,7 @@ export default function AltaFlow() {
         if (p.referral_code) setRef(p.referral_code)
         if (!params.get('plan') && asTier(p.plan)) setPlan(asTier(p.plan) as Tier)
         if (p.trial_ends_at) setExistingTrialEnd(p.trial_ends_at)
+        if (p.no_trial) setNoTrial(true)
         setPrefilled(true)
       })
       .catch(() => {})
@@ -135,7 +139,7 @@ export default function AltaFlow() {
   }, [token])
 
   const founder = isFounder()
-  const charge = useMemo(() => firstChargeAt(Date.now(), existingTrialEnd), [existingTrialEnd])
+  const charge = useMemo(() => firstChargeAt(Date.now(), existingTrialEnd, noTrial), [existingTrialEnd, noTrial])
   const fee = founder ? PLANS[plan].founder : PLANS[plan].standard
   const planName = { bronze: tHome.spPlanBronzeName, silver: tHome.spPlanSilverName, gold: tHome.spPlanGoldName }
   const feats = { bronze: tHome.spPlanFeatBronze, silver: tHome.spPlanFeatSilver, gold: tHome.spPlanFeatGold }
@@ -343,10 +347,16 @@ export default function AltaFlow() {
               <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 16px' }}>{t.summaryTitle}</h2>
               <dl style={{ display: 'grid', gap: 12, margin: 0 }}>
                 <Row label={t.sumPlan} value={`${planName[plan]} · ${empresa.trim()}`} />
-                <Row label={t.sumToday} value="0 €" strong />
-                <Row label={t.sumFirst(longDate(charge.at, lang))} value={t.sumFee(fee, founder ? PLANS[plan].standard : null)} />
+                {charge.trial ? (
+                  <>
+                    <Row label={t.sumToday} value="0 €" strong />
+                    <Row label={t.sumFirst(longDate(charge.at, lang))} value={t.sumFee(fee, founder ? PLANS[plan].standard : null)} />
+                  </>
+                ) : (
+                  <Row label={t.sumToday} value={t.sumFee(fee, founder ? PLANS[plan].standard : null)} strong />
+                )}
               </dl>
-              <p style={{ fontSize: 13.5, color: '#1B8A5A', fontWeight: 700, background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 12, padding: '11px 13px', margin: '16px 0' }}>✓ {t.sumCancel}</p>
+              <p style={{ fontSize: 13.5, color: '#1B8A5A', fontWeight: 700, background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 12, padding: '11px 13px', margin: '16px 0' }}>✓ {charge.trial ? t.sumCancel : t.noTrialNote}</p>
 
               <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14.5, color: '#0A2A36', fontWeight: 600, cursor: 'pointer' }}>
                 <input type="checkbox" checked={accept} onChange={(e) => { setAccept(e.target.checked); setErrors((x) => ({ ...x, accept: undefined })) }} style={{ width: 20, height: 20, marginTop: 1, flex: 'none', accentColor: '#FF6A3D' }} />
@@ -366,7 +376,7 @@ export default function AltaFlow() {
                 <SecondaryButton onClick={() => go(2)} disabled={loading}>{t.back}</SecondaryButton>
                 <PrimaryButton onClick={submit} disabled={loading}>
                   {loading && <span className="animate-spin2" style={{ width: 17, height: 17, border: '2.5px solid rgba(255,255,255,.4)', borderTopColor: '#fff', borderRadius: '50%', display: 'inline-block' }} />}
-                  {loading ? t.ctaLoading : t.cta}
+                  {loading ? t.ctaLoading : charge.trial ? t.cta : t.ctaPay}
                 </PrimaryButton>
               </div>
               <p style={{ fontSize: 12.5, color: '#7C919A', textAlign: 'center', margin: '12px 0 0' }}>🔒 {t.secure}</p>

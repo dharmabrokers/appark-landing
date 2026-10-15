@@ -64,7 +64,7 @@ export async function POST(req: Request) {
   const ref = cleanRef(d.referralCode)
 
   // 1. La ficha.
-  let reg: { lead_id: string; sponsor_id: string | null; seller_code: string | null; trial_end: string | null }
+  let reg: { lead_id: string; sponsor_id: string | null; seller_code: string | null; trial_end: string | null; no_trial?: boolean }
   try {
     reg = await rpc('alta_register', {
       p: {
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
   // 2. Stripe.
   const tier = d.plan as Tier
   const now = Date.now()
-  const charge = firstChargeAt(now, reg.trial_end)
+  const charge = firstChargeAt(now, reg.trial_end, !!reg.no_trial)
   const founder = isFounder(now)
   const origin = new URL(req.url).origin
   const back = new URL('/alta', origin)
