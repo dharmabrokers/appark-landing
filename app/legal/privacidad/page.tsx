@@ -71,7 +71,7 @@ export default function PrivacidadPage() {
             marginBottom: 40,
           }}
         >
-          Última actualización: 3 de septiembre de 2026
+          Última actualización: 15 de octubre de 2026
         </p>
 
         <Paragraph>
@@ -248,6 +248,13 @@ export default function PrivacidadPage() {
           <li>
             <strong>Sponsors:</strong> solo datos agregados y anónimos (ej: "50 usuarios
             canjearon puntos en tu negocio este mes"), nunca datos personales identificables.
+          </li>
+          <li>
+            <strong>Pagos de los comercios patrocinadores:</strong> Stripe Payments Europe,
+            Ltd. procesa, como encargado del tratamiento, los datos de pago y de facturación
+            que un comercio introduce al darse de alta como patrocinador (tarjeta o cuenta,
+            nombre, CIF y dirección de facturación). Appark no ve ni guarda los datos de la
+            tarjeta. Los conductores que usan la app no pagan nada y no pasan por Stripe.
           </li>
           <li>
             <strong>Proveedor de publicidad:</strong> Google Ireland Limited, a través de

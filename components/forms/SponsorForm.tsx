@@ -28,16 +28,10 @@ const labelStyle: React.CSSProperties = {
 export default function SponsorForm() {
   const { t, lang } = useLang()
   const [empresa, setEmpresa] = useState('')
-  const [cif, setCif] = useState('')
-  const [direccion, setDireccion] = useState('')
   const [email, setEmail] = useState('')
   const [telefono, setTelefono] = useState('')
   const [tipo, setTipo] = useState('')
   const [mensaje, setMensaje] = useState('')
-  /** Código del conductor que le recomendó Appark. Opcional y sin
-   *  validar: quien decide si vale es el servidor al dar de alta, y
-   *  rechazar aquí un código mal tecleado costaría un alta por un extra. */
-  const [referralCode, setReferralCode] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
 
@@ -47,8 +41,7 @@ export default function SponsorForm() {
     e.preventDefault()
     if (!empresa.trim()) { setStatus('error'); setError(t.spErrEmpresa); return }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus('error'); setError(t.spErrEmail); return }
-    if (cif.trim().length < 8) { setStatus('error'); setError(t.spErrCif); return }
-    if (direccion.trim().length < 5) { setStatus('error'); setError(t.spErrDireccion); return }
+    if (telefono.replace(/\D/g, '').length < 9) { setStatus('error'); setError(t.spErrTel); return }
     if (!tipo) { setStatus('error'); setError(t.spErrTipo); return }
 
     setStatus('loading'); setError('')
@@ -62,7 +55,7 @@ export default function SponsorForm() {
       const res = await fetch('/api/sponsor-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ empresa, cif, direccion, email, telefono, tipoNegocio: tipo, mensaje, referralCode: referralCode || undefined, language: lang, recaptchaToken }),
+        body: JSON.stringify({ empresa, email, telefono, tipoNegocio: tipo, mensaje, language: lang, recaptchaToken }),
       })
 
       if (!res.ok) throw new Error('Server error')
@@ -105,31 +98,7 @@ export default function SponsorForm() {
               onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
           </div>
           <div>
-            <label htmlFor="sp-cif" style={labelStyle}>{t.spLabelCif} <span style={{ color: '#FF6A3D' }}>*</span></label>
-            <input id="sp-cif" type="text" value={cif} onChange={e => { setCif(e.target.value.toUpperCase()); if (status === 'error') setStatus('idle') }}
-              placeholder={t.spPhCif} maxLength={20} style={inputStyle}
-              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
-            <div style={{ fontSize: 12.5, color: '#8A9BA2', marginTop: 5 }}>{t.spHintCif}</div>
-          </div>
-          <div>
-            <label htmlFor="sp-dir" style={labelStyle}>{t.spLabelDireccion} <span style={{ color: '#FF6A3D' }}>*</span></label>
-            <input id="sp-dir" type="text" value={direccion} onChange={e => { setDireccion(e.target.value); if (status === 'error') setStatus('idle') }}
-              placeholder={t.spPhDireccion} maxLength={200} style={inputStyle}
-              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
-          </div>
-          <div>
-            <label htmlFor="sp-ref" style={labelStyle}>{t.spLabelReferral}</label>
-            <input id="sp-ref" type="text" value={referralCode}
-              onChange={e => setReferralCode(e.target.value.toUpperCase().replace(/\s+/g, ''))}
-              placeholder="APKXXXXXX" maxLength={12} autoComplete="off" style={inputStyle}
-              onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}
-              onBlur={e => { e.target.style.borderColor = 'rgba(10,42,54,.14)'; e.target.style.boxShadow = '' }} />
-            <div style={{ fontSize: 12.5, color: '#8A9BA2', marginTop: 5 }}>{t.spHintReferral}</div>
-          </div>
-          <div>
-            <label htmlFor="sp-tel" style={labelStyle}>{t.spLabelTel}</label>
+            <label htmlFor="sp-tel" style={labelStyle}>{t.spLabelTel} <span style={{ color: '#FF6A3D' }}>*</span></label>
             <input id="sp-tel" type="tel" value={telefono} onChange={e => setTelefono(e.target.value)}
               placeholder="600 000 000" style={inputStyle}
               onFocus={e => { e.target.style.borderColor = '#11607A'; e.target.style.boxShadow = '0 0 0 3px rgba(17,96,122,.10)' }}

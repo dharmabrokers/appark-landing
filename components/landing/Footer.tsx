@@ -53,6 +53,7 @@ export default function Footer() {
               {[
                 { label: t.footPrivacy, href: '/legal/privacidad' },
                 { label: t.footTerms, href: '/legal/terminos' },
+                { label: t.footSponsorTerms, href: '/legal/patrocinio' },
                 { label: t.footCookies, href: '/legal/privacidad#cookies' },
               ].map(({ label, href }) => (
                 <a key={label} href={href} style={{ textDecoration: 'none', color: '#C7D7DC', fontSize: 14.5 }}

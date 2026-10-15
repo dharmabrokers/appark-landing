@@ -134,7 +134,7 @@ function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] 
         ))}
       </ul>
 
-      <a href="#sponsor-form"
+      <a href={`/alta?plan=${plan.key}`}
         style={{ display: 'block', textAlign: 'center', textDecoration: 'none', width: '100%', background: recommended ? '#FF6A3D' : '#fff', color: recommended ? '#fff' : '#0A2A36', fontWeight: 700, fontSize: 15, padding: '14px', borderRadius: 13, border: recommended ? 'none' : '1.5px solid rgba(10,42,54,.14)', boxShadow: recommended ? '0 10px 26px rgba(255,106,61,.32)' : 'none' }}>
         {t.spPlanCta}
       </a>
@@ -216,7 +216,7 @@ export default function SponsorsSection() {
             <p style={{ fontSize: 15.5, lineHeight: 1.6, color: '#3E5B54', margin: '0 0 8px', maxWidth: 560 }}>{t.spFreeMonthDesc}</p>
             <p style={{ fontSize: 13, fontWeight: 700, color: '#1B8A5A', margin: 0 }}>✓ {t.spFreeMonthNote}</p>
           </div>
-          <a href="#sponsor-form" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', background: '#1FB877', color: '#fff', fontWeight: 700, fontSize: 15, padding: '15px 26px', borderRadius: 14, boxShadow: '0 12px 28px rgba(31,184,119,.32)', whiteSpace: 'nowrap' }}>
+          <a href="/alta" style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', background: '#1FB877', color: '#fff', fontWeight: 700, fontSize: 15, padding: '15px 26px', borderRadius: 14, boxShadow: '0 12px 28px rgba(31,184,119,.32)', whiteSpace: 'nowrap' }}>
             {t.spFreeMonthCta}
           </a>
         </div>
