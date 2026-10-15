@@ -6,7 +6,7 @@ import AltaFlow from '@/components/alta/AltaFlow'
 
 export const metadata: Metadata = {
   title: 'Alta de comercio | Appark',
-  description: 'Da de alta tu comercio en Appark: primer mes gratis, sin permanencia. Registras la tarjeta y no se cobra nada hasta el día 31.',
+  description: 'Da de alta tu comercio en Appark: primer mes gratis, sin permanencia. Registras la tarjeta y no se cobra nada durante los primeros 30 días.',
   // Cada enlace lleva el código del comercial o el token de una ficha: no se indexa.
   robots: { index: false, follow: false },
 }

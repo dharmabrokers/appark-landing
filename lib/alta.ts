@@ -1,7 +1,7 @@
 /**
  * appark.es/alta — el alta del comercio con la tarjeta registrada en Stripe.
  *
- * El primer mes es gratis: Stripe no cobra hasta el día 31. Lo que viaja a Stripe y
+ * El primer mes es gratis: Stripe no cobra nada durante los primeros 30 días. Lo que viaja a Stripe y
  * lo que espera el webhook del CRM (Appark-main, apps/crm/src/lib/alta.ts) es un
  * contrato: si cambia aquí, cambia allí.
  *

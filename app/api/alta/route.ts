@@ -11,7 +11,7 @@ import { PLANS, TERMS_VERSION, checkoutLocale, cleanCode, cleanRef, cleanToken, 
  * 1. Guarda o actualiza la ficha del comercio en el CRM y la atribuye al comercial
  *    del enlace (alta_register, migración 0093).
  * 2. Crea la sesión de Checkout: suscripción mensual, 30 días de prueba (no cobra
- *    hasta el día 31), cupón fundador aplicado, IVA automático y CIF.
+ *    durante los primeros 30 días), cupón fundador aplicado, IVA automático y CIF.
  * 3. Devuelve la URL de Stripe.
  *
  * La cuenta del comercio la crea el webhook del CRM cuando Stripe confirma el alta.
