@@ -111,7 +111,8 @@ export async function POST(req: Request) {
       mode: 'subscription',
       line_items: [{ price: envFor('STRIPE_PRICE', tier) || PRICE_DEFAULTS[tier], quantity: 1 }],
       subscription_data: {
-        // Una fecha exacta, no "30 días": es la que se le enseña y la que guarda el CRM.
+        // Una fecha exacta, no "30 días": es la que se le enseña y la que guarda el CRM
+        // (las 23:59 de ese día en Palma, para que Stripe cuente 30 y no 29).
         trial_end: charge.trial ? Math.floor(charge.at / 1000) : undefined,
         // Sin tarjeta al acabar la prueba, la suscripción se cancela en vez de quedar a deber.
         trial_settings: charge.trial ? { end_behavior: { missing_payment_method: 'cancel' } } : undefined,

@@ -45,7 +45,28 @@ export function firstChargeAt(now: number, existingTrialEnd?: string | null, noT
     if (Number.isFinite(end) && end > now + 48 * 3600 * 1000) return { at: end, trial: true }
     if (Number.isFinite(end)) return { at: now, trial: false }
   }
-  return { at: now + TRIAL_DAYS * 86400 * 1000, trial: true }
+  return { at: endOfMadridDay(now + TRIAL_DAYS * 86400 * 1000), trial: true }
+}
+
+/**
+ * El último minuto de ese día en Palma (23:59).
+ *
+ * Stripe cuenta los días de prueba que quedan cuando enseña el Checkout, y
+ * con «ahora + 30 días» exactos ya han pasado unos segundos: pone «29 días
+ * gratis». Cerrando al final del día salen 30 todo el día del alta, y la
+ * fecha del primer cobro es la misma que se le ha enseñado.
+ */
+export function endOfMadridDay(ms: number): number {
+  const ymd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ms))
+  const [y, m, d] = ymd.split('-').map(Number)
+  const guess = Date.UTC(y, m - 1, d, 23, 59, 0)
+  // Lo que marca el reloj de Madrid en ese instante, leído como si fuera UTC: la diferencia es el desfase.
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Madrid', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      .formatToParts(new Date(guess)).map((x) => [x.type, Number(x.value)]),
+  )
+  const asLocal = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute)
+  return guess - (asLocal - guess)
 }
 
 /** Códigos y tokens: solo lo que pueden ser. Lo demás se ignora. */
