@@ -8,6 +8,9 @@ import { Metadata } from 'next'
  * which is a listing requirement, not a nicety.
  */
 export const metadata: Metadata = {
+  // Su propio canonical: el que heredaba del layout apuntaba a la portada
+  // y le decía a Google que esta página era un duplicado de ella.
+  alternates: { canonical: '/legal/eliminar-cuenta' },
   title: 'Eliminar tu cuenta de Appark',
   description: 'Cómo eliminar tu cuenta de Appark y qué datos se borran.',
 }

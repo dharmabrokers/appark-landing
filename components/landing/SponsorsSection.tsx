@@ -1,4 +1,5 @@
 'use client'
+import { PLAN_FEES } from '@/lib/plans'
 import { useLang } from '@/components/LangContext'
 import SponsorForm from '@/components/forms/SponsorForm'
 
@@ -150,9 +151,9 @@ export default function SponsorsSection() {
     // (tier.*.redemptions_week y tier.*.max_prize_points, migración 0058),
     // que es donde el servidor los aplica. Si se recalibran allí, se
     // cambian aquí: es la única copia que queda fuera de la base.
-    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, redemptionsWeek: 5, maxPrizePoints: 150, recommended: false, feats: t.spPlanFeatBronze },
-    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, redemptionsWeek: 15, maxPrizePoints: 300, recommended: true, feats: t.spPlanFeatSilver },
-    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, redemptionsWeek: 0, maxPrizePoints: 0, recommended: false, feats: t.spPlanFeatGold },
+    { key: 'bronze', name: t.spPlanBronzeName, ...PLAN_FEES.bronze, redemptionsWeek: 5, maxPrizePoints: 150, recommended: false, feats: t.spPlanFeatBronze },
+    { key: 'silver', name: t.spPlanSilverName, ...PLAN_FEES.silver, redemptionsWeek: 15, maxPrizePoints: 300, recommended: true, feats: t.spPlanFeatSilver },
+    { key: 'gold', name: t.spPlanGoldName, ...PLAN_FEES.gold, redemptionsWeek: 0, maxPrizePoints: 0, recommended: false, feats: t.spPlanFeatGold },
   ]
 
   const benefits = [

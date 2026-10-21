@@ -9,14 +9,20 @@ import RegaloSection from '@/components/landing/RegaloSection'
 import SponsorsSection from '@/components/landing/SponsorsSection'
 import EarlyAccessSection from '@/components/landing/EarlyAccessSection'
 import DownloadSection from '@/components/landing/DownloadSection'
+import FaqSection from '@/components/landing/FaqSection'
 import { APP_LAUNCHED } from '@/lib/stores'
 import AnthemSection from '@/components/landing/AnthemSection'
 import Footer from '@/components/landing/Footer'
 import StickyCta from '@/components/landing/StickyCta'
+import type { Lang } from '@/lib/i18n'
 
-export default function Home() {
+/**
+ * La portada, en el idioma de su URL. La usan app/(es)/page.tsx para /
+ * y app/(intl)/[lang]/page.tsx para /ca, /en y /de.
+ */
+export default function HomePage({ lang }: { lang: Lang }) {
   return (
-    <LangProvider>
+    <LangProvider initialLang={lang} routed>
       <Navbar />
       <main>
         <Hero />
@@ -27,6 +33,7 @@ export default function Home() {
         <SponsorsSection />
         {/* Tras el lanzamiento se descarga; antes, se pide acceso. lib/stores.ts */}
         {APP_LAUNCHED ? <DownloadSection /> : <EarlyAccessSection />}
+        <FaqSection />
         <AnthemSection />
       </main>
       <Footer />

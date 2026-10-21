@@ -4,7 +4,7 @@ import { useLang } from '@/components/LangContext'
 export default function ProblemSection() {
   const { t } = useLang()
   return (
-    <section id="como-funciona" style={{ scrollMarginTop: 72, padding: '96px 24px', background: '#FBF6EE' }}>
+    <section id="el-problema" style={{ scrollMarginTop: 72, padding: '96px 24px', background: '#FBF6EE' }}>
       <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '56px 64px', alignItems: 'center' }}>
         <div style={{ flex: '1 1 440px', minWidth: 300 }}>
           <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF6A3D', marginBottom: 16 }}>{t.probEyebrow}</div>

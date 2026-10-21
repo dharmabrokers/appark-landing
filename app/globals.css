@@ -40,3 +40,8 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Preguntas frecuentes: sin el triángulo del navegador, con un + que gira a × al abrir. */
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item .faq-sign { transition: transform .2s ease; }
+.faq-item[open] .faq-sign { transform: rotate(45deg); }
