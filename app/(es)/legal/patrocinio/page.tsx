@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import { TERMS_VERSION } from '@/lib/alta'
 
 export const metadata: Metadata = {
+  // Su propio canonical: el que heredaba del layout apuntaba a la portada
+  // y le decía a Google que esta página era un duplicado de ella.
+  alternates: { canonical: '/legal/patrocinio' },
   title: 'Condiciones de patrocinio | Appark',
   description: 'Condiciones generales para los comercios patrocinadores de Appark',
 }

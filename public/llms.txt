@@ -1,0 +1,38 @@
+# Appark
+
+> Appark es una app gratuita para encontrar aparcamiento en Palma de Mallorca. Los conductores comparten automáticamente las plazas que dejan libres: la app detecta sola cuándo alguien aparca y cuándo se va, y lo muestra en un mapa en tiempo real. Está en Android (Google Play) e iPhone (App Store), en español, catalán, inglés y alemán. La financian comercios locales de Palma, que patrocinan la app y ponen premios que los conductores canjean con los puntos que ganan.
+
+Appark is a free app for finding parking in Palma de Mallorca, Spain. Drivers automatically share the spaces they leave: the app detects on its own when someone parks and when they drive away, and shows it on a live map. Available on Android and iPhone, in Spanish, Catalan, English and German. Funded by local businesses in Palma that sponsor the app and offer rewards drivers redeem with the points they earn.
+
+## Para conductores / For drivers
+
+- [Portada en español](https://appark.es/): qué es Appark, cómo funciona y preguntas frecuentes.
+- [English](https://appark.es/en): what Appark is, how it works and FAQ. Useful for visitors with a rental car.
+- [Deutsch](https://appark.es/de): Was Appark ist, wie es funktioniert, häufige Fragen.
+- [Català](https://appark.es/ca): què és Appark, com funciona i preguntes freqüents.
+- [Descargar la app / Download](https://appark.es/descargar): lleva a Google Play o a la App Store según el móvil.
+
+Datos clave:
+- Gratis para conductores, sin suscripciones.
+- Detección automática: guarda dónde aparcas y publica tu plaza al irte, sin tocar nada. Si duda, pregunta con una notificación.
+- Puntos automáticos por cada plaza compartida, canjeables en comercios de Palma. Los premios se ordenan por cercanía.
+- Necesita permiso de ubicación (también en segundo plano) y de actividad física.
+
+## Para comercios / For businesses
+
+- [Paquetes de patrocinio](https://appark.es/#sponsors): Bronce, Plata y Oro. Primer mes gratis, sin permanencia. El comercio aparece en el mapa y ofrece premios de su propio negocio.
+- [Condiciones de patrocinio](https://appark.es/legal/patrocinio)
+
+## Legal
+
+- [Política de privacidad](https://appark.es/legal/privacidad)
+- [Términos y condiciones](https://appark.es/legal/terminos)
+- [Eliminar la cuenta](https://appark.es/legal/eliminar-cuenta)
+
+## Contacto y perfiles
+
+- Email: hola@appark.es
+- Instagram: https://www.instagram.com/appark_palma
+- TikTok: https://www.tiktok.com/@appark_palma
+- LinkedIn: https://www.linkedin.com/company/appark-es
+- Empresa: Dharma Brokers' Consulting SL, Palma (Illes Balears, España)

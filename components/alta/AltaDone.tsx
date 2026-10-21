@@ -83,7 +83,7 @@ export default function AltaDone() {
       <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1B8A5A', marginBottom: 10 }}>
         {t.okEyebrow}{info.plan ? ` · ${planName[info.plan]}` : ''}
       </div>
-      <h1 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.8rem,4vw,2.4rem)', lineHeight: 1.1, color: '#0A2A36', margin: '0 0 12px' }}>{t.okTitle}</h1>
+      <h1 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.8rem,4vw,2.4rem)', lineHeight: 1.1, color: '#0A2A36', margin: '0 0 12px' }}>{t.okTitle}</h1>
       {info.firstChargeAt && <p style={{ fontSize: 16, lineHeight: 1.6, color: '#45626C', margin: '0 0 6px' }}>{t.okNoCharge(longDate(info.firstChargeAt, lang))}</p>}
       {info.email && <p style={{ fontSize: 16, lineHeight: 1.6, color: '#45626C', margin: 0 }}>{t.okEmail(info.email)}</p>}
 

@@ -1,6 +1,9 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  // Su propio canonical: el que heredaba del layout apuntaba a la portada
+  // y le decía a Google que esta página era un duplicado de ella.
+  alternates: { canonical: '/legal/privacidad' },
   title: 'Política de Privacidad | Appark',
   description: 'Política de privacidad de Appark conforme al RGPD y la LOPDGDD',
 }

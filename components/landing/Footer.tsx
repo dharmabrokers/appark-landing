@@ -1,13 +1,14 @@
 'use client'
 import Image from 'next/image'
 import { useLang } from '@/components/LangContext'
+import { SOCIAL } from '@/lib/seo'
 
 // Logotipo en blanco (el footer va sobre azul oscuro) y el slogan
 // debajo, en texto grande: naranja y blanco, como el arte de marca.
 const Logo = () => (
   <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
     <Image src="/logo-appark-logotipo-blanco.png" alt="Appark" width={0} height={0} sizes="150px" style={{ display: 'block', height: 40, width: 'auto' }} />
-    <span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+    <span style={{ fontFamily: "var(--font-body), sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
       <span style={{ color: '#FF4E00' }}>Menos vueltas.</span> <span style={{ color: '#fff' }}>Más Palma.</span>
     </span>
   </span>
@@ -23,6 +24,12 @@ const InstagramIcon = () => (
 const TikTokIcon = () => (
   <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff">
     <path d="M16.5 3c.3 2.1 1.5 3.7 3.5 4v2.4c-1.3.1-2.5-.3-3.6-1v5.9c0 3.4-2.6 5.7-5.7 5.7-2.9 0-5.2-2.2-5.2-5.1 0-3 2.4-5.2 5.6-4.9v2.5c-.4-.1-.9-.2-1.3-.1-1.3.1-2.3 1.1-2.2 2.6 0 1.4 1.1 2.5 2.5 2.5 1.5 0 2.5-1.1 2.5-2.7V3h2.4Z" />
+  </svg>
+)
+
+const LinkedInIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff">
+    <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V21h-4V9.5Z" />
   </svg>
 )
 
@@ -74,15 +81,20 @@ export default function Footer() {
               hola@appark.es
             </a>
             <div style={{ display: 'flex', gap: 12 }}>
-              <a href="https://www.instagram.com/appark_palma" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={socialBtnStyle}
+              <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={socialBtnStyle}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
                 <InstagramIcon />
               </a>
-              <a href="https://www.tiktok.com/@appark_palma" target="_blank" rel="noopener noreferrer" aria-label="TikTok" style={socialBtnStyle}
+              <a href={SOCIAL.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" style={socialBtnStyle}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
                 <TikTokIcon />
+              </a>
+              <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={socialBtnStyle}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
+                <LinkedInIcon />
               </a>
             </div>
           </div>

@@ -10,7 +10,7 @@ const SpinnerIcon = () => (
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '14px 15px', border: '1.5px solid rgba(10,42,54,.14)', borderRadius: 12,
-  fontSize: 15, fontFamily: "'Manrope',sans-serif", color: '#0A2A36', outline: 'none',
+  fontSize: 15, fontFamily: "var(--font-body), sans-serif", color: '#0A2A36', outline: 'none',
   background: '#FCFAF6', boxSizing: 'border-box',
 }
 const labelStyle: React.CSSProperties = {
@@ -57,7 +57,7 @@ export default function EarlyAccessForm() {
     return (
       <div style={{ textAlign: 'center', padding: '24px 6px' }}>
         <div style={{ fontSize: 46, lineHeight: 1, marginBottom: 14 }}>🎉</div>
-        <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 23, color: '#0A2A36', margin: '0 0 10px' }}>{t.eaSuccessTitle}</h3>
+        <h3 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 23, color: '#0A2A36', margin: '0 0 10px' }}>{t.eaSuccessTitle}</h3>
         <p style={{ fontSize: 15.5, color: '#5C7681', lineHeight: 1.6, margin: '0 0 16px' }}>{t.eaSuccessBody}</p>
         <p style={{ fontSize: 14, color: '#0A2A36', fontWeight: 600, lineHeight: 1.55, margin: 0, background: '#FBF6EE', border: '1px solid rgba(10,42,54,.1)', borderRadius: 12, padding: '13px 15px' }}>{t.eaSuccessWaiting}</p>
         <p style={{ fontSize: 12.5, color: '#8A9BA2', lineHeight: 1.5, margin: '12px 0 0' }}>{t.eaSuccessSpam}</p>
@@ -93,7 +93,7 @@ export default function EarlyAccessForm() {
         )}
 
         <button type="submit" disabled={status === 'loading'}
-          style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "'Manrope',sans-serif", padding: 16, borderRadius: 13, border: 'none', cursor: status === 'loading' ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.34)', opacity: status === 'loading' ? 0.75 : 1 }}>
+          style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "var(--font-body), sans-serif", padding: 16, borderRadius: 13, border: 'none', cursor: status === 'loading' ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.34)', opacity: status === 'loading' ? 0.75 : 1 }}>
           {status === 'loading' && <SpinnerIcon />}
           {status === 'loading' ? t.eaSending : t.eaBtn}
         </button>

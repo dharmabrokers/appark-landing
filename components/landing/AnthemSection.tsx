@@ -74,7 +74,7 @@ export default function AnthemSection() {
             <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#FF6A3D', marginBottom: 4 }}>
               {t.anthemEyebrow}
             </div>
-            <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 18, color: '#0A2A36', marginBottom: 2 }}>
+            <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 18, color: '#0A2A36', marginBottom: 2 }}>
               {t.anthemTitle}
             </div>
             <div style={{ fontSize: 13, color: '#8A9BA2', fontWeight: 600, marginBottom: 10 }}>

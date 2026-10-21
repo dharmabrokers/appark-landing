@@ -1,4 +1,5 @@
 'use client'
+import { PLAN_FEES } from '@/lib/plans'
 import { useLang } from '@/components/LangContext'
 import SponsorForm from '@/components/forms/SponsorForm'
 
@@ -95,27 +96,27 @@ function PlanCard({ plan, t }: { plan: Plan; t: ReturnType<typeof useLang>['t'] 
           {t.spPlanRecommended}
         </div>
       )}
-      <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', marginBottom: 18, textAlign: 'center' }}>{plan.name}</div>
+      <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', marginBottom: 18, textAlign: 'center' }}>{plan.name}</div>
 
       <div style={{ textAlign: 'center', marginBottom: 6 }}>
         <span style={{ fontSize: 15, color: '#A4B2B8', textDecoration: 'line-through', fontWeight: 600 }}>€{plan.standardFee}</span>
       </div>
       <div style={{ textAlign: 'center', marginBottom: 4 }}>
-        <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 42, color: '#0A2A36' }}>€{plan.founderFee}</span>
+        <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 42, color: '#0A2A36' }}>€{plan.founderFee}</span>
       </div>
       <div style={{ textAlign: 'center', fontSize: 13.5, color: '#5C7681', fontWeight: 600, marginBottom: 18 }}>{t.spPlanCashLabel}</div>
 
       <div style={{ background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 14, padding: '14px 16px', textAlign: 'center', marginBottom: 22 }}>
         {plan.redemptionsWeek === 0 && plan.maxPrizePoints === 0 ? (
-          <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 17, color: '#1B8A5A' }}>{t.spPlanLimitNone}</span>
+          <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 17, color: '#1B8A5A' }}>{t.spPlanLimitNone}</span>
         ) : (
           <div style={{ display: 'grid', gap: 6 }}>
             <div>
-              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.redemptionsWeek}</span>
+              <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.redemptionsWeek}</span>
               <span style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginLeft: 6 }}>{t.spPlanLimitRedemptions}</span>
             </div>
             <div>
-              <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.maxPrizePoints}</span>
+              <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 20, color: '#1B8A5A' }}>{plan.maxPrizePoints}</span>
               <span style={{ fontSize: 12.5, color: '#3E7A5D', fontWeight: 600, marginLeft: 6 }}>{t.spPlanLimitPoints}</span>
             </div>
           </div>
@@ -150,9 +151,9 @@ export default function SponsorsSection() {
     // (tier.*.redemptions_week y tier.*.max_prize_points, migración 0058),
     // que es donde el servidor los aplica. Si se recalibran allí, se
     // cambian aquí: es la única copia que queda fuera de la base.
-    { key: 'bronze', name: t.spPlanBronzeName, standardFee: 99, founderFee: 69, redemptionsWeek: 5, maxPrizePoints: 150, recommended: false, feats: t.spPlanFeatBronze },
-    { key: 'silver', name: t.spPlanSilverName, standardFee: 199, founderFee: 139, redemptionsWeek: 15, maxPrizePoints: 300, recommended: true, feats: t.spPlanFeatSilver },
-    { key: 'gold', name: t.spPlanGoldName, standardFee: 399, founderFee: 279, redemptionsWeek: 0, maxPrizePoints: 0, recommended: false, feats: t.spPlanFeatGold },
+    { key: 'bronze', name: t.spPlanBronzeName, ...PLAN_FEES.bronze, redemptionsWeek: 5, maxPrizePoints: 150, recommended: false, feats: t.spPlanFeatBronze },
+    { key: 'silver', name: t.spPlanSilverName, ...PLAN_FEES.silver, redemptionsWeek: 15, maxPrizePoints: 300, recommended: true, feats: t.spPlanFeatSilver },
+    { key: 'gold', name: t.spPlanGoldName, ...PLAN_FEES.gold, redemptionsWeek: 0, maxPrizePoints: 0, recommended: false, feats: t.spPlanFeatGold },
   ]
 
   const benefits = [
@@ -188,7 +189,7 @@ export default function SponsorsSection() {
       <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 50px' }}>
           <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#11607A', marginBottom: 16 }}>{t.spEyebrow}</div>
-          <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(2rem,4vw,3.1rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 18px' }}>{t.spH2}</h2>
+          <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(2rem,4vw,3.1rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 18px' }}>{t.spH2}</h2>
           <p style={{ fontSize: 18, lineHeight: 1.6, color: '#45626C', margin: 0 }}>{t.spSub}</p>
         </div>
 
@@ -210,7 +211,7 @@ export default function SponsorsSection() {
             <span style={{ display: 'inline-block', background: '#1FB877', color: '#fff', fontSize: 12.5, fontWeight: 800, letterSpacing: '.5px', padding: '6px 14px', borderRadius: 999, marginBottom: 14, boxShadow: '0 8px 18px rgba(31,184,119,.3)' }}>
               {t.spFreeMonthBadge}
             </span>
-            <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.3rem,2.6vw,1.7rem)', lineHeight: 1.2, color: '#0A2A36', marginBottom: 10, maxWidth: 560 }}>
+            <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.3rem,2.6vw,1.7rem)', lineHeight: 1.2, color: '#0A2A36', marginBottom: 10, maxWidth: 560 }}>
               {t.spFreeMonthTitle}
             </div>
             <p style={{ fontSize: 15.5, lineHeight: 1.6, color: '#3E5B54', margin: '0 0 8px', maxWidth: 560 }}>{t.spFreeMonthDesc}</p>
@@ -225,19 +226,19 @@ export default function SponsorsSection() {
         <div style={{ background: '#fff', border: '1px solid rgba(10,42,54,.08)', borderRadius: 28, padding: 'clamp(28px,4vw,48px)', marginBottom: 40, boxShadow: '0 20px 50px rgba(10,42,54,.06)' }}>
           <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 36px' }}>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF6A3D', marginBottom: 14 }}>{t.spModelEyebrow}</div>
-            <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.5rem,3vw,2.1rem)', lineHeight: 1.15, letterSpacing: '-.5px', color: '#0A2A36', margin: '0 0 14px' }}>{t.spModelH2}</h3>
+            <h3 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.5rem,3vw,2.1rem)', lineHeight: 1.15, letterSpacing: '-.5px', color: '#0A2A36', margin: '0 0 14px' }}>{t.spModelH2}</h3>
             <p style={{ fontSize: 16, lineHeight: 1.65, color: '#45626C', margin: 0 }}>{t.spModelSub}</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20, marginBottom: 36 }}>
             <div style={{ background: '#F8FAFB', border: '1px solid rgba(17,96,122,.14)', borderRadius: 20, padding: 26 }}>
               <div style={{ width: 50, height: 50, borderRadius: 14, background: '#E6F1F4', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><CoinIcon /></div>
-              <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 19, color: '#0A2A36', marginBottom: 8 }}>{t.spModelCashTitle}</div>
+              <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 19, color: '#0A2A36', marginBottom: 8 }}>{t.spModelCashTitle}</div>
               <p style={{ fontSize: 14.5, lineHeight: 1.6, color: '#5C7681', margin: 0 }}>{t.spModelCashDesc}</p>
             </div>
             <div style={{ background: '#FEF6F2', border: '1px solid rgba(255,106,61,.18)', borderRadius: 20, padding: 26 }}>
               <div style={{ width: 50, height: 50, borderRadius: 14, background: '#FDE9E0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><GiftIcon /></div>
-              <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 19, color: '#0A2A36', marginBottom: 8 }}>{t.spModelRewardTitle}</div>
+              <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 19, color: '#0A2A36', marginBottom: 8 }}>{t.spModelRewardTitle}</div>
               <p style={{ fontSize: 14.5, lineHeight: 1.6, color: '#5C7681', margin: 0 }}>{t.spModelRewardDesc}</p>
             </div>
           </div>
@@ -277,7 +278,7 @@ export default function SponsorsSection() {
             <div key={step.title} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               <div style={{ background: '#fff', border: '1px solid rgba(10,42,54,.07)', borderRadius: 20, padding: '24px 22px', boxShadow: '0 12px 30px rgba(10,42,54,.05)', flex: 1 }}>
                 <div style={{ width: 46, height: 46, borderRadius: 13, background: step.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>{step.icon}</div>
-                <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 700, fontSize: 17, color: '#0A2A36', marginBottom: 6 }}>{step.title}</div>
+                <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 700, fontSize: 17, color: '#0A2A36', marginBottom: 6 }}>{step.title}</div>
                 <p style={{ fontSize: 13.5, lineHeight: 1.55, color: '#5C7681', margin: 0 }}>{step.desc}</p>
               </div>
               {i < 2 && <span className="sp-flow-arrow" style={{ fontSize: 22, color: '#C9B79A', flex: 'none' }}>→</span>}
@@ -289,7 +290,7 @@ export default function SponsorsSection() {
         <div style={{ background: 'linear-gradient(135deg,#FFF4EE,#FEF6F2)', border: '1.5px solid rgba(255,106,61,.3)', borderRadius: 22, padding: '28px 30px', marginBottom: 36, display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ flex: '1 1 380px' }}>
             <span style={{ display: 'inline-block', background: '#FF6A3D', color: '#fff', fontSize: 12, fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999, marginBottom: 12 }}>🔥 {t.spFounderBadge}</span>
-            <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 20, color: '#0A2A36', marginBottom: 6 }}>{t.spFounderTitle}</div>
+            <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 20, color: '#0A2A36', marginBottom: 6 }}>{t.spFounderTitle}</div>
             <p style={{ fontSize: 14.5, lineHeight: 1.6, color: '#5C7681', margin: '0 0 6px', maxWidth: 560 }}>{t.spFounderDesc}</p>
             <p style={{ fontSize: 12.5, color: '#8A9BA2', margin: 0 }}>{t.spFounderNote}</p>
           </div>
@@ -298,7 +299,7 @@ export default function SponsorsSection() {
         {/* ===== PRICING CARDS ===== */}
         <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 32px' }}>
           <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#11607A', marginBottom: 14 }}>{t.spPlansEyebrow}</div>
-          <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.6rem,3.2vw,2.2rem)', lineHeight: 1.15, letterSpacing: '-.5px', color: '#0A2A36', margin: '0 0 14px' }}>{t.spPlansH2}</h3>
+          <h3 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.6rem,3.2vw,2.2rem)', lineHeight: 1.15, letterSpacing: '-.5px', color: '#0A2A36', margin: '0 0 14px' }}>{t.spPlansH2}</h3>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: '#45626C', margin: 0 }}>{t.spPlansSub}</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 26, marginBottom: 56, alignItems: 'start' }}>

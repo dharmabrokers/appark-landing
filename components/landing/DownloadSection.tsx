@@ -32,7 +32,7 @@ export default function DownloadSection() {
 
       <div style={{ width: '100%', maxWidth: 980, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
         <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FFB088', marginBottom: 16 }}>{t.dlEyebrow}</div>
-        <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(2.1rem,4.4vw,3.4rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.dlH2}</h2>
+        <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(2.1rem,4.4vw,3.4rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.dlH2}</h2>
         <p style={{ fontSize: 18, lineHeight: 1.6, color: '#A9C2C9', maxWidth: 640, margin: '0 auto 30px' }}>{t.dlSub}</p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 11, marginBottom: 46 }}>

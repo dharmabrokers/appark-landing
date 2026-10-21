@@ -18,7 +18,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error'
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '13px 15px', border: '1.5px solid rgba(10,42,54,.14)', borderRadius: 12,
-  fontSize: 15, fontFamily: "'Manrope',sans-serif", color: '#0A2A36', outline: 'none',
+  fontSize: 15, fontFamily: "var(--font-body), sans-serif", color: '#0A2A36', outline: 'none',
   background: '#FCFAF6', boxSizing: 'border-box',
 }
 const labelStyle: React.CSSProperties = {
@@ -70,7 +70,7 @@ export default function SponsorForm() {
     return (
       <div style={{ textAlign: 'center', padding: '30px 6px' }}>
         <CheckSuccessIcon />
-        <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 23, color: '#0A2A36', margin: '0 0 10px' }}>{t.spSuccessTitle}</h3>
+        <h3 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 23, color: '#0A2A36', margin: '0 0 10px' }}>{t.spSuccessTitle}</h3>
         <p style={{ fontSize: 15.5, color: '#5C7681', lineHeight: 1.6, margin: 0 }}>{t.spSuccessBody}</p>
       </div>
     )
@@ -78,7 +78,7 @@ export default function SponsorForm() {
 
   return (
     <div>
-      <h3 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 24, color: '#0A2A36', margin: '0 0 6px' }}>{t.spFormTitle}</h3>
+      <h3 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 24, color: '#0A2A36', margin: '0 0 6px' }}>{t.spFormTitle}</h3>
       <p style={{ fontSize: 14.5, color: '#5C7681', margin: '0 0 24px', lineHeight: 1.5 }}>{t.spFormSub}</p>
 
       <form onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ export default function SponsorForm() {
           )}
 
           <button type="submit" disabled={status === 'loading'}
-            style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "'Manrope',sans-serif", padding: 16, borderRadius: 13, border: 'none', cursor: status === 'loading' ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.32)', opacity: status === 'loading' ? 0.75 : 1 }}>
+            style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "var(--font-body), sans-serif", padding: 16, borderRadius: 13, border: 'none', cursor: status === 'loading' ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.32)', opacity: status === 'loading' ? 0.75 : 1 }}>
             {status === 'loading' && <SpinnerIcon />}
             {status === 'loading' ? t.spSending : t.spBtn}
           </button>

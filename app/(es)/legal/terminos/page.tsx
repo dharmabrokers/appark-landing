@@ -1,6 +1,9 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  // Su propio canonical: el que heredaba del layout apuntaba a la portada
+  // y le decía a Google que esta página era un duplicado de ella.
+  alternates: { canonical: '/legal/terminos' },
   title: 'Términos de Servicio | Appark',
   description: 'Términos y condiciones de uso de Appark',
 }

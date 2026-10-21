@@ -2,6 +2,27 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { TRANS, LANG_ORDER, Lang, Translations } from '@/lib/i18n'
 
+/**
+ * El idioma de la página.
+ *
+ * Dos modos:
+ *
+ * - Con `routed` (la portada): cada idioma tiene su URL (/, /ca, /en,
+ *   /de). La URL manda: el servidor ya pintó la página en ese idioma, que
+ *   es lo que ven Google y los asistentes de IA. Cambiar de idioma navega
+ *   a la otra URL. La única excepción es la raíz: si quien entra a
+ *   appark.es ya eligió otro idioma en una visita anterior, se le lleva a
+ *   su versión. Sólo por esa preferencia guardada, nunca por el idioma del
+ *   navegador: el robot de Google navega en inglés, y redirigirlo le
+ *   escondería la versión española.
+ *
+ * - Sin `routed` (el alta de comercios): el de siempre, se cambia en el
+ *   sitio y se recuerda en localStorage.
+ */
+
+const STORAGE_KEY = 'appark_lang'
+const pathFor = (l: Lang) => (l === 'es' ? '/' : `/${l}`)
+
 interface LangContextType {
   lang: Lang
   t: Translations
@@ -16,22 +37,40 @@ const LangContext = createContext<LangContextType>({
   cycleLang: () => {},
 })
 
-export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('es')
+export function LangProvider({
+  children,
+  initialLang = 'es',
+  routed = false,
+}: {
+  children: ReactNode
+  initialLang?: Lang
+  routed?: boolean
+}) {
+  const [lang, setLangState] = useState<Lang>(initialLang)
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('appark_lang') as Lang
-      if (saved && TRANS[saved]) {
-        setLangState(saved)
-        document.documentElement.lang = saved
+    let saved: Lang | null = null
+    try { saved = localStorage.getItem(STORAGE_KEY) as Lang | null } catch (_) {}
+    if (!saved || !TRANS[saved]) return
+
+    if (routed) {
+      if (initialLang === 'es' && saved !== 'es') {
+        window.location.replace(pathFor(saved) + window.location.search + window.location.hash)
       }
-    } catch (_) {}
-  }, [])
+      return
+    }
+
+    setLangState(saved)
+    try { document.documentElement.lang = saved } catch (_) {}
+  }, [routed, initialLang])
 
   function setLang(l: Lang) {
+    try { localStorage.setItem(STORAGE_KEY, l) } catch (_) {}
+    if (routed) {
+      if (l !== lang) window.location.assign(pathFor(l) + window.location.search + window.location.hash)
+      return
+    }
     setLangState(l)
-    try { localStorage.setItem('appark_lang', l) } catch (_) {}
     try { document.documentElement.lang = l } catch (_) {}
   }
 
