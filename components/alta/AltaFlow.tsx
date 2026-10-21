@@ -22,7 +22,7 @@ const track = (event: string, params: Record<string, unknown> = {}) => {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '13px 15px', border: '1.5px solid rgba(10,42,54,.14)', borderRadius: 12,
-  fontSize: 16, fontFamily: "'Manrope',sans-serif", color: '#0A2A36', outline: 'none',
+  fontSize: 16, fontFamily: "var(--font-body), sans-serif", color: '#0A2A36', outline: 'none',
   background: '#FCFAF6', boxSizing: 'border-box',
 }
 const labelStyle: React.CSSProperties = { display: 'block', fontWeight: 700, fontSize: 13.5, color: '#0A2A36', marginBottom: 6 }
@@ -226,7 +226,7 @@ export default function AltaFlow() {
       {/* Cabecera */}
       <div style={{ textAlign: 'center', maxWidth: 680, margin: '8px auto 26px' }}>
         <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF6A3D', marginBottom: 12 }}>{t.eyebrow}</div>
-        <h1 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(1.9rem,4.5vw,2.8rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 14px' }}>{t.title}</h1>
+        <h1 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.9rem,4.5vw,2.8rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 14px' }}>{t.title}</h1>
         <p style={{ fontSize: 16.5, lineHeight: 1.6, color: '#45626C', margin: '0 0 16px' }}>{t.sub}</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
           {[t.pillToday, t.pillCancel, ...(founder ? [t.pillFounder] : [])].map((p, i) => (
@@ -280,9 +280,9 @@ export default function AltaFlow() {
                       <span style={{ position: 'absolute', top: -11, right: 18, background: '#FF6A3D', color: '#fff', fontSize: 11.5, fontWeight: 800, padding: '4px 11px', borderRadius: 999 }}>{t.recommended}</span>
                     )}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-                      <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 21, color: '#0A2A36' }}>{planName[k]}</span>
+                      <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 21, color: '#0A2A36' }}>{planName[k]}</span>
                       <span>
-                        <span style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 26, color: '#0A2A36' }}>{founder ? p.founder : p.standard} €</span>
+                        <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 26, color: '#0A2A36' }}>{founder ? p.founder : p.standard} €</span>
                         <span style={{ fontSize: 13, color: '#5C7681', fontWeight: 600 }}> {t.perMonth}</span>
                       </span>
                     </div>
@@ -313,7 +313,7 @@ export default function AltaFlow() {
           {/* 2. Tu negocio */}
           {step === 2 && (
             <div style={card}>
-              <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 6px' }}>{t.bizTitle}</h2>
+              <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 6px' }}>{t.bizTitle}</h2>
               {prefilled && <p style={{ fontSize: 13.5, color: '#1B8A5A', fontWeight: 700, margin: '0 0 14px' }}>✓ {t.prefilled}</p>}
               <div style={{ display: 'grid', gap: 15, marginTop: 14 }}>
                 {field('empresa', t.lEmpresa, <input id="alta-empresa" value={empresa} autoComplete="organization" placeholder={t.phEmpresa} maxLength={150} onChange={(e) => { setEmpresa(e.target.value); clear('empresa') }} style={inputStyle} {...focus} />)}
@@ -344,7 +344,7 @@ export default function AltaFlow() {
           {/* 3. Confirmar */}
           {step === 3 && (
             <div style={card}>
-              <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 16px' }}>{t.summaryTitle}</h2>
+              <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 16px' }}>{t.summaryTitle}</h2>
               <dl style={{ display: 'grid', gap: 12, margin: 0 }}>
                 <Row label={t.sumPlan} value={`${planName[plan]} · ${empresa.trim()}`} />
                 {charge.trial ? (
@@ -387,7 +387,7 @@ export default function AltaFlow() {
         {/* Dudas */}
         <aside style={{ flex: '1 1 300px', maxWidth: 400, minWidth: 0 }}>
           <div style={{ ...card, boxShadow: '0 12px 30px rgba(10,42,54,.05)' }}>
-            <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 18, color: '#0A2A36', margin: '0 0 12px' }}>{t.faqTitle}</h2>
+            <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 18, color: '#0A2A36', margin: '0 0 12px' }}>{t.faqTitle}</h2>
             <div style={{ display: 'grid', gap: 10 }}>
               {t.faq.map(([q, a]) => (
                 <details key={q} style={{ borderTop: '1px solid rgba(10,42,54,.07)', paddingTop: 10 }}>
@@ -419,7 +419,7 @@ function PrimaryButton({ children, onClick, disabled }: { children: React.ReactN
       type="button"
       onClick={onClick}
       disabled={disabled}
-      style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 800, fontSize: 16, fontFamily: "'Manrope',sans-serif", padding: '16px 18px', borderRadius: 13, border: 'none', cursor: disabled ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.32)', opacity: disabled ? 0.75 : 1 }}
+      style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 9, background: '#FF6A3D', color: '#fff', fontWeight: 800, fontSize: 16, fontFamily: "var(--font-body), sans-serif", padding: '16px 18px', borderRadius: 13, border: 'none', cursor: disabled ? 'not-allowed' : 'pointer', boxShadow: '0 10px 26px rgba(255,106,61,.32)', opacity: disabled ? 0.75 : 1 }}
     >
       {children}
     </button>

@@ -11,7 +11,7 @@ export default function RegaloSection() {
       <div style={{ width: '100%', maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
         <div style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto 50px' }}>
           <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#3FD592', marginBottom: 16 }}>{t.giftEyebrow}</div>
-          <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(2rem,4vw,3.1rem)', lineHeight: 1.1, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.giftH2}</h2>
+          <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(2rem,4vw,3.1rem)', lineHeight: 1.1, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.giftH2}</h2>
           <p style={{ fontSize: 18, lineHeight: 1.6, color: '#9FB6BD', margin: 0 }}>{t.giftSub}</p>
         </div>
 
@@ -31,7 +31,7 @@ export default function RegaloSection() {
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,.12)', borderBottom: '1px solid rgba(255,255,255,.12)', padding: '40px 24px', textAlign: 'center' }}>
-          <p style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 700, fontSize: 'clamp(1.7rem,3.4vw,2.6rem)', lineHeight: 1.2, margin: 0, background: 'linear-gradient(120deg,#FFB088,#FF6A3D)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <p style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 700, fontSize: 'clamp(1.7rem,3.4vw,2.6rem)', lineHeight: 1.2, margin: 0, background: 'linear-gradient(120deg,#FFB088,#FF6A3D)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             {t.giftQuote}
           </p>
         </div>

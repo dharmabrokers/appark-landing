@@ -24,7 +24,7 @@ export default function Hero() {
             <span style={{ fontWeight: 700, fontSize: 13, color: '#0A2A36', letterSpacing: '.2px' }}>{t.heroBadge}</span>
           </div>
 
-          <h1 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(2.7rem,6vw,4.6rem)', lineHeight: 1.03, letterSpacing: '-1.5px', color: '#0A2A36', margin: '0 0 22px' }}>
+          <h1 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(2.7rem,6vw,4.6rem)', lineHeight: 1.03, letterSpacing: '-1.5px', color: '#0A2A36', margin: '0 0 22px' }}>
             {t.heroH1a}<br /><span style={{ color: '#11607A' }}>{t.heroH1b}</span>
           </h1>
 
@@ -90,7 +90,7 @@ export default function Hero() {
 
             {/* Floating badge: spots count */}
             <div className="animate-float3" style={{ position: 'absolute', bottom: 74, left: -40, background: '#11607A', color: '#fff', borderRadius: 15, padding: '13px 16px', boxShadow: '0 16px 34px rgba(17,96,122,.32)', zIndex: 6 }}>
-              <div style={{ fontSize: 22, fontWeight: 800, fontFamily: "'Bricolage Grotesque',sans-serif", lineHeight: 1 }}>+34</div>
+              <div style={{ fontSize: 22, fontWeight: 800, fontFamily: "var(--font-display), sans-serif", lineHeight: 1 }}>+34</div>
               <div style={{ fontSize: 11, opacity: .85, fontWeight: 600 }}>{t.chipNear}</div>
             </div>
           </div>

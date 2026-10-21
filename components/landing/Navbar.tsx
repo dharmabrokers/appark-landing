@@ -13,7 +13,7 @@ import { LANG_ORDER, LANG_NAMES, Lang } from '@/lib/i18n'
 const Logo = () => (
   <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
     <Image src="/logo-appark-logotipo.png" alt="Appark" width={0} height={0} sizes="120px" priority style={{ display: 'block', height: 32, width: 'auto' }} />
-    <span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 800, fontSize: 13.5, lineHeight: 1, letterSpacing: '-.1px', whiteSpace: 'nowrap' }}>
+    <span style={{ fontFamily: "var(--font-body), sans-serif", fontWeight: 800, fontSize: 13.5, lineHeight: 1, letterSpacing: '-.1px', whiteSpace: 'nowrap' }}>
       <span style={{ color: '#FF4E00' }}>Menos vueltas.</span> <span style={{ color: '#0A2A36' }}>Más Palma.</span>
     </span>
   </span>
@@ -83,7 +83,7 @@ export default function Navbar() {
 
             <div ref={langRef} style={{ position: 'relative' }}>
               <button onClick={() => setLangOpen(o => !o)} aria-label="Cambiar idioma"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#fff', border: '1px solid rgba(10,42,54,.12)', color: '#0A2A36', fontWeight: 700, fontSize: 14, padding: '9px 13px', borderRadius: 11, cursor: 'pointer', fontFamily: "'Manrope',sans-serif" }}>
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#fff', border: '1px solid rgba(10,42,54,.12)', color: '#0A2A36', fontWeight: 700, fontSize: 14, padding: '9px 13px', borderRadius: 11, cursor: 'pointer', fontFamily: "var(--font-body), sans-serif" }}>
                 <GlobeIcon />
                 {lang.toUpperCase()}
                 <span style={{ fontSize: 10, color: '#8A9BA2' }}>▾</span>
@@ -92,7 +92,7 @@ export default function Navbar() {
                 <div style={{ position: 'absolute', top: 48, right: 0, background: '#fff', border: '1px solid rgba(10,42,54,.1)', borderRadius: 14, boxShadow: '0 16px 40px rgba(10,42,54,.16)', padding: 7, minWidth: 168, zIndex: 100 }}>
                   {LANG_ORDER.map(code => (
                     <button key={code} onClick={() => { setLang(code as Lang); setLangOpen(false) }}
-                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, background: code === lang ? '#FBF6EE' : 'transparent', border: 'none', borderRadius: 9, padding: '10px 12px', cursor: 'pointer', fontFamily: "'Manrope',sans-serif", fontWeight: 600, fontSize: 14, color: '#0A2A36', textAlign: 'left' }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, background: code === lang ? '#FBF6EE' : 'transparent', border: 'none', borderRadius: 9, padding: '10px 12px', cursor: 'pointer', fontFamily: "var(--font-body), sans-serif", fontWeight: 600, fontSize: 14, color: '#0A2A36', textAlign: 'left' }}
                       onMouseEnter={e => { if (code !== lang) e.currentTarget.style.background = '#F4ECDF' }}
                       onMouseLeave={e => { e.currentTarget.style.background = code === lang ? '#FBF6EE' : 'transparent' }}>
                       <span>{LANG_NAMES[code as Lang]}</span>
@@ -114,7 +114,7 @@ export default function Navbar() {
         {isNarrow && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button onClick={cycleLang} aria-label="Cambiar idioma"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#fff', border: '1px solid rgba(10,42,54,.12)', color: '#0A2A36', fontWeight: 700, fontSize: 13, padding: '9px 12px', borderRadius: 10, cursor: 'pointer', fontFamily: "'Manrope',sans-serif" }}>
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#fff', border: '1px solid rgba(10,42,54,.12)', color: '#0A2A36', fontWeight: 700, fontSize: 13, padding: '9px 12px', borderRadius: 10, cursor: 'pointer', fontFamily: "var(--font-body), sans-serif" }}>
               <GlobeIcon />
               {lang.toUpperCase()}
             </button>

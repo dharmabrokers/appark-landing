@@ -8,7 +8,7 @@ import { SOCIAL } from '@/lib/seo'
 const Logo = () => (
   <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6 }}>
     <Image src="/logo-appark-logotipo-blanco.png" alt="Appark" width={0} height={0} sizes="150px" style={{ display: 'block', height: 40, width: 'auto' }} />
-    <span style={{ fontFamily: "'Manrope',sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+    <span style={{ fontFamily: "var(--font-body), sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
       <span style={{ color: '#FF4E00' }}>Menos vueltas.</span> <span style={{ color: '#fff' }}>Más Palma.</span>
     </span>
   </span>

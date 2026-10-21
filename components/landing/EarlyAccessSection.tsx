@@ -24,7 +24,7 @@ export default function EarlyAccessSection() {
 
       <div style={{ width: '100%', maxWidth: 960, margin: '0 auto', position: 'relative', textAlign: 'center' }}>
         <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FFB088', marginBottom: 16 }}>{t.eaEyebrow}</div>
-        <h2 style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 800, fontSize: 'clamp(2.1rem,4.4vw,3.4rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.eaH2}</h2>
+        <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(2.1rem,4.4vw,3.4rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#fff', margin: '0 0 16px' }}>{t.eaH2}</h2>
         <p style={{ fontSize: 18, lineHeight: 1.6, color: '#A9C2C9', maxWidth: 620, margin: '0 auto 12px' }}>{t.eaSub}</p>
         <p style={{ fontSize: 15.5, lineHeight: 1.65, color: '#8FAAB2', maxWidth: 620, margin: '0 auto 36px' }}>{t.eaBody}</p>
 
@@ -46,7 +46,7 @@ export default function EarlyAccessSection() {
                 <span style={{ width: 13, height: 13, borderRadius: '50%', background: active ? '#FF6A3D' : 'rgba(255,255,255,.5)', boxShadow: active ? '0 0 0 5px rgba(255,106,61,.22)' : 'none' }} />
                 {i < 2 && <span style={{ flex: 1, height: 2, background: 'rgba(255,255,255,.18)' }} />}
               </div>
-              <div style={{ fontFamily: "'Bricolage Grotesque',sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', marginBottom: 4 }}>{title}</div>
+              <div style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', marginBottom: 4 }}>{title}</div>
               <div style={{ fontSize: 13.5, color: '#8FAAB2' }}>{desc}</div>
             </div>
           ))}
