@@ -25,5 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }))
 
-  return [...homes, ...legal]
+  const colabora: MetadataRoute.Sitemap = [{ url: `${SITE_URL}/colabora`, changeFrequency: 'monthly', priority: 0.5 }]
+
+  return [...homes, ...colabora, ...legal]
 }

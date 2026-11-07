@@ -80,6 +80,12 @@ export default function Footer() {
               onMouseLeave={e => (e.currentTarget.style.color = '#C7D7DC')}>
               hola@appark.es
             </a>
+            {/* La captación de comerciales (appark.es/colabora) solo existe en español. */}
+            <a href="/colabora" style={{ textDecoration: 'none', color: '#C7D7DC', fontSize: 14.5, display: 'block', marginBottom: 16 }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#C7D7DC')}>
+              {t.footJobs}
+            </a>
             <div style={{ display: 'flex', gap: 12 }}>
               <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={socialBtnStyle}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.16)')}
