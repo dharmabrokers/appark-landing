@@ -59,7 +59,7 @@ export interface Translations {
   eaSuccessWaiting: string; eaSuccessSpam: string
   eaErrName: string; eaErrEmail: string; eaErrAccept: string
   footTagline: string; footLegal: string; footPrivacy: string
-  footTerms: string; footSponsorTerms: string; footCookies: string; footContact: string; footJobs: string; footCopyright: string
+  footTerms: string; footSponsorTerms: string; footCookies: string; footContact: string; footJobs: string; footPanel: string; spPanelLink: string; footCopyright: string
   stickyTitle: string; stickySub: string; stickyBtn: string
   navDownload: string; heroCtaDownload: string
   dlEyebrow: string; dlH2: string; dlSub: string
@@ -206,7 +206,7 @@ export const TRANS: Record<Lang, Translations> = {
     footTagline: 'Un proyecto de Dharma Brokers. Hecho en Palma, para Palma.',
     footLegal: 'Legal', footPrivacy: 'Política de Privacidad',
     footTerms: 'Términos y Condiciones', footSponsorTerms: 'Condiciones de patrocinio', footCookies: 'Cookies',
-    footContact: 'Contacto', footJobs: 'Trabaja con nosotros',
+    footContact: 'Contacto', footJobs: 'Trabaja con nosotros', footPanel: 'Acceso comercios', spPanelLink: '¿Ya tienes tu comercio en Appark? Entra en tu panel →',
     footCopyright: '© 2026 Dharma Brokers. Todos los derechos reservados.',
     stickyTitle: 'Plazas libres en Palma', stickySub: 'Gratis · en tiempo real', stickyBtn: 'Probar →',
     navDownload: 'Descargar', heroCtaDownload: 'Descarga Appark gratis', dlEyebrow: 'Ya disponible · gratis', dlH2: 'Descarga Appark y deja de dar vueltas', dlSub: 'Plazas libres en tiempo real, avisadas por palmesanos como tú. Gratis, en español, català, English y Deutsch.', dlChip1: 'Plazas libres en tiempo real', dlChip2: 'Premios en comercios de Palma', dlChip3: 'Gratis para siempre', dlScan: 'Escanea el código con la cámara del móvil', dlSoon: 'Próximamente', dlGooglePlay: 'Descargar en Google Play', dlAppStore: 'Descargar en App Store', stickyDlTitle: 'Appark, gratis', stickyDlBtn: 'Descargar →',
@@ -344,7 +344,7 @@ export const TRANS: Record<Lang, Translations> = {
     footTagline: 'Un projecte de Dharma Brokers. Fet a Palma, per a Palma.',
     footLegal: 'Legal', footPrivacy: 'Política de Privacitat',
     footTerms: 'Termes i Condicions', footSponsorTerms: 'Condicions de patrocini', footCookies: 'Cookies',
-    footContact: 'Contacte', footJobs: 'Treballa amb nosaltres',
+    footContact: 'Contacte', footJobs: 'Treballa amb nosaltres', footPanel: 'Accés comerços', spPanelLink: 'Ja tens el teu comerç a Appark? Entra al teu panell →',
     footCopyright: '© 2026 Dharma Brokers. Tots els drets reservats.',
     stickyTitle: 'Places lliures a Palma', stickySub: 'Gratis · en temps real', stickyBtn: 'Provar →',
     navDownload: 'Descarregar', heroCtaDownload: 'Descarrega Appark gratis', dlEyebrow: 'Ja disponible · gratis', dlH2: 'Descarrega Appark i deixa de donar voltes', dlSub: 'Places lliures en temps real, avisades per palmesans com tu. Gratis, en español, català, English i Deutsch.', dlChip1: 'Places lliures en temps real', dlChip2: 'Premis a comerços de Palma', dlChip3: 'Gratis per sempre', dlScan: 'Escaneja el codi amb la càmera del mòbil', dlSoon: 'Properament', dlGooglePlay: 'Descarregar a Google Play', dlAppStore: 'Descarregar a App Store', stickyDlTitle: 'Appark, gratis', stickyDlBtn: 'Descarregar →',
@@ -482,7 +482,7 @@ export const TRANS: Record<Lang, Translations> = {
     footTagline: 'A Dharma Brokers project. Made in Palma, for Palma.',
     footLegal: 'Legal', footPrivacy: 'Privacy Policy',
     footTerms: 'Terms & Conditions', footSponsorTerms: 'Sponsorship terms', footCookies: 'Cookies',
-    footContact: 'Contact', footJobs: 'Work with us',
+    footContact: 'Contact', footJobs: 'Work with us', footPanel: 'Business login', spPanelLink: 'Already on Appark? Log in to your business panel →',
     footCopyright: '© 2026 Dharma Brokers. All rights reserved.',
     stickyTitle: 'Free spots in Palma', stickySub: 'Free · in real time', stickyBtn: 'Try it →',
     navDownload: 'Download', heroCtaDownload: 'Download Appark for free', dlEyebrow: 'Available now · free', dlH2: 'Download Appark and stop circling', dlSub: 'Free spots in real time, shared by people in Palma like you. Free, in Spanish, Catalan, English and German.', dlChip1: 'Free spots in real time', dlChip2: 'Rewards at Palma shops', dlChip3: 'Free forever', dlScan: 'Scan the code with your phone camera', dlSoon: 'Coming soon', dlGooglePlay: 'Get it on Google Play', dlAppStore: 'Download on the App Store', stickyDlTitle: 'Appark, free', stickyDlBtn: 'Download →',
@@ -620,7 +620,7 @@ export const TRANS: Record<Lang, Translations> = {
     footTagline: 'Ein Projekt von Dharma Brokers. In Palma gemacht, für Palma.',
     footLegal: 'Rechtliches', footPrivacy: 'Datenschutz',
     footTerms: 'AGB', footSponsorTerms: 'Sponsoring-Bedingungen', footCookies: 'Cookies',
-    footContact: 'Kontakt', footJobs: 'Arbeite mit uns',
+    footContact: 'Kontakt', footJobs: 'Arbeite mit uns', footPanel: 'Händler-Login', spPanelLink: 'Schon bei Appark? Zum Händler-Panel →',
     footCopyright: '© 2026 Dharma Brokers. Alle Rechte vorbehalten.',
     stickyTitle: 'Freie Plätze in Palma', stickySub: 'Kostenlos · in Echtzeit', stickyBtn: 'Testen →',
     navDownload: 'Herunterladen', heroCtaDownload: 'Appark kostenlos laden', dlEyebrow: 'Jetzt verfügbar · kostenlos', dlH2: 'Lade Appark und hör auf, im Kreis zu fahren', dlSub: 'Freie Plätze in Echtzeit, gemeldet von Menschen in Palma wie dir. Kostenlos, auf Spanisch, Katalanisch, Englisch und Deutsch.', dlChip1: 'Freie Plätze in Echtzeit', dlChip2: 'Prämien bei Geschäften in Palma', dlChip3: 'Für immer kostenlos', dlScan: 'Code mit der Handykamera scannen', dlSoon: 'Demnächst', dlGooglePlay: 'Jetzt bei Google Play', dlAppStore: 'Laden im App Store', stickyDlTitle: 'Appark, kostenlos', stickyDlBtn: 'Laden →',

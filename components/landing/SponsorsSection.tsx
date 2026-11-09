@@ -314,6 +314,9 @@ export default function SponsorsSection() {
         <p style={{ fontSize: 12.5, lineHeight: 1.6, color: '#7C919A', textAlign: 'center', margin: '18px auto 0', maxWidth: 620 }}>
           {t.spPlanFounderTerms}
         </p>
+        <p style={{ textAlign: 'center', margin: '10px auto 0' }}>
+          <a href="/panel" style={{ fontSize: 14.5, fontWeight: 700, color: '#11607A', textDecoration: 'none' }}>{t.spPanelLink}</a>
+        </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '44px 56px', alignItems: 'flex-start' }}>
           {/* Left: body + benefits + logo grid */}
