@@ -51,7 +51,8 @@ export default function AltaDone() {
   }, [id])
 
   const planName = { bronze: tHome.spPlanBronzeName, silver: tHome.spPlanSilverName, gold: tHome.spPlanGoldName }
-  const panelUrl = process.env.NEXT_PUBLIC_SPONSOR_PANEL_URL
+  // El panel web (appark.es/panel). La variable queda por si algún día vive en otro sitio.
+  const panelUrl = process.env.NEXT_PUBLIC_SPONSOR_PANEL_URL || '/panel'
   const card: React.CSSProperties = {
     maxWidth: 620, margin: '24px auto 0', background: '#fff', border: '1px solid rgba(10,42,54,.08)',
     borderRadius: 24, boxShadow: '0 24px 56px rgba(10,42,54,.08)', padding: 'clamp(24px,5vw,40px)', textAlign: 'center',

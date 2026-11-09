@@ -142,6 +142,10 @@ export default function Navbar() {
             style={{ textDecoration: 'none', color: '#FF6A3D', fontWeight: 700, fontSize: 17, padding: '12px 4px' }}>
             {t.navListen}
           </a>
+          <a href="/panel" onClick={() => setMobileOpen(false)}
+            style={{ textDecoration: 'none', color: '#11607A', fontWeight: 700, fontSize: 17, padding: '12px 4px' }}>
+            {t.footPanel}
+          </a>
           <a href={APP_LAUNCHED ? '#descargar' : '#early-access'} onClick={() => setMobileOpen(false)}
             style={{ textDecoration: 'none', textAlign: 'center', background: '#FF6A3D', color: '#fff', fontWeight: 700, fontSize: 16, padding: 14, borderRadius: 13, marginTop: 8 }}>
             {APP_LAUNCHED ? t.navDownload : t.navJoinList} →

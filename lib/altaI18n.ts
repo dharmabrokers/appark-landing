@@ -162,7 +162,7 @@ const ES: AltaText = {
   okEyebrow: 'Alta completada',
   okTitle: '¡Ya estás dentro!',
   okNoCharge: (d) => `No se te cobra nada hasta el ${d}. Stripe te avisará unos días antes.`,
-  okEmail: (e) => `Entra en la app con ${e}: ahí, en la pestaña Comercio, está tu panel.`,
+  okEmail: (e) => `Entra en la app con ${e}: ahí, en la pestaña Comercio, está tu panel. Desde el ordenador, en appark.es/panel.`,
   okStepsTitle: 'Para salir en el mapa',
   okSteps: [
     'Descarga Appark y entra con tu correo (te llega un código).',
@@ -254,7 +254,7 @@ const CA: AltaText = {
   okEyebrow: 'Alta completada',
   okTitle: 'Ja hi ets!',
   okNoCharge: (d) => `No se’t cobra res fins al ${d}. Stripe t’avisarà uns dies abans.`,
-  okEmail: (e) => `Entra a l’app amb ${e}: allà, a la pestanya Comerç, hi ha el teu panell.`,
+  okEmail: (e) => `Entra a l’app amb ${e}: allà, a la pestanya Comerç, hi ha el teu panell. Des de l’ordinador, a appark.es/panel.`,
   okStepsTitle: 'Per sortir al mapa',
   okSteps: [
     'Descarrega Appark i entra amb el teu correu (t’arriba un codi).',
@@ -346,7 +346,7 @@ const EN: AltaText = {
   okEyebrow: 'Sign-up complete',
   okTitle: 'You’re in!',
   okNoCharge: (d) => `Nothing is charged until ${d}. Stripe will remind you a few days before.`,
-  okEmail: (e) => `Sign in to the app with ${e}: your dashboard is in the Business tab.`,
+  okEmail: (e) => `Sign in to the app with ${e}: your dashboard is in the Business tab. On a computer, go to appark.es/panel.`,
   okStepsTitle: 'To appear on the map',
   okSteps: [
     'Download Appark and sign in with your email (you’ll get a code).',
@@ -438,7 +438,7 @@ const DE: AltaText = {
   okEyebrow: 'Anmeldung abgeschlossen',
   okTitle: 'Du bist dabei!',
   okNoCharge: (d) => `Bis zum ${d} wird nichts abgebucht. Stripe erinnert dich ein paar Tage vorher.`,
-  okEmail: (e) => `Melde dich in der App mit ${e} an: dein Bereich ist im Tab Geschäft.`,
+  okEmail: (e) => `Melde dich in der App mit ${e} an: dein Bereich ist im Tab Geschäft. Am Computer unter appark.es/panel.`,
   okStepsTitle: 'Um auf der Karte zu erscheinen',
   okSteps: [
     'Lade Appark herunter und melde dich mit deiner E-Mail an (du bekommst einen Code).',
