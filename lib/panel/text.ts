@@ -29,7 +29,7 @@ const ERRORS: [string, string][] = [
   ['SPONSOR_NOT_LIVE', 'Tu cuenta no está activa ahora mismo, así que no puedes publicar premios. Mira la pestaña «Plan».'],
   ['GOLD_TIER_REQUIRED', 'El banner en la app está incluido en el paquete Oro.'],
   ['GOLD_BANNER_AFTER_PAYMENT', 'El banner se publica a partir del primer cobro.'],
-  ['TIER_VIA_BILLING', 'Ya tienes suscripción: el paquete se cambia desde «Facturas y método de pago».'],
+  ['TIER_VIA_BILLING', 'Ya tienes suscripción: para cambiar de paquete, escríbenos a hola@appark.es y lo cambiamos nosotros.'],
   ['CODE_ALREADY_REDEEMED', 'Ese código ya se canjeó.'],
   ['CODE_EXPIRED', 'Ese código ha caducado.'],
   ['CODE_OTHER_SPONSOR', 'Ese código es de otro comercio.'],

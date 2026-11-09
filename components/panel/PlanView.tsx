@@ -14,8 +14,10 @@ import { Button, C, Card, grid, H2, Notice } from './ui'
  *
  * - En la prueba y sin tarjeta: elige paquete (choose_sponsor_tier); el bot le manda
  *   su enlace de alta.
- * - Con suscripción: el paquete, las facturas y la tarjeta se gestionan en el portal
- *   de clientes de Stripe (NEXT_PUBLIC_STRIPE_PORTAL_URL).
+ * - Con suscripción: facturas, tarjeta y baja en el portal de clientes de Stripe
+ *   (NEXT_PUBLIC_STRIPE_PORTAL_URL). El cambio de paquete NO: cada paquete lleva su
+ *   cupón de fundador y el portal lo arrastraría (ver el bot, trialReminderMessage.js),
+ *   así que el portal no lo permite y lo cambia el equipo.
  */
 
 const T = TRANS.es
@@ -87,11 +89,12 @@ export default function PlanView() {
           <div style={{ marginTop: 16, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             {PORTAL ? (
               <a href={PORTAL} target="_blank" rel="noopener noreferrer" style={{ background: C.coral, color: '#fff', fontWeight: 800, fontSize: 14, padding: '10px 16px', borderRadius: 12, textDecoration: 'none' }}>
-                Facturas, tarjeta y cambio de paquete
+                Facturas, tarjeta o baja
               </a>
             ) : null}
             <span style={{ fontSize: 13.5, color: C.sub }}>
-              {PORTAL ? 'Se abre el portal seguro de Stripe: entra con el correo de tu alta.' : 'Para facturas, tarjeta o cambio de paquete, usa el enlace de los correos de Stripe o escríbenos a hola@appark.es.'}
+              {PORTAL ? 'Se abre el portal seguro de Stripe: entra con el correo de tu alta.' : 'Para facturas, tarjeta o baja, usa el enlace de los correos de Stripe.'}{' '}
+              Para cambiar de paquete, escríbenos a hola@appark.es o contesta al WhatsApp de Appark y lo cambiamos nosotros.
             </span>
           </div>
         )}
