@@ -37,6 +37,7 @@ export const sponsorSchema = z.object({
 // condiciones es obligatoria; lo demás se comprueba otra vez en la base.
 export const altaSchema = z.object({
   plan: z.enum(['bronze', 'silver', 'gold']),
+  billing: z.enum(['monthly', 'annual']).default('monthly'),
   empresa: z.string().trim().min(2).max(150),
   cif: z.string().trim().min(8).max(20),
   direccion: z.string().trim().min(5).max(200),
