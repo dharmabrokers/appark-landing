@@ -74,7 +74,7 @@ export default function PrivacidadPage() {
             marginBottom: 40,
           }}
         >
-          Última actualización: 15 de octubre de 2026
+          Última actualización: 11 de noviembre de 2026
         </p>
 
         <Paragraph>
@@ -134,6 +134,16 @@ export default function PrivacidadPage() {
             <strong>Datos de uso:</strong> plazas reportadas, puntos ganados, preferencias de
             idioma, historial de búsqueda (de forma anónima o agregada para mejorar el
             servicio).
+          </li>
+          <li>
+            <strong>Invitaciones entre conductores:</strong> si invitas a alguien o escribes el
+            código de quien te invitó, guardamos quién invitó a quién, la fecha, si la
+            invitación se ha completado y los puntos e insignias que genera. Para saber si se
+            completa usamos tu actividad en la app (plazas avisadas o confirmadas), no datos
+            nuevos. A quien invita solo le mostramos cuántos amigos tiene activos y pendientes,
+            nunca sus datos; al invitado, solo el nombre de pila de quien le invitó. El código
+            viaja en el enlace de invitación (appark.es/i/…) y en el enlace de descarga a la
+            tienda de aplicaciones.
           </li>
           <li>
             <strong>Datos técnicos:</strong> dispositivo, sistema operativo, dirección IP,
@@ -205,6 +215,13 @@ export default function PrivacidadPage() {
           <li>
             <strong>Mejora del servicio:</strong> análisis agregado de uso para optimizar la
             app (base legal: interés legítimo).
+          </li>
+          <li>
+            <strong>Campaña de invitaciones:</strong> abonar los puntos e insignias de las
+            invitaciones entre conductores y evitar abusos, como cuentas creadas solo para
+            cobrar puntos (base legal: ejecución del contrato, al participar en la campaña, y
+            nuestro interés legítimo en prevenir el fraude). Condiciones en{' '}
+            <a href="/legal/invita" style={{ color: '#11607A', fontWeight: 700 }}>appark.es/legal/invita</a>.
           </li>
           <li>
             <strong>Comunicaciones:</strong> notificaciones sobre plazas cercanas,
