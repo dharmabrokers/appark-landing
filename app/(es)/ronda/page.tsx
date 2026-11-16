@@ -6,7 +6,7 @@ import Footer from '@/components/landing/Footer'
 import RondaForm from '@/components/ronda/RondaForm'
 
 /**
- * appark.es/ronda: solicitud de invitación a la ronda de amigos y familia (embudo 0120 del
+ * appark.es/ronda: solicitud de invitación a la ronda fundacional (embudo 0120 del
  * CRM). La ronda es PRIVADA y por invitación:
  *   - no se indexa, no está en el sitemap ni se enlaza desde ninguna página;
  *   - no enseña condiciones (importes, intereses, valoración): solo van, en privado, a
@@ -15,8 +15,8 @@ import RondaForm from '@/components/ronda/RondaForm'
  * Se llega desde la imagen que se reenvía de tú a tú por WhatsApp.
  */
 export const metadata: Metadata = {
-  title: 'Ronda de amigos y familia | Appark',
-  description: 'Ronda privada, solo por invitación.',
+  title: 'Ronda fundacional | Appark',
+  description: 'Ronda fundacional de Appark: acceso anticipado, solo por invitación.',
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
 }
 
@@ -42,17 +42,15 @@ export default function RondaPage({ searchParams }: { searchParams: { de?: strin
         <main style={{ maxWidth: 1080, margin: '0 auto', padding: '8px 16px 72px' }}>
           <div style={{ textAlign: 'center', maxWidth: 720, margin: '12px auto 34px' }}>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF4E00', marginBottom: 12 }}>
-              Ronda de amigos y familia · Solo por invitación
+              Ronda fundacional · Acceso anticipado · Solo por invitación
             </div>
             <h1 style={{ fontFamily: 'var(--font-display), sans-serif', fontWeight: 800, fontSize: 'clamp(2rem,5vw,3rem)', lineHeight: 1.06, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 16px' }}>
-              No es una salida a bolsa.
-              <br />
-              Es una salida de <span style={{ color: '#FF4E00' }}>plaza</span>.
+              Entra en Appark <span style={{ color: '#FF4E00' }}>antes que nadie</span>
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.6, color: '#45626C', margin: 0 }}>
-              Appark es la app con la que los conductores de Palma se avisan de las plazas que dejan libres, sin tocar el móvil, y canjean premios
-              en los comercios del barrio. Abrimos una ronda pequeña para las personas de nuestro entorno. Si alguien te ha pasado la invitación,
-              pide la tuya aquí.
+              Appark es la app que avisa a los conductores de Palma de las plazas que quedan libres, sin tocar el móvil, y les premia en los
+              comercios del barrio. Está en App Store y Google Play desde septiembre. Antes de abrir la ronda a inversores profesionales, la
+              ofrecemos por invitación: si te la han pasado, pide la tuya aquí.
             </p>
           </div>
 
