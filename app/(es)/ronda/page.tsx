@@ -16,14 +16,14 @@ import RondaForm from '@/components/ronda/RondaForm'
  */
 export const metadata: Metadata = {
   title: 'Ronda fundacional | Appark',
-  description: 'Ronda fundacional de Appark: acceso anticipado, solo por invitación.',
+  description: 'Ronda fundacional de Appark: solo por invitación y con plazas limitadas.',
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
 }
 
 const STEPS: { t: string; d: string }[] = [
-  { t: 'Pides tu invitación', d: 'Un minuto. Te llega un correo de confirmación y Erik revisa cada solicitud personalmente.' },
+  { t: 'Reservas tu plaza', d: 'Un minuto. Te llega un correo de confirmación y Erik revisa cada solicitud personalmente: las plazas son limitadas.' },
   { t: 'Te mandamos la documentación', d: 'El dossier, las condiciones y las preguntas frecuentes, y eliges hora para una llamada de 15 minutos.' },
-  { t: 'Si te encaja, firmas online', d: 'Desde el móvil. Y si no te encaja, no pasa nada: gracias por escucharnos.' },
+  { t: 'Si te encaja, firmas online', d: 'Desde el móvil, y recibes tu certificado de socio fundador numerado. Si no te encaja, no pasa nada.' },
 ]
 
 export default function RondaPage({ searchParams }: { searchParams: { de?: string | string[] } }) {
@@ -42,15 +42,15 @@ export default function RondaPage({ searchParams }: { searchParams: { de?: strin
         <main style={{ maxWidth: 1080, margin: '0 auto', padding: '8px 16px 72px' }}>
           <div style={{ textAlign: 'center', maxWidth: 720, margin: '12px auto 34px' }}>
             <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#FF4E00', marginBottom: 12 }}>
-              Ronda fundacional · Acceso anticipado · Solo por invitación
+              Ronda fundacional · Solo por invitación · Plazas limitadas
             </div>
             <h1 style={{ fontFamily: 'var(--font-display), sans-serif', fontWeight: 800, fontSize: 'clamp(2rem,5vw,3rem)', lineHeight: 1.06, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 16px' }}>
-              Entra en Appark <span style={{ color: '#FF4E00' }}>antes que nadie</span>
+              Sé socio fundador <span style={{ color: '#FF4E00' }}>de Appark</span>
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.6, color: '#45626C', margin: 0 }}>
-              Appark es la app que avisa a los conductores de Palma de las plazas que quedan libres, sin tocar el móvil, y les premia en los
-              comercios del barrio. Está en App Store y Google Play desde septiembre. Antes de abrir la ronda a inversores profesionales, la
-              ofrecemos por invitación: si te la han pasado, pide la tuya aquí.
+              Appark guía a los conductores de Palma hasta una plaza libre, y la pagan los comercios del barrio. Está en App Store y Google Play
+              desde septiembre. Antes de abrir la ronda a inversores profesionales, la ofrecemos por invitación: los socios fundadores entran
+              antes y en mejores condiciones que la próxima ronda. Si te ha llegado la invitación, reserva tu plaza.
             </p>
           </div>
 
@@ -82,7 +82,7 @@ export default function RondaPage({ searchParams }: { searchParams: { de?: strin
               aria-label="Formulario"
               style={{ flex: '1 1 480px', maxWidth: 600, minWidth: 0, background: '#fff', border: '1px solid rgba(10,42,54,.08)', borderRadius: 24, boxShadow: '0 24px 56px rgba(10,42,54,.08)', padding: 'clamp(20px,4vw,32px)', scrollMarginTop: 16 }}
             >
-              <h2 style={{ fontFamily: 'var(--font-display), sans-serif', fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 18px' }}>Pide tu invitación</h2>
+              <h2 style={{ fontFamily: 'var(--font-display), sans-serif', fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 18px' }}>Reserva tu plaza</h2>
               <RondaForm initialReferrer={referrer} />
             </section>
           </div>

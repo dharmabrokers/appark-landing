@@ -164,7 +164,7 @@ export default function RondaForm({ initialReferrer = '' }: { initialReferrer?: 
           opacity: state === 'sending' ? 0.6 : 1, boxShadow: '0 14px 30px rgba(255,78,0,.25)',
         }}
       >
-        {state === 'sending' ? 'Enviando…' : 'Pedir mi invitación'}
+        {state === 'sending' ? 'Enviando…' : 'Reservar mi plaza'}
       </button>
     </form>
   )
