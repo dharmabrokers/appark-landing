@@ -48,8 +48,8 @@ export default function RondaPage({ searchParams }: { searchParams: { de?: strin
               Sé socio fundador <span style={{ color: '#FF4E00' }}>de Appark</span>
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.6, color: '#45626C', margin: 0 }}>
-              Appark guía a los conductores de Palma hasta una plaza libre, y la pagan los comercios del barrio. Está en App Store y Google Play
-              desde septiembre. Antes de abrir la ronda a inversores profesionales, la ofrecemos por invitación: los socios fundadores entran
+              Appark guía a los conductores hasta una plaza libre, y la pagan los comercios cercanos. Está en App Store y Google Play desde
+              septiembre: arrancamos en Palma y está hecha para llevarla a cualquier ciudad. Antes de abrir la ronda a inversores profesionales, la ofrecemos por invitación: los socios fundadores entran
               antes y en mejores condiciones que la próxima ronda. Si te ha llegado la invitación, reserva tu plaza.
             </p>
           </div>
@@ -72,8 +72,8 @@ export default function RondaPage({ searchParams }: { searchParams: { de?: strin
               </ol>
               <div style={{ background: '#fff', border: '1px solid rgba(10,42,54,.08)', borderRadius: 18, padding: '16px 18px', fontSize: 13.5, lineHeight: 1.6, color: '#45626C' }}>
                 <strong style={{ display: 'block', color: '#0A2A36', marginBottom: 4 }}>Importante</strong>
-                Es una ronda privada, solo por invitación: no es una oferta pública. Invertir en una empresa en fase inicial tiene riesgo y
-                puedes perder lo aportado. Si la compartes, hazlo de tú a tú con quien creas que le puede interesar, no en grupos ni redes.
+                Es una ronda privada, solo por invitación: no es una oferta pública. En la documentación tienes las condiciones y los riesgos
+                explicados con calma. Si la compartes, hazlo de tú a tú con quien creas que le puede interesar, no en grupos ni redes.
               </div>
             </section>
 
