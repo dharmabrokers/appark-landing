@@ -18,6 +18,12 @@ export interface AltaText {
   step3: string
   recommended: string
   perMonth: string
+  billMonthly: string
+  billAnnual: string
+  perYear: string
+  annualSub: (monthly: number) => string
+  sumFeeAnnual: (p: number) => string
+  annualNote: string
   founderFor12: string
   thenStandard: (p: number) => string
   choose: string
@@ -97,6 +103,12 @@ const ES: AltaText = {
   step3: 'Confirmar',
   recommended: 'Recomendado',
   perMonth: '/mes + IVA',
+  billMonthly: 'Mensual',
+  billAnnual: 'Anual · 2 meses gratis',
+  perYear: '/año + IVA',
+  annualSub: (m) => `12 meses al precio de 10 (${m.toLocaleString('es-ES')} €/mes)`,
+  sumFeeAnnual: (p) => `${p} € + IVA por 12 meses`,
+  annualNote: 'Hoy se cobra el año completo. Sin permanencia más allá de ese año: puedes cancelar la renovación cuando quieras.',
   founderFor12: 'precio fundador, 12 meses',
   thenStandard: (p) => `después ${p} €`,
   choose: 'Elegir',
@@ -189,6 +201,12 @@ const CA: AltaText = {
   step3: 'Confirmar',
   recommended: 'Recomanat',
   perMonth: '/mes + IVA',
+  billMonthly: 'Mensual',
+  billAnnual: 'Anual · 2 mesos gratis',
+  perYear: '/any + IVA',
+  annualSub: (m) => `12 mesos al preu de 10 (${m.toLocaleString('es-ES')} €/mes)`,
+  sumFeeAnnual: (p) => `${p} € + IVA per 12 mesos`,
+  annualNote: 'Avui es cobra l\'any complet. Sense permanència més enllà d\'aquest any: pots cancel·lar la renovació quan vulguis.',
   founderFor12: 'preu fundador, 12 mesos',
   thenStandard: (p) => `després ${p} €`,
   choose: 'Triar',
@@ -281,6 +299,12 @@ const EN: AltaText = {
   step3: 'Confirm',
   recommended: 'Recommended',
   perMonth: '/month + VAT',
+  billMonthly: 'Monthly',
+  billAnnual: 'Yearly · 2 months free',
+  perYear: '/year + VAT',
+  annualSub: (m) => `12 months for the price of 10 (€${m.toLocaleString('en-GB')}/month)`,
+  sumFeeAnnual: (p) => `€${p} + VAT for 12 months`,
+  annualNote: 'The full year is charged today. No commitment beyond that year: cancel the renewal whenever you want.',
   founderFor12: 'founder price, 12 months',
   thenStandard: (p) => `then €${p}`,
   choose: 'Choose',
@@ -373,6 +397,12 @@ const DE: AltaText = {
   step3: 'Bestätigen',
   recommended: 'Empfohlen',
   perMonth: '/Monat + MwSt.',
+  billMonthly: 'Monatlich',
+  billAnnual: 'Jährlich · 2 Monate gratis',
+  perYear: '/Jahr + MwSt.',
+  annualSub: (m) => `12 Monate zum Preis von 10 (${m.toLocaleString('de-DE')} €/Monat)`,
+  sumFeeAnnual: (p) => `${p} € + MwSt. für 12 Monate`,
+  annualNote: 'Heute wird das ganze Jahr abgebucht. Keine Bindung über dieses Jahr hinaus: Verlängerung jederzeit kündbar.',
   founderFor12: 'Gründerpreis, 12 Monate',
   thenStandard: (p) => `danach ${p} €`,
   choose: 'Wählen',

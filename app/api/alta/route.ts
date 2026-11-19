@@ -20,6 +20,9 @@ import { PLANS, TERMS_VERSION, checkoutLocale, cleanCode, cleanRef, cleanToken, 
  *   STRIPE_SECRET_KEY            clave RESTRINGIDA (solo Checkout Sessions: write)
  *   STRIPE_PRICE_BRONZE|SILVER|GOLD   opcionales; por defecto, los precios reales
  *   STRIPE_COUPON_BRONZE|SILVER|GOLD  opcionales; por defecto, appark_<tier>_fundador_13m
+ *   STRIPE_PRICE_ANNUAL_FOUNDER_BRONZE|SILVER|GOLD  precio anual fundador (2026)
+ *   STRIPE_PRICE_ANNUAL_BRONZE|SILVER|GOLD          precio anual estándar (desde 2027)
+ *                                Sin ellos, el pago anual responde 'annual_unavailable'.
  *   STRIPE_TOS_CONSENT=1         pide además la casilla de Stripe (necesita la URL de
  *                                las condiciones en Stripe → Public details)
  */
@@ -37,6 +40,12 @@ const COUPON_DEFAULTS: Record<Tier, string> = {
   gold: 'appark_oro_fundador_13m',
 }
 const envFor = (prefix: string, tier: Tier) => process.env[`${prefix}_${tier.toUpperCase()}`]
+
+const ANNUAL_TEXT: Record<string, string> = {
+  es: 'Hoy se cobra el año completo: 12 meses al precio de 10. Sin permanencia más allá de ese año.',
+  en: 'The full year is charged today: 12 months for the price of 10. No commitment beyond that year.',
+  de: 'Heute wird das ganze Jahr abgebucht: 12 Monate zum Preis von 10. Keine Bindung über dieses Jahr hinaus.',
+}
 
 const SUBMIT_TEXT: Record<string, (d: string) => string> = {
   es: (d) => `Hoy no se te cobra nada. El primer cobro será el ${d}. Puedes cancelar antes con un clic desde el correo de Stripe.`,
@@ -84,11 +93,18 @@ export async function POST(req: Request) {
   // 2. Stripe.
   const tier = d.plan as Tier
   const now = Date.now()
-  const charge = firstChargeAt(now, reg.trial_end, !!reg.no_trial)
+  const annual = d.billing === 'annual'
+  // El anual se cobra hoy: sin mes de prueba.
+  const charge = annual ? { at: now, trial: false } : firstChargeAt(now, reg.trial_end, !!reg.no_trial)
   const founder = isFounder(now)
+  const annualPrice = annual
+    ? (founder ? envFor('STRIPE_PRICE_ANNUAL_FOUNDER', tier) : envFor('STRIPE_PRICE_ANNUAL', tier))
+    : undefined
+  if (annual && !annualPrice) return NextResponse.json({ error: 'annual_unavailable' }, { status: 400 })
   const origin = new URL(req.url).origin
   const back = new URL('/alta', origin)
   back.searchParams.set('plan', tier)
+  if (annual) back.searchParams.set('pago', 'anual')
   if (token) back.searchParams.set('t', token)
   if (code) back.searchParams.set('c', code)
 
@@ -102,6 +118,7 @@ export async function POST(req: Request) {
     ref: ref ?? undefined,
     terms_version: TERMS_VERSION,
     trial_end: charge.trial ? String(Math.floor(charge.at / 1000)) : undefined,
+    interval: annual ? 'year' : 'month',
     utm_source: d.utm?.source, utm_medium: d.utm?.medium, utm_campaign: d.utm?.campaign,
   }
   const locale = checkoutLocale(d.language)
@@ -109,7 +126,7 @@ export async function POST(req: Request) {
   try {
     const session = await createCheckoutSession({
       mode: 'subscription',
-      line_items: [{ price: envFor('STRIPE_PRICE', tier) || PRICE_DEFAULTS[tier], quantity: 1 }],
+      line_items: [{ price: annualPrice || envFor('STRIPE_PRICE', tier) || PRICE_DEFAULTS[tier], quantity: 1 }],
       subscription_data: {
         // Una fecha exacta, no "30 días": es la que se le enseña y la que guarda el CRM
         // (las 23:59 de ese día en Palma, para que Stripe cuente 30 y no 29).
@@ -119,9 +136,12 @@ export async function POST(req: Request) {
         metadata,
       },
       payment_method_collection: 'always',
-      ...(founder
-        ? { discounts: [{ coupon: envFor('STRIPE_COUPON', tier) || COUPON_DEFAULTS[tier] }] }
-        : { allow_promotion_codes: true }),
+      // El anual lleva su propio precio (fundador o estándar): sin cupón, que es mensual.
+      ...(annual
+        ? {}
+        : founder
+          ? { discounts: [{ coupon: envFor('STRIPE_COUPON', tier) || COUPON_DEFAULTS[tier] }] }
+          : { allow_promotion_codes: true }),
       automatic_tax: { enabled: true },
       tax_id_collection: { enabled: true },
       billing_address_collection: 'required',
@@ -130,9 +150,11 @@ export async function POST(req: Request) {
       metadata,
       locale,
       ...(process.env.STRIPE_TOS_CONSENT === '1' ? { consent_collection: { terms_of_service: 'required' } } : {}),
-      custom_text: charge.trial
-        ? { submit: { message: SUBMIT_TEXT[locale](longDate(charge.at, locale)) } }
-        : undefined,
+      custom_text: annual
+        ? { submit: { message: ANNUAL_TEXT[locale] } }
+        : charge.trial
+          ? { submit: { message: SUBMIT_TEXT[locale](longDate(charge.at, locale)) } }
+          : undefined,
       expires_at: Math.floor(now / 1000) + 24 * 3600,
       success_url: `${origin}/alta/listo?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: back.toString(),

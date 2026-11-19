@@ -30,8 +30,20 @@ export function isFounder(now = Date.now()): boolean {
 
 export const TRIAL_DAYS = 30
 
+/**
+ * Pago anual (Appark-main 0115): 12 meses al precio de 10, cobrado al darse de alta y
+ * sin mes de prueba (los dos meses gratis ya lo sustituyen). Se enseña solo con
+ * NEXT_PUBLIC_ALTA_ANUAL=1, cuando los precios anuales existen en Stripe.
+ */
+export type Billing = 'monthly' | 'annual'
+export const ANNUAL_ENABLED = process.env.NEXT_PUBLIC_ALTA_ANUAL === '1'
+export const ANNUAL_MONTHS_PAID = 10
+export function annualFee(p: { standard: number; founder: number }, founder: boolean): number {
+  return (founder ? p.founder : p.standard) * ANNUAL_MONTHS_PAID
+}
+
 /** La versión de las condiciones de patrocinio que se aceptan (app/legal/patrocinio). */
-export const TERMS_VERSION = '2026-10-15'
+export const TERMS_VERSION = '2026-11-10'
 
 /**
  * Cuándo cobra Stripe por primera vez: a los 30 días, o el día que acababa la prueba

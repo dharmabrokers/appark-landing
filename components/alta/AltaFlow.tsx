@@ -5,7 +5,7 @@ import { useLang } from '@/components/LangContext'
 import { ALTA_TEXT } from '@/lib/altaI18n'
 import {
   CATEGORIES, CODE_STORAGE_KEY, CODE_TTL_MS, PLANS, TIERS, asTier, cleanCode, cleanRef, cleanToken,
-  firstChargeAt, isFounder, longDate, type Category, type Tier,
+  ANNUAL_ENABLED, annualFee, firstChargeAt, isFounder, longDate, type Billing, type Category, type Tier,
 } from '@/lib/alta'
 
 declare global {
@@ -70,6 +70,8 @@ export default function AltaFlow() {
   const [code, setCode] = useState<string | null>(null)
   const [plan, setPlan] = useState<Tier>(asTier(params.get('plan')) ?? 'silver')
   const [step, setStep] = useState<Step>(asTier(params.get('plan')) ? 2 : 1)
+  const [billing, setBilling] = useState<Billing>(ANNUAL_ENABLED && params.get('pago') === 'anual' ? 'annual' : 'monthly')
+  const annual = billing === 'annual'
 
   const [empresa, setEmpresa] = useState('')
   const [contact, setContact] = useState('')
@@ -139,7 +141,10 @@ export default function AltaFlow() {
   }, [token])
 
   const founder = isFounder()
-  const charge = useMemo(() => firstChargeAt(Date.now(), existingTrialEnd, noTrial), [existingTrialEnd, noTrial])
+  const charge = useMemo(
+    () => (annual ? { at: Date.now(), trial: false } : firstChargeAt(Date.now(), existingTrialEnd, noTrial)),
+    [annual, existingTrialEnd, noTrial],
+  )
   const fee = founder ? PLANS[plan].founder : PLANS[plan].standard
   const planName = { bronze: tHome.spPlanBronzeName, silver: tHome.spPlanSilverName, gold: tHome.spPlanGoldName }
   const feats = { bronze: tHome.spPlanFeatBronze, silver: tHome.spPlanFeatSilver, gold: tHome.spPlanFeatGold }
@@ -147,7 +152,7 @@ export default function AltaFlow() {
   const go = (s: Step) => {
     setStep(s)
     setFormError('')
-    track('alta_step', { step: s, plan })
+    track('alta_step', { step: s, plan, billing })
     try {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {}
@@ -177,7 +182,7 @@ export default function AltaFlow() {
     }
     setLoading(true)
     setFormError('')
-    track('alta_checkout', { plan })
+    track('alta_checkout', { plan, billing })
     try {
       let recaptchaToken = ''
       const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
@@ -188,7 +193,7 @@ export default function AltaFlow() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          plan, empresa: empresa.trim(), contactPerson: contact.trim(), telefono: tel.trim(), email: email.trim(),
+          plan, billing, empresa: empresa.trim(), contactPerson: contact.trim(), telefono: tel.trim(), email: email.trim(),
           cif: cif.trim(), direccion: dir.trim(), tipo, referralCode: cleanRef(ref) ?? undefined,
           token: token ?? undefined, code: code ?? undefined, accept: true, language: lang, recaptchaToken,
           utm: {
@@ -229,7 +234,7 @@ export default function AltaFlow() {
         <h1 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 'clamp(1.9rem,4.5vw,2.8rem)', lineHeight: 1.08, letterSpacing: '-1px', color: '#0A2A36', margin: '0 0 14px' }}>{t.title}</h1>
         <p style={{ fontSize: 16.5, lineHeight: 1.6, color: '#45626C', margin: '0 0 16px' }}>{t.sub}</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
-          {[t.pillToday, t.pillCancel, ...(founder ? [t.pillFounder] : [])].map((p, i) => (
+          {[annual ? t.billAnnual : t.pillToday, t.pillCancel, ...(founder ? [t.pillFounder] : [])].map((p, i) => (
             <span key={p} style={{ fontSize: 13, fontWeight: 800, padding: '7px 13px', borderRadius: 999, background: i === 0 ? '#E6F7EF' : '#fff', color: i === 0 ? '#1B8A5A' : '#11607A', border: `1px solid ${i === 0 ? '#BFEAD6' : 'rgba(17,96,122,.18)'}` }}>
               {i === 0 ? '✓ ' : ''}{p}
             </span>
@@ -265,6 +270,24 @@ export default function AltaFlow() {
           {/* 1. Paquete */}
           {step === 1 && (
             <div style={{ display: 'grid', gap: 14 }}>
+              {ANNUAL_ENABLED && (
+                <div role="radiogroup" style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  {(['monthly', 'annual'] as Billing[]).map((b) => (
+                    <button
+                      key={b}
+                      type="button"
+                      role="radio"
+                      aria-checked={billing === b}
+                      onClick={() => setBilling(b)}
+                      style={{ padding: '9px 16px', borderRadius: 999, fontSize: 14, fontWeight: 800, cursor: 'pointer',
+                               border: billing === b ? '2px solid #FF6A3D' : '1px solid rgba(10,42,54,.15)',
+                               background: billing === b ? '#FFF1EB' : '#fff', color: '#0A2A36' }}
+                    >
+                      {b === 'monthly' ? t.billMonthly : t.billAnnual}
+                    </button>
+                  ))}
+                </div>
+              )}
               {TIERS.map((k) => {
                 const p = PLANS[k]
                 const on = plan === k
@@ -282,11 +305,16 @@ export default function AltaFlow() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
                       <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 21, color: '#0A2A36' }}>{planName[k]}</span>
                       <span>
-                        <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 26, color: '#0A2A36' }}>{founder ? p.founder : p.standard} €</span>
-                        <span style={{ fontSize: 13, color: '#5C7681', fontWeight: 600 }}> {t.perMonth}</span>
+                        <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 26, color: '#0A2A36' }}>{annual ? annualFee(p, founder) : founder ? p.founder : p.standard} €</span>
+                        <span style={{ fontSize: 13, color: '#5C7681', fontWeight: 600 }}> {annual ? t.perYear : t.perMonth}</span>
                       </span>
                     </div>
-                    {founder && (
+                    {annual && (
+                      <div style={{ fontSize: 12.5, color: '#1B8A5A', fontWeight: 700, marginTop: 2 }}>
+                        {t.annualSub(Math.round((annualFee(p, founder) / 12) * 100) / 100)}
+                      </div>
+                    )}
+                    {founder && !annual && (
                       <div style={{ fontSize: 12.5, color: '#7C919A', fontWeight: 600, marginTop: 2 }}>
                         <span style={{ textDecoration: 'line-through' }}>{p.standard} €</span> · {t.founderFor12}, {t.thenStandard(p.standard)}
                       </div>
@@ -347,7 +375,9 @@ export default function AltaFlow() {
               <h2 style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 22, color: '#0A2A36', margin: '0 0 16px' }}>{t.summaryTitle}</h2>
               <dl style={{ display: 'grid', gap: 12, margin: 0 }}>
                 <Row label={t.sumPlan} value={`${planName[plan]} · ${empresa.trim()}`} />
-                {charge.trial ? (
+                {annual ? (
+                  <Row label={t.sumToday} value={t.sumFeeAnnual(annualFee(PLANS[plan], founder))} strong />
+                ) : charge.trial ? (
                   <>
                     <Row label={t.sumToday} value="0 €" strong />
                     <Row label={t.sumFirst(longDate(charge.at, lang))} value={t.sumFee(fee, founder ? PLANS[plan].standard : null)} />
@@ -356,7 +386,7 @@ export default function AltaFlow() {
                   <Row label={t.sumToday} value={t.sumFee(fee, founder ? PLANS[plan].standard : null)} strong />
                 )}
               </dl>
-              <p style={{ fontSize: 13.5, color: '#1B8A5A', fontWeight: 700, background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 12, padding: '11px 13px', margin: '16px 0' }}>✓ {charge.trial ? t.sumCancel : t.noTrialNote}</p>
+              <p style={{ fontSize: 13.5, color: '#1B8A5A', fontWeight: 700, background: '#E6F7EF', border: '1px solid #BFEAD6', borderRadius: 12, padding: '11px 13px', margin: '16px 0' }}>✓ {annual ? t.annualNote : charge.trial ? t.sumCancel : t.noTrialNote}</p>
 
               <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14.5, color: '#0A2A36', fontWeight: 600, cursor: 'pointer' }}>
                 <input type="checkbox" checked={accept} onChange={(e) => { setAccept(e.target.checked); setErrors((x) => ({ ...x, accept: undefined })) }} style={{ width: 20, height: 20, marginTop: 1, flex: 'none', accentColor: '#FF6A3D' }} />

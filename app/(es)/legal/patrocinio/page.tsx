@@ -108,6 +108,13 @@ export default function PatrocinioPage() {
           Mientras el primer cobro esté pendiente, el negocio no se muestra en el mapa. Si finalmente no se cobra, la suscripción
           termina y se aplica lo previsto en 2.3.
         </P>
+        <P n="2.9" title="Pago anual">
+          Si el Patrocinador elige el pago anual, paga por adelantado doce meses al precio de diez, sin mes gratis, y el cobro
+          se realiza en el momento del alta. La suscripción se renueva por periodos anuales hasta que la cancele, lo que puede
+          hacer en cualquier momento con efecto al final del año en curso. Dispone de 14 días desde el alta para desistir y
+          recuperar el importe íntegro; pasado ese plazo no se reembolsan los meses restantes, salvo incumplimiento de Appark.
+          El precio fundador anual solo puede contratarse durante 2026.
+        </P>
 
         <SectionTitle>3. Premios, vales y obligaciones</SectionTitle>
         <P n="3.1" title="Premios">
