@@ -137,8 +137,8 @@ export default function RondaForm({ initialReferrer = '' }: { initialReferrer?: 
       <label style={check}>
         <input type="checkbox" required checked={f.risk_ack} onChange={set('risk_ack')} style={box} />
         <span>
-          Entiendo que invertir en una empresa que empieza tiene riesgo: puedo perder lo que aporte. Solo pondría una cantidad que pueda
-          permitirme perder.
+          Sé que invertir en una empresa que empieza tiene riesgo, incluso el de perder lo aportado, y que conviene poner solo lo que
+          uno se puede permitir.
         </span>
       </label>
       <label style={check}>
