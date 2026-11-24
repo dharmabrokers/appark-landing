@@ -30,8 +30,11 @@ export function isFounder(now = Date.now()): boolean {
 
 export const TRIAL_DAYS = 30
 
-/** La versión de las condiciones de patrocinio que se aceptan (app/legal/patrocinio). */
-export const TERMS_VERSION = '2026-10-15'
+/**
+ * La versión de las condiciones de patrocinio que se aceptan (app/legal/patrocinio).
+ * 2026-11-24: cláusula 5, plan Vecino (gratis), y lo que cambia al cancelar si está disponible.
+ */
+export const TERMS_VERSION = '2026-11-24'
 
 /**
  * Cuándo cobra Stripe por primera vez: a los 30 días, o el día que acababa la prueba

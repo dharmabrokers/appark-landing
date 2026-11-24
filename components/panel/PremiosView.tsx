@@ -5,6 +5,8 @@ import ImageField from './ImageField'
 import { fetchPrizes, fetchTierUsage, PRIZE_TYPES, savePrize, setPrizeActive, type Prize, type PrizeType, type TierUsageRow } from '@/lib/panel/data'
 import { isAtLimit, nextTier, usageLabel } from '@/lib/panel/tierUsage'
 import { errorMessage, PRIZE_TYPE_LABELS, TIER_NAMES } from '@/lib/panel/text'
+import { DEFAULT_FREE_RULES, freePrizeTypes, freeRulesText, freeViolations, vecinoPanelErrorText, type FreePrizeRules } from '@/lib/panel/vecino'
+import { fetchCatalog } from '@/lib/panel/vecinoApi'
 import { Button, C, Card, grid, H2, hintStyle, inputStyle, labelStyle, Notice } from './ui'
 
 interface Form {
@@ -23,6 +25,10 @@ const EMPTY: Form = { id: null, title: '', description: '', prize_type: 'product
 
 export default function PremiosView() {
   const { sponsor } = usePanel()
+  // Vecino (0124): tipos, descuento mínimo y puntos máximos de su paquete. El
+  // servidor lo vuelve a comprobar (trg_prize_free_kind); aquí se avisa antes.
+  const isVecino = sponsor.tier === 'free'
+  const [rules, setRules] = useState<FreePrizeRules>(DEFAULT_FREE_RULES)
   const [prizes, setPrizes] = useState<Prize[] | null>(null)
   const [usage, setUsage] = useState<TierUsageRow | null>(null)
   const [form, setForm] = useState<Form | null>(null)
@@ -44,6 +50,13 @@ export default function PremiosView() {
     void load()
   }, [load])
 
+  useEffect(() => {
+    if (isVecino) void fetchCatalog().then((c) => setRules(c.rules))
+  }, [isVecino])
+
+  const fail = (err: unknown, fallback?: string) =>
+    vecinoPanelErrorText(String((err as { message?: unknown } | null)?.message ?? ''), isVecino) ?? errorMessage(err, fallback)
+
   const prizeUsage = usage ? { tier: sponsor.tier, used: usage.prizesUsed, limit: usage.prizesLimit } : null
   const next = nextTier(sponsor.tier)
 
@@ -58,6 +71,14 @@ export default function PremiosView() {
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form || !form.title.trim()) return
+    const points = Math.max(1, parseInt(form.points_cost, 10) || 1)
+    const pct = form.discount_pct ? Math.min(100, Math.max(1, parseInt(form.discount_pct, 10) || 0)) : null
+    if (isVecino) {
+      const v = freeViolations({ prize_type: form.prize_type, discount_pct: form.prize_type === 'discount' ? pct : null, points_cost: points }, rules)
+      if (v.includes('type')) return setError('En el plan Vecino el premio es un producto, un servicio, un 2x1 o un descuento.')
+      if (v.includes('discount')) return setError(`En el plan Vecino el descuento es de al menos el ${rules.minDiscountPct} %.`)
+      if (v.includes('points')) return setError(`En el plan Vecino el premio cuesta como mucho ${rules.maxPoints} puntos.`)
+    }
     setSaving(true)
     setError('')
     try {
@@ -66,17 +87,18 @@ export default function PremiosView() {
         title: form.title.trim(),
         description: form.description.trim(),
         prize_type: form.prize_type,
-        points_cost: Math.max(1, parseInt(form.points_cost, 10) || 1),
+        points_cost: points,
         quantity_total: Math.max(1, parseInt(form.quantity_total, 10) || 1),
-        discount_pct: form.discount_pct ? Math.min(100, Math.max(1, parseInt(form.discount_pct, 10) || 0)) : null,
+        discount_pct: pct,
         image_url: form.image_url,
-        validity_days: form.validity_days.trim() ? Math.min(365, Math.max(1, parseInt(form.validity_days, 10) || 1)) : null,
+        // En Vecino el vale dura 24 h lo diga el premio o no (0125): no se pregunta.
+        validity_days: !isVecino && form.validity_days.trim() ? Math.min(365, Math.max(1, parseInt(form.validity_days, 10) || 1)) : null,
       })
       setForm(null)
       setMsg('Premio guardado.')
       await load()
     } catch (err) {
-      setError(errorMessage(err, 'No se ha podido guardar el premio.'))
+      setError(fail(err, 'No se ha podido guardar el premio.'))
     } finally {
       setSaving(false)
     }
@@ -89,7 +111,7 @@ export default function PremiosView() {
       await setPrizeActive(p.id, p.status !== 'active')
       await load()
     } catch (err) {
-      setError(errorMessage(err))
+      setError(fail(err))
     }
   }
 
@@ -110,6 +132,7 @@ export default function PremiosView() {
           {isAtLimit(prizeUsage) && next ? ` Con ${TIER_NAMES[next]} puedes tener más.` : ''}
         </Notice>
       )}
+      {isVecino && <Notice kind="info">{freeRulesText(rules)}</Notice>}
       {msg && <Notice kind="ok">{msg}</Notice>}
       {error && <Notice kind="error">{error}</Notice>}
 
@@ -129,27 +152,29 @@ export default function PremiosView() {
               <div>
                 <label htmlFor="pz-type" style={labelStyle}>Tipo</label>
                 <select id="pz-type" value={f.prize_type} onChange={set('prize_type')} style={inputStyle}>
-                  {PRIZE_TYPES.map((t) => <option key={t} value={t}>{PRIZE_TYPE_LABELS[t]}</option>)}
+                  {(isVecino ? freePrizeTypes(PRIZE_TYPES, rules) : PRIZE_TYPES).map((t) => <option key={t} value={t}>{PRIZE_TYPE_LABELS[t]}</option>)}
                 </select>
               </div>
               {f.prize_type === 'discount' && (
                 <div>
-                  <label htmlFor="pz-pct" style={labelStyle}>Descuento (%)</label>
-                  <input id="pz-pct" type="number" min={1} max={100} value={f.discount_pct} onChange={set('discount_pct')} style={inputStyle} />
+                  <label htmlFor="pz-pct" style={labelStyle}>{isVecino ? `Descuento (mínimo ${rules.minDiscountPct} %)` : 'Descuento (%)'}</label>
+                  <input id="pz-pct" type="number" min={isVecino ? rules.minDiscountPct : 1} max={100} value={f.discount_pct} onChange={set('discount_pct')} style={inputStyle} />
                 </div>
               )}
               <div>
-                <label htmlFor="pz-pts" style={labelStyle}>Puntos que cuesta</label>
-                <input id="pz-pts" type="number" min={1} value={f.points_cost} onChange={set('points_cost')} style={inputStyle} />
+                <label htmlFor="pz-pts" style={labelStyle}>{isVecino ? `Puntos que cuesta (máximo ${rules.maxPoints})` : 'Puntos que cuesta'}</label>
+                <input id="pz-pts" type="number" min={1} max={isVecino && rules.maxPoints > 0 ? rules.maxPoints : undefined} value={f.points_cost} onChange={set('points_cost')} style={inputStyle} />
               </div>
               <div>
                 <label htmlFor="pz-qty" style={labelStyle}>Unidades</label>
                 <input id="pz-qty" type="number" min={1} value={f.quantity_total} onChange={set('quantity_total')} style={inputStyle} />
               </div>
-              <div>
-                <label htmlFor="pz-days" style={labelStyle}>Días para usarlo</label>
-                <input id="pz-days" type="number" min={1} max={365} value={f.validity_days} onChange={set('validity_days')} placeholder="Por defecto" style={inputStyle} />
-              </div>
+              {!isVecino && (
+                <div>
+                  <label htmlFor="pz-days" style={labelStyle}>Días para usarlo</label>
+                  <input id="pz-days" type="number" min={1} max={365} value={f.validity_days} onChange={set('validity_days')} placeholder="Por defecto" style={inputStyle} />
+                </div>
+              )}
             </div>
             <div style={hintStyle}>Los premios los pones tú, de tu propio género y a tu precio de coste.</div>
             <ImageField sponsorId={sponsor.id} folder="prizes" label="Foto del premio (opcional)" value={f.image_url} onChange={(url) => setForm({ ...f, image_url: url })} />

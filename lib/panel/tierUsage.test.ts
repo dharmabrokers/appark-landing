@@ -49,3 +49,7 @@ test('un tier desconocido propone el siguiente razonable', () => {
   assert.equal(nextTier(''), 'silver');
   assert.equal(nextTier('platino'), 'silver');
 });
+
+test('desde Vecino (F2) el siguiente es Bronce', () => {
+  assert.equal(nextTier('free'), 'bronze');
+});

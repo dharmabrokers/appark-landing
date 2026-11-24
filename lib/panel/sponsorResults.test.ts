@@ -49,3 +49,11 @@ test('la escala de las barras nunca es cero', () => {
   assert.equal(maxOf([0, 0]), 1);
   assert.equal(maxOf([3, 9]), 9);
 });
+
+test('Vecino (0124): resultados recortados se reconocen y el CSV no revienta sin «daily»', async () => {
+  const { isVecinoResults } = await import('./sponsorResults.ts');
+  assert.equal(isVecinoResults({ tier: 'free' }), true);
+  assert.equal(isVecinoResults({ tier: 'bronze', locked: ['daily'] }), true);
+  assert.equal(isVecinoResults({ tier: 'silver' }), false);
+  assert.equal(resultsCsv({ daily: null } as unknown as SponsorResults), 'dia;personas_que_te_vieron;vales_canjeados');
+});

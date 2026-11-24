@@ -7,7 +7,9 @@ import { setupChecklist, type ChecklistKey } from '@/lib/panel/sponsorProfile'
 import { delta, type SponsorResults } from '@/lib/panel/sponsorResults'
 import { trialState } from '@/lib/panel/trialStatus'
 import { errorMessage, longDate, n, shortDateTime, VOUCHER_STATUS } from '@/lib/panel/text'
-import { Button, C, Card, grid, H2, inputStyle, labelStyle, Notice, Stat } from './ui'
+import { EMPTY_CONFIG, fetchVecinoConfig, type VecinoConfig } from '@/lib/panel/vecinoApi'
+import VecinoPanel from './vecino/VecinoPanel'
+import { Button, C, Card, grid, H2, inputStyle, labelStyle, LockedStat, Notice, Stat } from './ui'
 
 const CHECK_TEXT: Record<ChecklistKey, string> = {
   location: 'Añade tu local para salir en el mapa',
@@ -20,7 +22,9 @@ const CHECK_TEXT: Record<ChecklistKey, string> = {
 }
 
 export default function InicioView() {
-  const { sponsor } = usePanel()
+  const { sponsor, freemiumOn } = usePanel()
+  const isVecino = sponsor.tier === 'free'
+  const [vecinoConfig, setVecinoConfig] = useState<VecinoConfig>(EMPTY_CONFIG)
   const [week, setWeek] = useState<SponsorResults | null>(null)
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [locations, setLocations] = useState<LocationRow[]>([])
@@ -44,6 +48,11 @@ export default function InicioView() {
   useEffect(() => {
     void load()
   }, [load])
+
+  // La configuración del Vecino (URL de la ruta del cartel, ticket medio): solo si hace falta.
+  useEffect(() => {
+    if (isVecino || freemiumOn) void fetchVecinoConfig().then(setVecinoConfig)
+  }, [isVecino, freemiumOn])
 
   const trial = trialState(sponsor.status, sponsor.trialEndsAt, Date.now())
   const checklist = setupChecklist({
@@ -99,6 +108,17 @@ export default function InicioView() {
         </Card>
       )}
 
+      {isVecino && (
+        <VecinoPanel
+          sponsorId={sponsor.id}
+          category={sponsor.category}
+          createdAt={sponsor.createdAt}
+          freemiumOn={freemiumOn}
+          config={vecinoConfig}
+          onPrizesChanged={load}
+        />
+      )}
+
       <Card>
         <H2>Últimos 7 días</H2>
         {week ? (
@@ -106,7 +126,11 @@ export default function InicioView() {
             <WeekStat label="Te vieron en el mapa" cur={week.current.impressions} prev={week.previous.impressions} />
             <WeekStat label="Vales conseguidos" cur={week.current.vouchers_issued} prev={week.previous.vouchers_issued} />
             <WeekStat label="Vales canjeados" cur={week.current.vouchers_redeemed} prev={week.previous.vouchers_redeemed} />
-            <WeekStat label="Clientes distintos" cur={week.current.unique_customers} prev={week.previous.unique_customers} />
+            {week.current.unique_customers === null ? (
+              <LockedStat label="Clientes distintos" />
+            ) : (
+              <WeekStat label="Clientes distintos" cur={week.current.unique_customers} prev={week.previous.unique_customers ?? 0} />
+            )}
           </div>
         ) : (
           <p style={{ margin: 0, color: C.muted, fontSize: 14 }}>{loaded ? 'Aún no hay datos de esta semana.' : 'Cargando…'}</p>

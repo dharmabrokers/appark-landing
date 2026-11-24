@@ -15,8 +15,8 @@ export const metadata: Metadata = {
  * (bo.terms_acceptances). Si el texto cambia de forma sustancial, cambia la versión.
  */
 
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 style={{ fontFamily: 'var(--font-display), system-ui, sans-serif', fontSize: 22, fontWeight: 800, color: '#0A2A36', marginTop: 36, marginBottom: 14 }}>
+const SectionTitle = ({ children, id }: { children: React.ReactNode; id?: string }) => (
+  <h2 id={id} style={{ fontFamily: 'var(--font-display), system-ui, sans-serif', fontSize: 22, fontWeight: 800, color: '#0A2A36', marginTop: 36, marginBottom: 14 }}>
     {children}
   </h2>
 )
@@ -47,7 +47,7 @@ export default function PatrocinioPage() {
         <P n="1.2" title="Objeto">
           El Patrocinador aparece en la aplicación Appark como punto de canje: su negocio y sus locales en el mapa, y los
           premios que él mismo define, que los conductores pueden conseguir con los puntos que ganan en la aplicación. A cambio
-          paga una cuota mensual según el paquete elegido. Es un contrato de patrocinio publicitario (art. 22 de la Ley 34/1988,
+          paga una cuota mensual según el paquete elegido, salvo en el plan Vecino, que es gratuito (cláusula 5). Es un contrato de patrocinio publicitario (art. 22 de la Ley 34/1988,
           General de Publicidad).
         </P>
         <P n="1.3" title="Solo para empresas y profesionales">
@@ -57,7 +57,8 @@ export default function PatrocinioPage() {
           El Patrocinador acepta estas condiciones al marcar la casilla correspondiente en el alta de appark.es, antes de
           registrar su medio de pago. Appark guarda la versión aceptada, la fecha y la hora, el correo, el CIF y la referencia
           del alta en su procesador de pagos. Esta página, con su número de versión, es la copia permanente de lo aceptado. La
-          aceptación electrónica tiene plena validez (arts. 23 y 24 de la Ley 34/2002, LSSI).
+          aceptación electrónica tiene plena validez (arts. 23 y 24 de la Ley 34/2002, LSSI). En el plan Vecino no se registra
+          ningún medio de pago: el Patrocinador acepta estas condiciones al darse de alta gratis en appark.es o en la app.
         </P>
         <P n="1.5" title="Exclusiones entre empresas">
           Al no ser el Patrocinador consumidor, las partes acuerdan no aplicar las obligaciones de información previa y de acuse
@@ -85,7 +86,8 @@ export default function PatrocinioPage() {
           Si el Patrocinador no ha cancelado antes del final de los 30 días, la suscripción continúa y se cobra la primera cuota
           del paquete elegido. Si ha cancelado, no se le cobra nada: al acabar el mes gratis su negocio deja de mostrarse en el
           mapa y no puede publicar premios nuevos, pero conserva el acceso a su panel para validar los vales ya emitidos
-          (cláusula 3.3).
+          (cláusula 3.3). Si el plan Vecino está disponible para su comercio, en lugar de eso pasa al plan Vecino y sigue en el
+          mapa (cláusula 5.6).
         </P>
         <P n="2.4" title="Precio y pago">
           La cuota es mensual, por adelantado, más el IVA aplicable. Se cobra en el medio de pago registrado en el alta, a través
@@ -106,7 +108,7 @@ export default function PatrocinioPage() {
         <P n="2.8" title="Impago">
           Si un cobro falla, Stripe lo reintenta durante unos días y avisa al Patrocinador para que actualice su medio de pago.
           Mientras el primer cobro esté pendiente, el negocio no se muestra en el mapa. Si finalmente no se cobra, la suscripción
-          termina y se aplica lo previsto en 2.3.
+          termina y se aplica lo previsto en 2.3, incluido el paso al plan Vecino si está disponible para su comercio.
         </P>
 
         <SectionTitle>3. Premios, vales y obligaciones</SectionTitle>
@@ -117,7 +119,8 @@ export default function PatrocinioPage() {
         </P>
         <P n="3.2" title="Vales">
           Cuando un conductor consigue un premio, recibe un vale con un código y una fecha de caducidad. El Patrocinador lo valida
-          en su panel y entrega el premio en las condiciones publicadas.
+          en su panel y entrega el premio en las condiciones publicadas. Los vales del plan Vecino tienen sus propias reglas
+          (cláusula 5.3).
         </P>
         <P n="3.3" title="Vales ya emitidos">
           El Patrocinador honrará los vales válidos emitidos mientras su premio estaba publicado, hasta su caducidad, aunque haya
@@ -133,7 +136,8 @@ export default function PatrocinioPage() {
         </P>
         <P n="3.6" title="Material en el local">
           Si el Patrocinador coloca el cartel «Punto de canje» de Appark, puede obtener ventajas de visibilidad que Appark
-          publique en cada momento. El cartel sigue siendo de Appark y se retira a la baja.
+          publique en cada momento. El cartel sigue siendo de Appark y se retira a la baja. En el plan Vecino, y cuando Appark
+          lo indique en el panel, el distintivo «Punto de canje» se renueva cada 60 días con una foto (cláusula 5.5).
         </P>
         <P n="3.7" title="Sin garantía de resultados">
           Appark no garantiza un número de usuarios, visitas ni canjes. Cualquier cifra o estimación es orientativa (art. 12 de
@@ -176,6 +180,58 @@ export default function PatrocinioPage() {
         <P n="4.7" title="Ley y tribunales">
           Se aplica la ley española. Las partes se someten a los juzgados y tribunales de Palma de Mallorca. El contrato se
           entiende celebrado en Palma (art. 29 LSSI).
+        </P>
+
+        <SectionTitle id="vecino">5. Plan Vecino (gratuito)</SectionTitle>
+        <P n="5.1" title="Qué es">
+          El plan Vecino permite aparecer en Appark sin cuota, sin registrar ningún medio de pago y sin fecha de fin. Appark lo
+          abre de forma progresiva: está disponible para un comercio cuando se le ofrece en appark.es/alta, en la app o en su
+          panel. Lo previsto en las cláusulas 2.1 y 2.3 a 2.8 sobre cobros no se aplica mientras el Patrocinador esté en este
+          plan; el resto de estas condiciones, sí.
+        </P>
+        <P n="5.2" title="Qué incluye">
+          Un local en el mapa, un premio activo y un canje por semana, más los canjes extra de las cláusulas 5.5 y 5.7. El premio
+          tiene que ser un producto o un servicio gratis, un 2x1 o un descuento de al menos el 30 %, y costar como mucho 50
+          puntos. En el panel ve cuántas personas le ven en el mapa, los vales conseguidos y los canjes; el resto de métricas son
+          de los paquetes de pago. Los límites vigentes se muestran siempre en su panel; si Appark los cambia, avisa según la
+          cláusula 1.6.
+        </P>
+        <P n="5.3" title="Vales del plan Vecino">
+          Duran 24 horas desde que el conductor los consigue. Cada conductor puede tener un solo vale del plan Vecino activo a la
+          vez, contando todos los comercios de este plan. Si el vale caduca sin canjearse, Appark devuelve los puntos al
+          conductor y ese canje vuelve al cupo semanal del Patrocinador. Para evitar abusos, el conductor que deja caducar dos
+          vales del plan Vecino en 30 días no recupera los puntos del segundo y no puede conseguir vales de este plan durante 7
+          días.
+        </P>
+        <P n="5.4" title="«No me lo dieron»">
+          El conductor puede avisar en la app, durante los 7 días siguientes, de que no recibió un premio. Si dos conductores
+          distintos avisan del mismo premio en 30 días, el premio se pausa y lo revisa Appark; el Patrocinador no puede volver a
+          publicarlo hasta esa revisión.
+        </P>
+        <P n="5.5" title="Cartel cada 60 días">
+          Si el Patrocinador coloca el cartel «Punto de canje» y lo acredita con una foto hecha con la cámara, en su local y en
+          ese momento, desde la app o desde su panel, obtiene mientras el cartel esté vigente un canje más por semana, la
+          insignia «Punto de canje», más prioridad en el mapa y el anuncio de comercio nuevo a los conductores. La foto se
+          comprueba de forma automática (código QR del cartel, hora, ubicación, que no sea una foto repetida y un modelo de
+          inteligencia artificial que distingue un cartel colocado de una pantalla); si no supera la comprobación, la revisa una
+          persona. Cada foto validada vale 60 días, con 7 días de gracia, y se puede renovar cuando le quedan 14 días o menos.
+          El tratamiento de la foto se explica en la{' '}
+          <a href="/legal/privacidad#cartel" style={{ color: '#11607A' }}>política de privacidad</a>.
+        </P>
+        <P n="5.6" title="Cancelar o dejar de pagar">
+          Si el plan Vecino está disponible para su comercio, el Patrocinador de un paquete de pago que cancela, termina el mes
+          gratis sin pagar o deja de pagar pasa al plan Vecino sin salir del mapa. Los locales y premios que no quepan en el plan
+          se pausan, sin borrarse, y el panel le propone ajustarlos. Puede volver a un paquete de pago cuando quiera.
+        </P>
+        <P n="5.7" title="Invitar a otro comercio">
+          Con el código de su panel, el Patrocinador puede invitar a otro comercio, que lo escribe durante su primer mes en
+          Appark. Cuando el invitado publica su premio y consigue su primer canje, los dos reciben durante 15 días las métricas del
+          paquete Plata y un canje más por semana. Quien invita suma como mucho tres canjes extra a la vez por este motivo.
+        </P>
+        <P n="5.8" title="Baja">
+          El Patrocinador puede darse de baja del plan Vecino en cualquier momento escribiendo a hola@appark.es, sin coste.
+          Appark puede terminar el plan Vecino de un comercio con 30 días de aviso, o de inmediato si incumple gravemente (por
+          ejemplo, no entregar los premios de vales válidos). Se aplican las cláusulas 3.3 y 4.6.
         </P>
 
         <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid #E5E5E5', textAlign: 'center' }}>

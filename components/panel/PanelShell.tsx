@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { panelDb } from '@/lib/panel/supabase'
 import { fetchSponsor, type Sponsor } from '@/lib/panel/data'
+import { fetchFreemiumOn } from '@/lib/panel/vecinoApi'
 import { TIER_NAMES } from '@/lib/panel/text'
 import PanelLogin from './PanelLogin'
 import { C } from './ui'
@@ -17,6 +18,12 @@ import { C } from './ui'
 
 interface PanelCtx {
   sponsor: Sponsor
+  /**
+   * flags.freemium_sponsors para ESTE comercio (my_flag, 0122). Apagado, el panel
+   * es el de siempre: todo lo del modelo freemium (cartel, tope semanal, números
+   * nuevos de los paquetes) mira esto antes de pintarse.
+   */
+  freemiumOn: boolean
   reload: () => Promise<void>
 }
 
@@ -36,7 +43,7 @@ const TABS = [
   { href: '/panel/plan', label: 'Plan' },
 ]
 
-type State = { kind: 'loading' } | { kind: 'out'; reason?: 'not_sponsor' } | { kind: 'in'; sponsor: Sponsor }
+type State = { kind: 'loading' } | { kind: 'out'; reason?: 'not_sponsor' } | { kind: 'in'; sponsor: Sponsor; freemiumOn: boolean }
 
 export default function PanelShell({ children }: { children: ReactNode }) {
   const [state, setState] = useState<State>({ kind: 'loading' })
@@ -54,7 +61,7 @@ export default function PanelShell({ children }: { children: ReactNode }) {
         await db.auth.signOut()
         return setState({ kind: 'out', reason: 'not_sponsor' })
       }
-      setState({ kind: 'in', sponsor })
+      setState({ kind: 'in', sponsor, freemiumOn: await fetchFreemiumOn() })
     } catch (err) {
       console.error('[panel]', err)
       setState({ kind: 'out' })
@@ -87,9 +94,9 @@ export default function PanelShell({ children }: { children: ReactNode }) {
     return <PanelLogin notSponsor={state.reason === 'not_sponsor'} />
   }
 
-  const { sponsor } = state
+  const { sponsor, freemiumOn } = state
   return (
-    <Ctx.Provider value={{ sponsor, reload: load }}>
+    <Ctx.Provider value={{ sponsor, freemiumOn, reload: load }}>
       <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#FBF6EE 0%,#F8FAFB 50%)' }}>
         <header style={{ background: '#fff', borderBottom: `1px solid ${C.line}` }}>
           <div style={{ maxWidth: 1080, margin: '0 auto', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
@@ -102,7 +109,7 @@ export default function PanelShell({ children }: { children: ReactNode }) {
               {sponsor.name}
             </span>
             <span style={{ fontSize: 12, fontWeight: 800, color: C.sea, background: '#EEF6F8', padding: '4px 9px', borderRadius: 99 }}>
-              {TIER_NAMES[sponsor.tier]}
+              {sponsor.tier === 'free' ? 'Plan Vecino · gratis' : TIER_NAMES[sponsor.tier]}
             </span>
             <button onClick={signOut} style={{ border: 'none', background: 'none', color: C.sub, fontWeight: 700, fontSize: 13.5, cursor: 'pointer', fontFamily: 'inherit' }}>
               Salir

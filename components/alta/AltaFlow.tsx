@@ -7,6 +7,7 @@ import {
   CATEGORIES, CODE_STORAGE_KEY, CODE_TTL_MS, PLANS, TIERS, asTier, cleanCode, cleanRef, cleanToken,
   firstChargeAt, isFounder, longDate, type Category, type Tier,
 } from '@/lib/alta'
+import { fetchFreemiumOn } from '@/lib/panel/vecinoApi'
 
 declare global {
   interface Window {
@@ -87,6 +88,15 @@ export default function AltaFlow() {
   const [errors, setErrors] = useState<Partial<Record<Field | 'accept', string>>>({})
   const [formError, setFormError] = useState('')
   const [loading, setLoading] = useState(false)
+  // La tarjeta del plan Vecino (gratis) solo sale con flags.freemium_sponsors
+  // encendido para quien mira: sin sesión, eso es `all: true` (0122). Apagado,
+  // esta página es exactamente la de siempre.
+  const [vecinoOpen, setVecinoOpen] = useState(false)
+
+  useEffect(() => {
+    if (token) return // el enlace de una ficha es para el alta con tarjeta
+    void fetchFreemiumOn().then(setVecinoOpen)
+  }, [token])
 
   // El comercial del enlace: de la URL, o el que se recordó hace menos de 30 días.
   useEffect(() => {
@@ -265,6 +275,22 @@ export default function AltaFlow() {
           {/* 1. Paquete */}
           {step === 1 && (
             <div style={{ display: 'grid', gap: 14 }}>
+              {vecinoOpen && (
+                <a
+                  href={`/alta?plan=gratis${code ? `&c=${code}` : ''}`}
+                  onClick={() => track('alta_vecino_entry', { has_code: !!code })}
+                  style={{ ...card, padding: 20, textDecoration: 'none', display: 'block', border: '1.5px dashed rgba(17,96,122,.35)', boxShadow: 'none' }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+                    <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 21, color: '#0A2A36' }}>Vecino</span>
+                    <span style={{ fontFamily: "var(--font-display), sans-serif", fontWeight: 800, fontSize: 26, color: '#0A2A36' }}>0 €</span>
+                  </div>
+                  <p style={{ fontSize: 13.5, color: '#45626C', margin: '8px 0 0', lineHeight: 1.5 }}>
+                    Sin tarjeta y sin fecha de fin: 1 local, 1 premio y 1 canje a la semana (+1 con el cartel).
+                  </p>
+                  <div style={{ marginTop: 12, fontSize: 14, fontWeight: 800, color: '#11607A' }}>Anúnciate gratis →</div>
+                </a>
+              )}
               {TIERS.map((k) => {
                 const p = PLANS[k]
                 const on = plan === k

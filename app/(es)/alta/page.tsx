@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { LangProvider } from '@/components/LangContext'
 import AltaShell from '@/components/alta/AltaShell'
-import AltaFlow from '@/components/alta/AltaFlow'
+import AltaRouter from '@/components/alta/AltaRouter'
 
 export const metadata: Metadata = {
   title: 'Alta de comercio | Appark',
@@ -17,7 +17,7 @@ export default function AltaPage() {
       <AltaShell>
         {/* useSearchParams necesita un Suspense para que la página se pueda construir. */}
         <Suspense fallback={null}>
-          <AltaFlow />
+          <AltaRouter />
         </Suspense>
       </AltaShell>
     </LangProvider>
