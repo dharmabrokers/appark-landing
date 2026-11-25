@@ -7,7 +7,7 @@ import { panelDb } from '@/lib/panel/supabase'
 import { fetchSponsor, savePrize } from '@/lib/panel/data'
 import { ALTA_TEXT } from '@/lib/altaI18n'
 import { CATEGORIES, CODE_STORAGE_KEY, CODE_TTL_MS, cleanCode, type Category } from '@/lib/alta'
-import { DEFAULT_FREE_RULES, freeViolations, isSponsorInviteCode, splitAltaCode, vecinoErrorText, type FreePrizeRules } from '@/lib/panel/vecino'
+import { DEFAULT_FREE_RULES, freeViolations, isSponsorInviteCode, mergeAltaCode, splitAltaCode, vecinoErrorText, type FreePrizeRules } from '@/lib/panel/vecino'
 import { acceptSponsorInvite, claimSponsorFree, fetchCatalog, fetchFreemiumOn } from '@/lib/panel/vecinoApi'
 import { Button, C, Card, H2, hintStyle, inputStyle, labelStyle, Notice } from '@/components/panel/ui'
 
@@ -106,23 +106,23 @@ export default function VecinoAltaFlow() {
   useEffect(() => {
     // El código del comercial: de la URL o el recordado hace menos de 30 días (como /alta).
     const fromUrl = (params.get('c') ?? '').trim().toUpperCase()
-    let code = cleanCode(fromUrl) ?? (isSponsorInviteCode(fromUrl) ? fromUrl : null)
+    const urlCode = cleanCode(fromUrl) ?? (isSponsorInviteCode(fromUrl) ? fromUrl : null)
+    let remembered: string | null = null
+    let draft: Draft | null = null
     try {
       if (cleanCode(fromUrl)) localStorage.setItem(CODE_STORAGE_KEY, JSON.stringify({ c: cleanCode(fromUrl), at: Date.now() }))
-      else if (!code) {
-        const saved = JSON.parse(localStorage.getItem(CODE_STORAGE_KEY) || 'null') as { c?: string; at?: number } | null
-        if (saved?.c && saved.at && Date.now() - saved.at < CODE_TTL_MS) code = cleanCode(saved.c)
-      }
-      const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null') as Draft | null
-      if (draft && typeof draft.empresa === 'string') {
-        setD({ ...EMPTY_DRAFT, ...draft })
-        if (draft.empresa && draft.point) setStep(3)
-      } else if (code) {
-        const c = code
-        setD((x) => ({ ...x, code: c }))
-      }
-    } catch {
-      if (code) setD((x) => ({ ...x, code: code as string }))
+      const saved = JSON.parse(localStorage.getItem(CODE_STORAGE_KEY) || 'null') as { c?: string; at?: number } | null
+      if (saved?.c && saved.at && Date.now() - saved.at < CODE_TTL_MS) remembered = cleanCode(saved.c)
+      const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null') as Draft | null
+      if (raw && typeof raw.empresa === 'string') draft = raw
+    } catch {}
+    // El enlace del comercial manda sobre el borrador (ver mergeAltaCode).
+    const code = mergeAltaCode({ url: urlCode, draft: draft?.code, remembered })
+    if (draft) {
+      setD({ ...EMPTY_DRAFT, ...draft, code })
+      if (draft.empresa && draft.point) setStep(3)
+    } else if (code) {
+      setD((x) => ({ ...x, code }))
     }
     // Un clic por visita para el embudo del comercial, igual que /alta.
     if (cleanCode(fromUrl)) {
@@ -198,7 +198,9 @@ export default function VecinoAltaFlow() {
     const clean = email.trim().toLowerCase()
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return setError('Revisa el correo: no parece válido.')
     setBusy(true)
-    saveDraft(d)
+    // Solo con el formulario abierto: desde la pantalla «aún no está abierta» se
+    // guardaría un borrador vacío.
+    if (createUser || gate.kind === 'open') saveDraft(d)
     const { error: err } = await panelDb().auth.signInWithOtp({
       email: clean,
       options: { shouldCreateUser: createUser, emailRedirectTo: `${window.location.origin}/alta?plan=gratis` },

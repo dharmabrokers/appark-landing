@@ -472,6 +472,19 @@ export function splitAltaCode(raw: string | null | undefined): { seller: string 
   return { seller: /^[A-Z]{2,12}\d{2}$/.test(c) ? c : null, invite: null }
 }
 
+/**
+ * WEB. El código del alta al abrir la página, con un borrador guardado o sin él.
+ * Prioridad: el `?c=` de la URL (el enlace que acaba de abrir), luego el que ya
+ * estaba en el borrador y por último el recordado en `appark_alta_c` (30 días).
+ * Un borrador viejo nunca debe tapar el enlace del comercial: sin código,
+ * claim_sponsor_free no atribuye la ficha a nadie.
+ * `url` y `remembered` llegan ya validados (código de comercial o 'V…').
+ */
+export function mergeAltaCode(c: { url: string | null | undefined; draft: unknown; remembered: string | null | undefined }): string {
+  const norm = (v: unknown): string => (typeof v === 'string' ? v.replace(/\s+/g, '').toUpperCase() : '')
+  return norm(c.url) || norm(c.draft) || norm(c.remembered)
+}
+
 // ============================================================================
 // Errores del servidor → texto
 // ============================================================================

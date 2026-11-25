@@ -5,7 +5,7 @@ import {
   fitWithin, fixIsFresh, captureProblems, captureTime, isPoorAccuracy, parseVerifyResponse, retryReasonText, verifyUrlFrom,
   freeRulesFrom, freeViolations, freePrizeFix, freePrizeTypes, DEFAULT_FREE_RULES, avgTicket, lostSalesEstimate, hasLostDemand,
   weeklyLimitRange, weeklyLimitToSend, isSponsorInviteCode, inviteWindowOpen, splitAltaCode, vecinoErrorText,
-  vecinoPanelErrorText, errorParams, upgradeSentText, POSTER_FIX_MAX_AGE_MS,
+  vecinoPanelErrorText, errorParams, upgradeSentText, mergeAltaCode, POSTER_FIX_MAX_AGE_MS,
 } from './vecino.ts'
 
 const NOW = Date.UTC(2026, 10, 24, 12, 0, 0)
@@ -174,6 +174,18 @@ test('el código del alta: el del comercial va a la atribución; el de otro come
   assert.deepEqual(splitAltaCode('APK123456'), { seller: null, invite: null })
   assert.deepEqual(splitAltaCode(''), { seller: null, invite: null })
   assert.equal(isSponsorInviteCode('V12345G'), false)
+})
+
+test('un borrador guardado no tapa el enlace del comercial', () => {
+  // Borrador vacío (p. ej. guardado desde la pantalla cerrada) + ?c= de la URL.
+  assert.equal(mergeAltaCode({ url: 'PEDRO07', draft: '', remembered: null }), 'PEDRO07')
+  // Borrador con un código y otro ?c=: gana el enlace que acaba de abrir.
+  assert.equal(mergeAltaCode({ url: 'LUCIA12', draft: 'PEDRO07', remembered: 'PEDRO07' }), 'LUCIA12')
+  // Borrador sin código, sin ?c=, con el recordado de 30 días.
+  assert.equal(mergeAltaCode({ url: null, draft: undefined, remembered: 'PEDRO07' }), 'PEDRO07')
+  // Sin URL, el del borrador manda sobre el recordado.
+  assert.equal(mergeAltaCode({ url: null, draft: ' v1a2b3c ', remembered: 'PEDRO07' }), 'V1A2B3C')
+  assert.equal(mergeAltaCode({ url: undefined, draft: 42, remembered: null }), '')
 })
 
 test('la invitación solo se canjea el primer mes', () => {
