@@ -63,13 +63,13 @@ test('la tarjeta del cartel sigue el estado del servidor', () => {
   assert.equal(parsePosterStatus({ status: 'pending', can_renew: 'yes' })?.canRenew, false)
 })
 
-test('la ruta del cartel casa con el patrón de sponsor_submit_poster (0126)', () => {
+test('la ruta del cartel casa con el patrón de sponsor_submit_poster (0130, bucket privado)', () => {
   const uid = '1c31edbe-6179-42b0-8609-825fbe7da779'
   const path = posterPath(uid, NOW)
-  assert.equal(path, `carteles/${uid}/cartel_${NOW}.jpg`)
-  const url = `https://vsxldnwhwaanuvjwnwhl.supabase.co/storage/v1/object/public/creative-assets/${path}`
-  const re = new RegExp(`^https://[a-z0-9]+\\.supabase\\.co/storage/v1/object/public/creative-assets/carteles/${uid}/[A-Za-z0-9._-]+\\.(jpg|jpeg|png|webp|heic)$`)
-  assert.ok(re.test(url))
+  assert.equal(path, `${uid}/cartel_${NOW}.jpg`)
+  const re = new RegExp(`^${uid}/[A-Za-z0-9._-]+\\.(jpg|jpeg|png|webp|heic)$`)
+  assert.ok(re.test(path))
+  assert.ok(!path.startsWith('carteles/'))
 })
 
 test('p_meta lleva la posición redondeada, la precisión y la hora de la foto', () => {

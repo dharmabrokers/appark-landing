@@ -241,10 +241,12 @@ export default function PrivacidadPage() {
             equipo de Appark: nunca se retira el distintivo por una decisión solo automática.
           </p>
           <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
-            <strong>Dónde y cuánto tiempo.</strong> La foto se guarda en nuestro almacenamiento (Supabase), junto con la
-            ubicación de la captura y las huellas. Lo conservamos mientras el comercio tenga cuenta en Appark, porque las
-            huellas de las fotos anteriores son las que permiten detectar que se repite una; al darse de baja se borra
-            con el resto de sus datos (apartado 4). La base legal es nuestro interés legítimo en que el distintivo
+            <strong>Dónde y cuánto tiempo.</strong> La foto se guarda en un almacenamiento privado (Supabase) al que
+            solo acceden el equipo de Appark y el propio comercio, y se borra a los 30 días de subirla, salvo si su
+            revisión sigue pendiente. La ubicación de la captura y las huellas las conservamos mientras el comercio
+            tenga cuenta en Appark, porque son las que permiten detectar que se repite una foto anterior; al darse de
+            baja se borran con el resto de sus datos (apartado 4), y la foto, si aún existe, en las 24 horas
+            siguientes. La base legal es nuestro interés legítimo en que el distintivo
             «Punto de canje» y sus ventajas sean ciertos y en evitar el fraude. Si apareces en una de estas fotos y
             quieres ejercer tus derechos, escríbenos a{' '}
             <a href="mailto:hola@appark.es" style={{ color: '#1FB877' }}>hola@appark.es</a>.

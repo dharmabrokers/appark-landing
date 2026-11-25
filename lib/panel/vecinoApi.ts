@@ -153,15 +153,19 @@ export async function publishFixedPrize(id: string, patch: Record<string, unknow
 
 // ── Cartel ────────────────────────────────────────────────────
 
-/** Sube la foto (ya en JPEG) a creative-assets/<path> y devuelve su URL pública. */
+/**
+ * Sube la foto (ya en JPEG) al bucket PRIVADO `carteles` (0130), en la carpeta
+ * del comercio, y devuelve la ruta del objeto. No hay URL pública: el CRM la
+ * descarga con la clave de servicio y la enseña con URL firmadas.
+ * Necesita la 0130 ejecutada: sin el bucket, falla con «bucket not found».
+ */
 export async function uploadPosterPhoto(path: string, jpeg: Blob): Promise<string> {
-  const db = panelDb()
-  const { error } = await db.storage.from('creative-assets').upload(path, jpeg, { contentType: 'image/jpeg', upsert: false })
+  const { error } = await panelDb().storage.from('carteles').upload(path, jpeg, { contentType: 'image/jpeg', upsert: false })
   if (error) throw error
-  return db.storage.from('creative-assets').getPublicUrl(path).data.publicUrl
+  return path
 }
 
-/** sponsor_submit_poster (0126). */
+/** sponsor_submit_poster (0126/0130): p_photo_url es la ruta <uid>/<fichero> del bucket `carteles`. */
 export async function submitPoster(photoUrl: string, meta: PosterMeta): Promise<void> {
   const { error } = await panelDb().rpc('sponsor_submit_poster', { p_photo_url: photoUrl, p_meta: meta })
   if (error) throw error

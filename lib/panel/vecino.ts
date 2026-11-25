@@ -170,13 +170,13 @@ export function posterCard(p: PosterStatus): PosterCardState {
 }
 
 /**
- * El nombre del fichero en Storage. Tiene que casar con el patrón de
- * sponsor_submit_poster (0126): creative-assets/carteles/<uid>/<nombre>.<ext>,
- * con el nombre solo de [A-Za-z0-9._-]. La web siempre sube JPEG (ver
+ * La ruta del fichero dentro del bucket PRIVADO `carteles` (0130). Tiene que
+ * casar con el patrón de sponsor_submit_poster: <uid>/<nombre>.<ext>, con el
+ * nombre solo de [A-Za-z0-9._-]. Es también lo que se manda como p_photo_url. La web siempre sube JPEG (ver
  * POSTER_MAX_SIDE).
  */
 export function posterPath(uid: string, now: number): string {
-  return `carteles/${uid}/cartel_${now}.jpg`
+  return `${uid}/cartel_${now}.jpg`
 }
 
 /** El p_meta de sponsor_submit_poster. Solo lo que la ruta del CRM comprueba. */

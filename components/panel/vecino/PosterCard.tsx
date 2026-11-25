@@ -22,8 +22,8 @@ const FIX_TIMEOUT_MS = 20_000
  * - La ubicación es la de ese momento (navigator.geolocation, sin caché), pedida
  *   justo después de la foto, con su precisión.
  * - La foto se vuelve a codificar en JPEG en el navegador (el CRM no abre HEIC y
- *   así tampoco viajan los EXIF), se sube a creative-assets/carteles/<uid>/, se
- *   llama a sponsor_submit_poster y se avisa a /api/carteles/verificar (URL de
+ *   así tampoco viajan los EXIF), se sube al bucket privado carteles/<uid>/
+ *   (0130), se llama a sponsor_submit_poster con esa ruta y se avisa a /api/carteles/verificar (URL de
  *   app_config). Sin URL, o si la ruta falla, tarda o el navegador la bloquea,
  *   el cartel queda pendiente de revisión manual y la tarjeta lo dice.
  *
@@ -70,8 +70,8 @@ export default function PosterCard({ sponsorId, verifyUrl }: { sponsorId: string
       setBusy('upload')
       const takenAt = captureTime(file.lastModified, now)
       const jpeg = await toJpeg(file)
-      const url = await uploadPosterPhoto(posterPath(sponsorId, takenAt), jpeg)
-      await submitPoster(url, posterMeta(fix.coords, takenAt))
+      const path = await uploadPosterPhoto(posterPath(sponsorId, takenAt), jpeg)
+      await submitPoster(path, posterMeta(fix.coords, takenAt))
 
       if (verifyUrl) setBusy('verify')
       const outcome = await verifyPoster(verifyUrl)
