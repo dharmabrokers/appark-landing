@@ -8,13 +8,15 @@
  * llega. Un campo que no viene es un campo que su paquete no incluye.
  */
 
-export type Tier = 'bronze' | 'silver' | 'gold';
+/** `free` = Vecino (F2, 0124): totales reales, desgloses anulados. */
+export type Tier = 'free' | 'bronze' | 'silver' | 'gold';
 
 export interface PeriodStats {
   impressions: number;
   vouchers_issued: number;
   vouchers_redeemed: number;
-  unique_customers: number;
+  /** null en Vecino: la cifra existe pero no se enseña (0124). */
+  unique_customers: number | null;
   taps?: number;
   directions?: number;
   prize_views?: number;
@@ -30,11 +32,19 @@ export interface SponsorResults {
   tracking_since: string | null;
   current: PeriodStats;
   previous: PeriodStats;
-  daily: { day: string; impressions: number; redeemed: number }[];
+  /** null en Vecino (0124). */
+  daily: { day: string; impressions: number; redeemed: number }[] | null;
+  /** Lo que el servidor anula para Vecino y la app pinta borroso (0124). */
+  locked?: string[];
   by_location?: { location_id: string; name: string; impressions: number; taps: number; directions: number; redeemed: number }[];
   by_weekday?: { dow: number; redeemed: number }[];
   by_hour?: { hour: number; redeemed: number }[];
   benchmark?: { peers: number; impressions: number; vouchers_redeemed: number };
+}
+
+/** Si son los resultados recortados del Vecino (0124): totales sí, desgloses no. */
+export function isVecinoResults(r: Pick<SponsorResults, 'tier' | 'locked'>): boolean {
+  return r.tier === 'free' || Array.isArray(r.locked);
 }
 
 /**
@@ -76,7 +86,7 @@ export function trackingStartedMidPeriod(r: Pick<SponsorResults, 'from' | 'track
 /** El CSV que se puede exportar (Oro): un día por fila. */
 export function resultsCsv(r: SponsorResults): string {
   const rows = [['dia', 'personas_que_te_vieron', 'vales_canjeados']];
-  for (const d of r.daily) rows.push([d.day, String(d.impressions), String(d.redeemed)]);
+  for (const d of r.daily ?? []) rows.push([d.day, String(d.impressions), String(d.redeemed)]);
   return rows.map((row) => row.join(';')).join('\n');
 }
 

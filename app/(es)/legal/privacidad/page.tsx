@@ -74,7 +74,7 @@ export default function PrivacidadPage() {
             marginBottom: 40,
           }}
         >
-          Última actualización: 11 de noviembre de 2026
+          Última actualización: 24 de noviembre de 2026
         </p>
 
         <Paragraph>
@@ -196,6 +196,63 @@ export default function PrivacidadPage() {
           </p>
         </div>
 
+        <div
+          id="cartel"
+          style={{
+            background: '#FBF6EE',
+            border: '1.5px solid #FF6A3D',
+            borderRadius: 14,
+            padding: '20px 22px',
+            marginBottom: 16,
+          }}
+        >
+          <p style={{ fontSize: 15.5, lineHeight: 1.7, color: '#0A2A36', margin: 0, fontWeight: 700 }}>
+            🪧 Comercios: la foto del cartel «Punto de canje»
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
+            Los comercios pueden renovar cada 60 días el distintivo «Punto de canje» haciendo, desde la app o desde su
+            panel en appark.es, una foto del cartel colocado en su local. Con esa foto tratamos:
+          </p>
+          <ul style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0, paddingLeft: 22 }}>
+            <li>
+              <strong>La foto.</strong> Se hace en la calle, así que puede salir gente que pasa por delante del local o
+              matrículas. Pedimos encuadrarla en el cartel, pero no podemos evitarlo del todo. La usamos{' '}
+              <strong>solo para verificar que el cartel está colocado en ese local</strong>; no la mostramos en la app ni
+              a los conductores, y no intentamos identificar a nadie que aparezca en ella.
+            </li>
+            <li>
+              <strong>La ubicación y la hora de la captura</strong> (coordenadas GPS, su precisión y la hora en que se hizo
+              la foto), para comprobar que se hizo en la puerta del local y en ese momento.
+            </li>
+            <li>
+              <strong>Huellas de la imagen</strong> (un resumen SHA-256 y una huella perceptiva dHash), que no permiten
+              reconstruir la foto y sirven para detectar que no se envía otra vez una foto anterior. Guardamos también el
+              resultado de cada comprobación.
+            </li>
+          </ul>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
+            <strong>Verificación automática.</strong> Un sistema comprueba el código QR del cartel, la hora, la distancia
+            a la dirección del local y las huellas. Después, una copia reducida de la foto se envía a{' '}
+            <strong>Anthropic Ireland, Limited</strong> (el modelo Claude), que actúa como encargado del tratamiento y
+            solo indica si es un cartel colocado en un escaparate o una foto de una pantalla o de un papel suelto. Según
+            sus condiciones comerciales, Anthropic no usa estos datos para entrenar sus modelos y los borra de sus
+            sistemas en un plazo de 30 días, salvo que deba conservarlos más tiempo por ley o para hacer cumplir su
+            política de uso. Si la comprobación automática no da el visto bueno, la foto la revisa una persona del
+            equipo de Appark: nunca se retira el distintivo por una decisión solo automática.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: '#2A4A56', marginTop: 10, marginBottom: 0 }}>
+            <strong>Dónde y cuánto tiempo.</strong> La foto se guarda en un almacenamiento privado (Supabase) al que
+            solo acceden el equipo de Appark y el propio comercio, y se borra a los 30 días de subirla, salvo si su
+            revisión sigue pendiente. La ubicación de la captura y las huellas las conservamos mientras el comercio
+            tenga cuenta en Appark, porque son las que permiten detectar que se repite una foto anterior; al darse de
+            baja se borran con el resto de sus datos (apartado 4), y la foto, si aún existe, en las 24 horas
+            siguientes. La base legal es nuestro interés legítimo en que el distintivo
+            «Punto de canje» y sus ventajas sean ciertos y en evitar el fraude. Si apareces en una de estas fotos y
+            quieres ejercer tus derechos, escríbenos a{' '}
+            <a href="mailto:hola@appark.es" style={{ color: '#1FB877' }}>hola@appark.es</a>.
+          </p>
+        </div>
+
         <SectionTitle>3. Finalidad del tratamiento y base legal</SectionTitle>
         <Paragraph>Usamos tus datos para:</Paragraph>
         <ul
@@ -275,6 +332,11 @@ export default function PrivacidadPage() {
             que un comercio introduce al darse de alta como patrocinador (tarjeta o cuenta,
             nombre, CIF y dirección de facturación). Appark no ve ni guarda los datos de la
             tarjeta. Los conductores que usan la app no pagan nada y no pasan por Stripe.
+          </li>
+          <li>
+            <strong>Verificación del cartel de los comercios:</strong> Anthropic Ireland, Limited recibe, como encargado
+            del tratamiento, una copia reducida de la foto del cartel «Punto de canje» para comprobar que está colocado
+            en el local (ver el apartado sobre la foto del cartel, más arriba). No recibe datos de los conductores.
           </li>
           <li>
             <strong>Proveedor de publicidad:</strong> Google Ireland Limited, a través de
@@ -417,8 +479,8 @@ export default function PrivacidadPage() {
 
         <SectionTitle>10. Transferencias internacionales</SectionTitle>
         <Paragraph>
-          Algunos de nuestros proveedores, como Google, pueden tratar datos fuera del
-          Espacio Económico Europeo. En esos casos la transferencia se ampara en las
+          Algunos de nuestros proveedores, como Google o Anthropic (para la verificación del cartel de los
+          comercios), pueden tratar datos fuera del Espacio Económico Europeo. En esos casos la transferencia se ampara en las
           garantías previstas por el RGPD: cláusulas contractuales tipo aprobadas por la
           Comisión Europea y, para proveedores estadounidenses adheridos, el Marco de
           Privacidad de Datos UE-EE. UU.

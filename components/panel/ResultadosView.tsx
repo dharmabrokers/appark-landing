@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePanel } from './PanelShell'
 import { fetchAudience, fetchOfferStats, fetchResults, fetchVouchers, type AudienceStats, type OfferStat, type Voucher } from '@/lib/panel/data'
-import { delta, funnel, maxOf, rate, resultsCsv, trackingStartedMidPeriod, type SponsorResults } from '@/lib/panel/sponsorResults'
+import { delta, funnel, isVecinoResults, maxOf, rate, resultsCsv, trackingStartedMidPeriod, type SponsorResults } from '@/lib/panel/sponsorResults'
 import { longDate, n, shortDateTime, VOUCHER_STATUS } from '@/lib/panel/text'
-import { Bars, Button, C, Card, grid, H2, Stat } from './ui'
+import { Bars, Button, C, Card, grid, H2, LockedStat, Stat } from './ui'
 
 const DAYS = [7, 30, 90] as const
 const WEEKDAYS = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
@@ -50,6 +50,8 @@ export default function ResultadosView() {
 
   const c = r?.current
   const steps = c ? funnel(c) : null
+  // Vecino (0124): totales reales; los desgloses llegan anulados y se pintan borrosos.
+  const vecino = r ? isVecinoResults(r) : false
 
   return (
     <>
@@ -79,14 +81,30 @@ export default function ResultadosView() {
               <DeltaStat label="Te vieron en el mapa" cur={c.impressions} prev={r.previous.impressions} />
               <DeltaStat label="Vales conseguidos" cur={c.vouchers_issued} prev={r.previous.vouchers_issued} />
               <DeltaStat label="Vales canjeados" cur={c.vouchers_redeemed} prev={r.previous.vouchers_redeemed} />
-              <DeltaStat label="Clientes distintos" cur={c.unique_customers} prev={r.previous.unique_customers} />
+              {c.unique_customers === null ? (
+                <LockedStat label="Clientes distintos" />
+              ) : (
+                <DeltaStat label="Clientes distintos" cur={c.unique_customers} prev={r.previous.unique_customers ?? 0} />
+              )}
             </div>
           </Card>
 
-          <Card>
-            <H2>Personas que te vieron en el mapa, día a día</H2>
-            <DailyChart daily={r.daily} />
-          </Card>
+          {r.daily ? (
+            <Card>
+              <H2>Personas que te vieron en el mapa, día a día</H2>
+              <DailyChart daily={r.daily} />
+            </Card>
+          ) : (
+            <Card>
+              <H2>Tu evolución día a día</H2>
+              <div aria-hidden="true" style={{ filter: 'blur(6px)', userSelect: 'none', pointerEvents: 'none' }}>
+                <DailyChart daily={SAMPLE_DAILY} />
+              </div>
+              <p style={{ margin: '10px 0 0', fontSize: 14, color: C.sub }}>
+                🔒 Desde Bronce. <Link href="/panel/plan" style={{ color: C.sea, fontWeight: 800 }}>Ver paquetes</Link>
+              </p>
+            </Card>
+          )}
 
           {steps ? (
             <Card>
@@ -98,6 +116,19 @@ export default function ResultadosView() {
                 ))}
               </div>
               {c.prize_views !== undefined && <p style={{ margin: '12px 0 0', fontSize: 14, color: C.sub }}>{n(c.prize_views)} personas miraron tus premios.</p>}
+            </Card>
+          ) : vecino ? (
+            <Card>
+              <H2>Cuántos tocan tu ficha y piden cómo llegar</H2>
+              <div style={grid(140)}>
+                <LockedStat label="Abrieron tu ficha" />
+                <LockedStat label="Pidieron cómo llegar" />
+                <LockedStat label="Miraron tus premios" />
+              </div>
+              <p style={{ margin: '10px 0 0', fontSize: 14, color: C.sub }}>
+                En el plan Vecino ves cuántos te ven en el mapa, los vales y los canjes.{' '}
+                <Link href="/panel/plan" style={{ color: C.sea, fontWeight: 800 }}>Ver paquetes</Link>
+              </p>
             </Card>
           ) : (
             <Locked text="Con el paquete Plata verías quién abre tu ficha, cuántos piden cómo llegar y cada local por separado." />
@@ -237,12 +268,15 @@ export default function ResultadosView() {
   )
 }
 
+/** Una serie de relleno para la gráfica borrosa del Vecino: nunca son sus datos. */
+const SAMPLE_DAILY: NonNullable<SponsorResults['daily']> = [3, 5, 4, 7, 6, 9, 8, 6, 10, 9, 12, 11, 9, 13].map((v, i) => ({ day: `d${i}`, impressions: v, redeemed: 0 }))
+
 function DeltaStat({ label, cur, prev }: { label: string; cur: number; prev: number }) {
   const d = delta(cur, prev)
   return <Stat label={label} value={n(cur)} sub={d ? `${d.dir === 'up' ? '▲' : d.dir === 'down' ? '▼' : '='} ${Math.abs(d.pct)} % frente al periodo anterior` : undefined} />
 }
 
-function DailyChart({ daily }: { daily: SponsorResults['daily'] }) {
+function DailyChart({ daily }: { daily: NonNullable<SponsorResults['daily']> }) {
   const max = maxOf(daily.map((d) => d.impressions))
   return (
     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 120 }} role="img" aria-label="Visitas por día">

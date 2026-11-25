@@ -10,7 +10,9 @@ import type { SponsorDetails } from './sponsorProfile'
  * sesión del comercio: la base decide qué puede ver y tocar.
  */
 
-export type Tier = 'bronze' | 'silver' | 'gold'
+/** `free` = Vecino (F2, 0124). Solo existe con flags.freemium_sponsors encendido para ese comercio. */
+export type Tier = 'free' | 'bronze' | 'silver' | 'gold'
+export type PaidTier = Exclude<Tier, 'free'>
 
 export interface Sponsor {
   id: string
@@ -20,7 +22,7 @@ export interface Sponsor {
   category: string
   status: string
   tier: Tier
-  chosenTier: Tier | null
+  chosenTier: PaidTier | null
   trialEndsAt: string | null
   createdAt: string | null
   hasSubscription: boolean
@@ -28,7 +30,8 @@ export interface Sponsor {
 }
 
 const s = (v: unknown): string | null => (typeof v === 'string' && v !== '' ? v : null)
-const asTier = (v: unknown): Tier | null => (v === 'bronze' || v === 'silver' || v === 'gold' ? v : null)
+const asPaidTier = (v: unknown): PaidTier | null => (v === 'bronze' || v === 'silver' || v === 'gold' ? v : null)
+const asTier = (v: unknown): Tier | null => (v === 'free' ? 'free' : asPaidTier(v))
 
 function fromRow(r: Record<string, unknown>, hasSubscription: boolean): Sponsor {
   return {
@@ -39,7 +42,7 @@ function fromRow(r: Record<string, unknown>, hasSubscription: boolean): Sponsor 
     category: s(r.category) ?? 'other',
     status: s(r.status) ?? 'active',
     tier: asTier(r.tier) ?? 'bronze',
-    chosenTier: asTier(r.chosen_tier),
+    chosenTier: asPaidTier(r.chosen_tier),
     trialEndsAt: s(r.trial_ends_at),
     createdAt: s(r.created_at),
     hasSubscription,
@@ -195,28 +198,7 @@ export async function fetchTierUsage(): Promise<TierUsageRow | null> {
   }
 }
 
-export interface TierLimits {
-  tier: Tier
-  locations: number
-  prizes: number
-  redemptions_week: number
-  max_prize_points: number
-}
-
-export async function fetchTierCatalog(): Promise<TierLimits[]> {
-  const { data, error } = await panelDb().rpc('tier_catalog')
-  if (error || !Array.isArray(data)) return []
-  return data
-    .map((r: Record<string, unknown>) => ({
-      tier: asTier(r.tier) ?? 'bronze',
-      locations: Number(r.locations ?? 0),
-      prizes: Number(r.prizes ?? 0),
-      redemptions_week: Number(r.redemptions_week ?? 0),
-      max_prize_points: Number(r.max_prize_points ?? 0),
-    }))
-}
-
-export async function chooseTier(tier: Tier): Promise<void> {
+export async function chooseTier(tier: PaidTier): Promise<void> {
   const { error } = await panelDb().rpc('choose_sponsor_tier', { p_tier: tier })
   if (error) throw error
 }

@@ -90,6 +90,23 @@ export function Stat({ label, value, sub }: { label: string; value: string; sub?
   )
 }
 
+/**
+ * Una cifra que el plan Vecino no incluye (sponsor_results la anula, 0124): se
+ * pinta borrosa sobre un valor de relleno, nunca un cero, que diría que no hay
+ * nadie. El número real no llega al navegador.
+ */
+export function LockedStat({ label, note = 'Desde Bronce' }: { label: string; note?: string }) {
+  return (
+    <div style={{ background: C.sand, borderRadius: 14, padding: '12px 14px', minWidth: 0 }}>
+      <div style={{ fontSize: 12.5, fontWeight: 700, color: C.muted }}>{label}</div>
+      <div aria-hidden="true" style={{ fontFamily: 'var(--font-display), sans-serif', fontWeight: 800, fontSize: 26, color: C.ink, lineHeight: 1.15, filter: 'blur(7px)', userSelect: 'none' }}>
+        88
+      </div>
+      <div style={{ fontSize: 12.5, fontWeight: 800, color: C.sea }}>🔒 {note}</div>
+    </div>
+  )
+}
+
 export const grid = (min: number): CSSProperties => ({ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 12 })
 
 /** Barras horizontales simples (sin librería de gráficos). */

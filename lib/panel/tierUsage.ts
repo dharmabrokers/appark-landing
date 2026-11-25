@@ -49,6 +49,8 @@ export function isNearLimit(usage: TierUsage): boolean {
  * hace que un comercio deje de leer los avisos.
  */
 export function nextTier(tier: string): TierId | null {
+  // Vecino (F2): el escalón siguiente es Bronce, no Plata.
+  if (tier === 'free') return 'bronze';
   const order: TierId[] = ['bronze', 'silver', 'gold'];
   const i = order.indexOf(tier as TierId);
   if (i === -1) return 'silver';

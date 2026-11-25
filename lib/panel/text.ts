@@ -6,7 +6,8 @@
  * Sin imports: lo cargan las pruebas de `node --test`.
  */
 
-export const TIER_NAMES = { bronze: 'Bronce', silver: 'Plata', gold: 'Oro' } as const
+/** `free` es el plan Vecino (0124). */
+export const TIER_NAMES = { free: 'Vecino', bronze: 'Bronce', silver: 'Plata', gold: 'Oro' } as const
 
 export const PRIZE_TYPE_LABELS: Record<string, string> = {
   product: 'Producto',
